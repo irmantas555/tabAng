@@ -24,9 +24,14 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -119,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tabelisApp"
+    }
+  },
+  "defaultProject": "tabelisApp",
+  "cli": {
+    "analytics": "7d1964e4-34cb-40cd-bd0c-f27c55ec6de9"
+  }
 }

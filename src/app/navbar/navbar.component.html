@@ -1,0 +1,97 @@
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+  <div class="container">
+    <a routerLink="/" class="navbar-brand text-light">Darbo laiko apskaita</a>
+    <button
+      class="navbar-toggler"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item btn btn-outline-info" *ngIf="authenticated">
+          <a class="text-light">Prisiregistravęs</a>
+        </li>
+        <li class="nav-item">
+          <a
+            routerLink="/home"
+            routerLinkActive="active"
+            class="nav-link text-light"
+            >Pradžia</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            routerLink="/kompiuteriai"
+            routerLinkActive="active"
+            class="nav-link text-light"
+            >Mėnesio apskaita</a
+          >
+        </li>
+        <li class="nav-item">
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+            >
+              Duomenų įvedimas
+            </button>
+            <div class="dropdown-menu bg-secondary">
+              <a
+                class="dropdown-item"
+                routerLink="/employeedata"
+                routerLinkActive="active"
+                class="nav-link text-light"
+                >Darbuotojų įv.</a
+              >
+              <a
+                class="dropdown-item"
+                routerLink="/employeedata"
+                routerLinkActive="active"
+                class="nav-link text-light"
+                >Darbuotojų skyrių įv.</a
+              >
+              <a
+                class="dropdown-item"
+                routerLink="/employeedata"
+                routerLinkActive="active"
+                class="nav-link text-light"
+                >Darb. pamainų įv.</a
+              >
+              <a
+                class="dropdown-item"
+                routerLink="/employeedata"
+                routerLinkActive="active"
+                class="nav-link text-light"
+                >Poilsio dienų įv.</a
+              >
+              <a
+              class="dropdown-item"
+              routerLink="/employeedata"
+              routerLinkActive="active"
+              class="nav-link text-light"
+              >Pravaikštų įv.</a
+            >
+            </div>
+          </div>
+        </li>
+      </ul>
+      <button
+        class="btn btn-outline-light"
+        routerLink="/signin"
+        *ngIf="!authenticated"
+      >
+        Login
+      </button>
+      <button
+        class="btn btn-outline-light"
+        (click)="logout()"
+        *ngIf="authenticated"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</nav>

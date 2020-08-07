@@ -1,0 +1,52 @@
+<div class="tamsus"></div>
+<form role="form" (submit)='onLogin(logf)' #logf = 'ngForm'>
+  <div class="card bg-secondary mt-5">
+    <div class="card-header">
+      <h3 class="card-title">Prisijunkite</h3>
+      <!-- <button class="close" >&times;</button> -->
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label class="text-light h5" for="username">Vartotojo vadas</label>
+          <input
+            type="text"
+            placeholder="El. paštas"
+            class="form-control"
+            id="inputMail"
+            [(ngModel)]="credentials.email"
+            name="login"
+          />
+        </div>
+        <div class="form-group">
+          <label class="text-light h5" for="password">Slaptažodis</label>
+          <input
+            type="password"
+            placeholder="Slaptažodis"
+            class="form-control"
+            id="inputPwd"
+            [(ngModel)]="credentials.password"
+            name="pass"
+          />
+        </div>
+      </form>
+    </div>
+    <div class="card-footer d-flex flex-row-reverse row-hl">
+      <button
+        class="btn btn-warning item-hl"
+        id="registerBtn"
+        routerLink = "/register"
+      >
+        Register
+      </button>
+      <button class="btn btn-warning item-hl mx-4 "
+       id="loginBtn"
+       type="submit"
+       >
+        Login
+      </button>
+    </div>
+  </div>
+  
+</form>
+
