@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ClipboardService } from '../clipboard.service';
 import { Employee } from '../employee';
 import { AppServiceService } from '../app-service.service';
-import { env } from 'process';
+import { DatePipe  } from '@angular/common'
+
 
 @Component({
   selector: 'app-employeedata',
@@ -16,7 +17,7 @@ export class EmployeedataComponent implements OnInit {
   tempEmp: Employee;
   tarr: string[];
 
-  constructor(private cserv: ClipboardService,private app:AppServiceService) {}
+  constructor(private cserv: ClipboardService,private app:AppServiceService,private datePipe:DatePipe) {}
 
   ngOnInit(): void {}
 
@@ -27,16 +28,18 @@ export class EmployeedataComponent implements OnInit {
 
 
   copy() {
+    this.employees=[];
     this.rows = this.texta.split('\n');
+    console.log('so much rows - ' + this.rows.length)
     this.rows.forEach((element) => {
       this.tarr = element.split('\t');
       this.tempEmp = {
         firstName: this.tarr[0],
         lasttName: this.tarr[1],
-        birthDate: new Date(this.tarr[2]),
+        birthDate: this.datePipe.transform(Date.parse(this.tarr[2]),'yyyy-MM-dd'),
         email: this.tarr[3],
-        jobEnd: new Date(this.tarr[4]),
-        jobStart: new Date(this.tarr[5]),
+        jobEnd: this.datePipe.transform(Date.parse(this.tarr[4]),'yyyy-MM-dd'),
+        jobStart: this.datePipe.transform(Date.parse(this.tarr[5]),'yyyy-MM-dd'),
         phone: this.tarr[6],
         photo: this.tarr[7],
       };
@@ -45,4 +48,5 @@ export class EmployeedataComponent implements OnInit {
     });
     this.app.postEmployee(this.employees);
   }
+
 }

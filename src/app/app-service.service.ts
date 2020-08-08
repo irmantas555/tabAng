@@ -30,12 +30,18 @@ export class AppServiceService {
   auth = new Subject<boolean>();
   authUser = new BehaviorSubject<resp>(null);
   customHeaders:HttpHeaders = new HttpHeaders();
+  count:number=0;
 
 
   constructor(private http: HttpClient, private router:Router) {};
 
   option={
     headers:new HttpHeaders().append('Content-Type', 'application/x-www-form-urlencoded'),
+    withCredentials: true
+  }
+
+  optionjson={
+    headers:new HttpHeaders().append('Content-Type', 'application/json'),
     withCredentials: true
   }
 
@@ -77,21 +83,21 @@ export class AppServiceService {
   }
 
   postEmployee(empl:Employee[]){
-    let count:number= 0;
+
     empl.forEach(element => {
       console.log('got one')
       this.http
-      .post('http://localhost:8080/dto/empl',empl.toString(),this.option)
+      .post('http://localhost:8080/dto/empl',JSON.stringify(element),this.optionjson)
       .subscribe((response:resp) => {
-          count++;
+          this.count++;
   
       },(err)=>{
         console.log('emloyee: '  + element + ' could not be saved' + err)
       }
       )
     });
-    console.log('so much elements posted' + count)  
-    
+    console.log('so much elements posted: ' + this.count)  
+    this.count = 0;
   };
 
 }

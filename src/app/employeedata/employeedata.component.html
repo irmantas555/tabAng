@@ -1,6 +1,15 @@
 <div class="h2 text-center">
   Darbuotojų duomenų pildymas
 </div>
-
-<button class="btn btn-outline-secondary" (click)="copy()">Bandymas</button>
-<textarea name="" id="" cols="30" rows="10" class="font-italic w-100 bg-secondary" (change)="textArea($event)">{{texta}}</textarea>
+<button class="btn btn-outline-secondary" (click)="copy()">
+  Siūsti į serverį
+</button>
+<textarea
+  name="Data area"
+  id="textaa"
+  cols="30"
+  rows="10"
+  class="font-italic w-100 text-monospace bg-secondary"
+  (change)="textArea($event)"
+  >{{ texta }}</textarea
+>

@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import {AuthInterceptor} from './auth-interceptor.service'
@@ -15,6 +14,8 @@ import { DepartmentdataComponent } from './departmentdata/departmentdata.compone
 import { ShiftsdataComponent } from './shiftsdata/shiftsdata.component';
 import { AvoidancedataComponent } from './avoidancedata/avoidancedata.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RowppComponent } from './rowpp/rowpp.component';
+import { CcellComponent } from './ccell/ccell.component';
 
 
 
@@ -27,7 +28,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     EmployeedataComponent,
     DepartmentdataComponent,
     ShiftsdataComponent,
-    AvoidancedataComponent
+    AvoidancedataComponent,
+    RowppComponent,
+    CcellComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     NoopAnimationsModule
   ],
   providers: [
+    DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

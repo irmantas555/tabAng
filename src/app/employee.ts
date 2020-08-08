@@ -1,10 +1,10 @@
 export interface Employee {
   firstName: string;
   lasttName: string;
-  birthDate: Date;
+  birthDate: string;
   email: string;
-  jobEnd: Date;
-  jobStart: Date;
+  jobEnd: string;
+  jobStart: string;
   phone: string;
   photo: string;
 }
