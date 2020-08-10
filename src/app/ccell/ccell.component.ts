@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ccell',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CcellComponent implements OnInit {
   monthdays:number = 31;
-
+  @Input() celld = '';
   constructor() { }
 
   ngOnInit(): void {

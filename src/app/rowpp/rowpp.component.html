@@ -1,2 +1,6 @@
-<label ></label>
-<app-ccell *ngFor="let days of monthdays" ></app-ccell>
+<!-- <div class="row"> -->
+
+    <div class="rowgrid">
+        <app-ccell *ngFor= "let day of days" [celld] = 'day'></app-ccell>
+    </div>
+<!-- </div> -->

@@ -16,6 +16,7 @@ import { AvoidancedataComponent } from './avoidancedata/avoidancedata.component'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RowppComponent } from './rowpp/rowpp.component';
 import { CcellComponent } from './ccell/ccell.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 
 
@@ -30,7 +31,8 @@ import { CcellComponent } from './ccell/ccell.component';
     ShiftsdataComponent,
     AvoidancedataComponent,
     RowppComponent,
-    CcellComponent
+    CcellComponent,
+    ScheduleComponent
   ],
   imports: [
     BrowserModule,
