@@ -1,0 +1,11 @@
+.cardTitle{
+    font-size: large;
+}
+.cardHeading{
+    font-size: medium;
+}
+
+.inputBack{
+    background-color: #c2c2c2 !important;
+    border-radius: 0.2em !important;
+}

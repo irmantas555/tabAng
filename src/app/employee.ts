@@ -7,4 +7,8 @@ export interface Employee {
   jobStart: string;
   phone: string;
   photo: string;
+  department:string;
+  payment:number;
+  position:string;
+  shift:number;
 }

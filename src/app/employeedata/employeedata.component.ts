@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ClipboardService } from '../clipboard.service';
 import { Employee } from '../employee';
 import { AppServiceService } from '../app-service.service';
 import { DatePipe  } from '@angular/common'
@@ -11,13 +10,13 @@ import { DatePipe  } from '@angular/common'
   styleUrls: ['./employeedata.component.css'],
 })
 export class EmployeedataComponent implements OnInit {
-  texta: string = '';
+  texta: string;
   rows: string[];
   employees: Employee[]=[];
   tempEmp: Employee;
   tarr: string[];
 
-  constructor(private cserv: ClipboardService,private app:AppServiceService,private datePipe:DatePipe) {}
+  constructor(private app:AppServiceService,private datePipe:DatePipe) {}
 
   ngOnInit(): void {}
 
@@ -29,6 +28,7 @@ export class EmployeedataComponent implements OnInit {
 
   copy() {
     this.employees=[];
+    console.log(this.texta)
     this.rows = this.texta.split('\n');
     console.log('so much rows - ' + this.rows.length)
     this.rows.forEach((element) => {
@@ -42,10 +42,15 @@ export class EmployeedataComponent implements OnInit {
         jobStart: this.datePipe.transform(Date.parse(this.tarr[5]),'yyyy-MM-dd'),
         phone: this.tarr[6],
         photo: this.tarr[7],
+        position: this.tarr[8],
+        payment: Number.parseInt(this.tarr[9]),
+        department: this.tarr[10],
+        shift:Number.parseInt(this.tarr[11]),
       };
       console.log(this.tempEmp)
       this.employees.push(this.tempEmp);
     });
+    console.log('There are ' + this.employees.length + 'el;emets in array added')
     this.app.postEmployee(this.employees);
   }
 

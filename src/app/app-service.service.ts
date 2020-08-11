@@ -87,7 +87,7 @@ export class AppServiceService {
     empl.forEach(element => {
       console.log('got one')
       this.http
-      .post('http://localhost:8080/dto/empl',JSON.stringify(element),this.optionjson)
+      .post('http://localhost:8080/dto/fempl',JSON.stringify(element),this.optionjson)
       .subscribe((response:resp) => {
           this.count++;
   
