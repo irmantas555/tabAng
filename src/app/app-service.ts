@@ -85,7 +85,7 @@ export class AppServiceService {
   postEmployee(empl:Employee[]){
 
     empl.forEach(element => {
-      console.log('got one')
+      // console.log('got one')
       this.http
       .post('http://localhost:8080/dto/fempl',JSON.stringify(element),this.optionjson)
       .subscribe((response:resp) => {

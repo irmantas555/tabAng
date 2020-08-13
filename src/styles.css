@@ -13,3 +13,15 @@ hr.rounded {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.textxsm{
+    font-size: x-small !Important;
+}
+
+.textxs{
+    font-size: smaller  !Important;;
+}
+
+.textsm{
+    font-size: small  !Important;;
+}

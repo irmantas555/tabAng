@@ -18,6 +18,8 @@ import { RowppComponent } from './rowpp/rowpp.component';
 import { CcellComponent } from './ccell/ccell.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { CausesdataComponent } from './causesdata/causesdata.component';
+import { CountrydataComponent } from './countrydata/countrydata.component';
+import { HolidaydataComponent } from './holidaydata/holidaydata.component';
 
 
 
@@ -34,7 +36,9 @@ import { CausesdataComponent } from './causesdata/causesdata.component';
     RowppComponent,
     CcellComponent,
     ScheduleComponent,
-    CausesdataComponent
+    CausesdataComponent,
+    CountrydataComponent,
+    HolidaydataComponent,
   ],
   imports: [
     BrowserModule,

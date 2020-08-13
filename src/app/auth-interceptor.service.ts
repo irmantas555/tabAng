@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {  take, exhaustMap } from 'rxjs/operators';
-import { AppServiceService } from './app-service.service';
+import { AppServiceService } from './app-service';
 
 
 @Injectable()

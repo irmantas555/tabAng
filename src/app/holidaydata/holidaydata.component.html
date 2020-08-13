@@ -1,11 +1,11 @@
 <div class="h2 text-center text-secondary mt-3">
-    Skyrių pildymas
+    Šventinių dienų pildymas
   </div>
   
   <div class="card bg-secondary mt-1">
     <div class="card-header">
       <h3 class="cardTitle card-title text-light font-italic">
-        Įvęskite skyrių
+        Įvęskite šventinę dieną
       </h3>
       <!-- <button class="close" >&times;</button> -->
     </div>
@@ -17,31 +17,34 @@
               <span
                 class="input-group-text cardHeading text-secondary h5"
                 for="cause"
-                >Priežąstis:</span
+                >Šventinė diena:</span
               >
             </div>
             <input
               type="text"
-              placeholder="Skyrius"
+              placeholder="Diena"
               class="inputBack form-control"
               id="causeid"
-              [(ngModel)]="department.name"
+              [(ngModel)]="holiday.name"
               name="cause"
             />
-            <input
-              type="text"
-              placeholder="Šalis"
-              class="inputBack form-control"
-              id="causeid"
-              [(ngModel)]="department.country"
-              name="cause"
-            />
+
+            <div class="input-group-text  textxs text-secondary" name="everyear">
+                    <input class="mx-1" type="checkbox" [(ngModel)]="holiday.everyear" name="everyyear">Kavienais metais?
+            </div>
+        
+            <select class="px-4" [(ngModel)]="holiday.country"  name = "country">
+               <option class="text-secondary input-group-text"  *ngFor="let co of countries" [value]="co">
+                {{co}}
+               </option> 
+            </select>
+
             <div class="input-group-append">
               <button
                 class="btn btn-outline-warning item-hl px-4"
                 id="loginBtn"
                 type="submit"
-                (click)="sendDept()"
+                (click)="sendHoliday()"
               >
                 Įvęsti
               </button>
@@ -51,14 +54,14 @@
       </form>
     </div>
   </div>
-  <div *ngIf="depts.length > 0">
+  <div *ngIf="holidays.length > 0">
     <div class="card bg-secondary mt-1">
       <div class="card-header">
         <h3 class="cardTitle card-title text-light font-italic">
-          Ęsami skyriai
+          Ęsamos Šventės
         </h3>
         <div class="card-body text-light">
-          <li *ngFor="let dp of depts">{{ dp }}</li>
+          <li *ngFor="let cr of holidays">{{ cr }}</li>
         </div>
       </div>
     </div>

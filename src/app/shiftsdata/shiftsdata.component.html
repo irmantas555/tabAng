@@ -1,1 +1,89 @@
-<p>shiftsdata works!</p>
+<div class="h2 text-center text-secondary mt-3">
+    Paimainų pildymas
+  </div>
+  
+  <div class="card bg-secondary mt-1">
+    <div class="card-header">
+      <h3 class="cardTitle card-title text-light font-italic">
+        Įvęskite pamainą
+      </h3>
+      <!-- <button class="close" >&times;</button> -->
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="imput-group-prepend">
+              <span
+                class="input-group-text cardHeading text-secondary h5"
+                for="cause"
+                >Pamaina:</span
+              >
+            </div>
+            <input
+              type="text"
+              placeholder="Skyrius"
+              class="inputBack form-control"
+              id="causeid"
+              [(ngModel)]="shift.department"
+              name="cause"
+            />
+            <input
+              type="text"
+              placeholder="Pamainos Nr."
+              class="inputBack form-control"
+              id="causeid"
+              [(ngModel)]="shift.shiftNumber"
+              name="cause"
+            />
+            <input
+              type="text"
+              placeholder="Darbo pradžia"
+              class="inputBack form-control"
+              id="causeid"
+              [(ngModel)]="shift.shiftNumber"
+              name="cause"
+            />
+            <input
+              type="text"
+              placeholder="Darbo pabaiga"
+              class="inputBack form-control"
+              id="causeid"
+              [(ngModel)]="shift.endTime"
+              name="cause"
+            />
+            <input
+              type="text"
+              placeholder="Pertraukos (min.) su pietumis"
+              class="inputBack form-control"
+              id="causeid"
+              [(ngModel)]="shift.timeOutMinutes"
+              name="cause"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-warning item-hl px-4"
+                id="loginBtn"
+                type="submit"
+                (click)="sendDept()"
+              >
+                Įvęsti
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="haveShift">
+    <div class="card bg-secondary mt-1">
+      <div class="card-header">
+        <h3 class="cardTitle card-title text-light font-italic">
+          Ęsamos pamainos
+        </h3>
+        <div class="card-body text-light">
+          <li *ngFor="let dp of shifts">{{ dp }}</li>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
-import { AppServiceService } from '../app-service.service';
+import { AppServiceService } from '../app-service';
 import { DatePipe  } from '@angular/common'
 
 

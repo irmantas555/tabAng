@@ -2,40 +2,63 @@
   Darbo praleidimo priežąsčių pildymas
 </div>
 
-<form role="form" (submit)='enterCause(logf)' #logf = 'ngForm'>
-    <div class="card bg-secondary mt-1">
-      <div class="card-header">
-        <h3 class="cardTitle card-title text-light font-italic">Įvęskite priežąstį</h3>
-        <!-- <button class="close" >&times;</button> -->
-      </div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <div class="input-group">
-                <div class="imput-group-prepend">
-                    <span class="input-group-text cardHeading text-secondary h5" for="cause">Priežąstis</span>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Priežąstis"
-                  class=" inputBack form-control"
-                  id="causeid"
-                  [(ngModel)]="cause"
-                  name="cause"
-                  />
-                  <div class="input-group-append">
-                      <button class="btn btn-outline-warning item-hl mx-4 "
-                      id="loginBtn"
-                      type="submit"
-                      >
-                       Įvęsti
-                     </button>
-                  </div>
+  <div class="card bg-secondary mt-1">
+    <div class="card-header">
+      <h3 class="cardTitle card-title text-light font-italic">
+        Įvęskite priežąstį
+      </h3>
+      <!-- <button class="close" >&times;</button> -->
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="imput-group-prepend">
+              <span
+                class="input-group-text cardHeading text-secondary h5"
+                for="cause"
+                >Priežąstis:</span
+              >
+            </div>
+            <input
+              type="text"
+              placeholder="Priežąstis"
+              class="inputBack form-control"
+              id="causeid"
+              [(ngModel)]="cause.cause"
+              name="cause"
+            />
+            <input
+              type="text"
+              placeholder="Kodas(Maks 2 simboliai)"
+              class="inputBack form-control ml-1"
+              id="causeSymb"
+              [(ngModel)]="cause.cod"
+              name="causeS"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-warning item-hl px-4"
+                id="loginBtn"
+                type="submit"
+                (click)="sendCause()"
+              >
+                Įvęsti
+              </button>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
-    
-  </form>
+  </div>
+<div *ngIf= "resp.length > 0">
+  <div class="card bg-secondary mt-1">
+    <div class="card-header">
+      <h3 class="cardTitle card-title text-light font-italic">Ęsamos priežastys</h3>
+      <div class="card-body text-light">
+        <li *ngFor="let cc of resp">{{cc}}</li>
+      </div>
   
+    </div>
+  </div>
+</div>
