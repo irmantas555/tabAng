@@ -1,6 +1,6 @@
-export class Holiday {
+export class HolidayDto {
     date:string;
     name:string;
     everyear:boolean;
-    country:number;
+    country:string;
 }

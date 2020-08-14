@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
 import { AppDataService } from '../app-data.service';
-import { from } from 'rxjs';
-import { CauseObject } from '../cause-object';
+import { Cause } from '../cause';
 
 @Component({
   selector: 'app-causesdata',
@@ -10,7 +9,7 @@ import { CauseObject } from '../cause-object';
   styleUrls: ['./causesdata.component.css']
 })
 export class CausesdataComponent implements OnInit {
-  cause:CauseObject = new CauseObject;
+  cause:Cause = new Cause;
   causeSymb:string='';
   resp:string[]=[];
 
@@ -21,7 +20,7 @@ export class CausesdataComponent implements OnInit {
     this.dataserv.getCauses();
     this.dataserv.causesdata.subscribe((nextcause)=>{
       console.log('received causes' + nextcause)
-      this.resp.push(nextcause);
+      this.resp.push(nextcause.cause + ' ' + nextcause.cod);
     })
   }
 

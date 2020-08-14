@@ -1,4 +1,5 @@
 export class Department {
+    deptId:number;
     name:string;
-    country:string;
+    country:number;
 }

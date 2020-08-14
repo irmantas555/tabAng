@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Department } from '../department';
+import { DepartmentDto } from '../department-dto';
 import { AppDataService } from '../app-data.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { AppDataService } from '../app-data.service';
   styleUrls: ['./departmentdata.component.css']
 })
 export class DepartmentdataComponent implements OnInit {
-  department:Department = new Department;
+  department:DepartmentDto = new DepartmentDto;
   departmentlisted:string='';
   depts:string[]=[];
   haveDept:boolean = false;
@@ -17,8 +17,8 @@ export class DepartmentdataComponent implements OnInit {
   constructor(private dataserv:AppDataService) { }
 
   ngOnInit(): void {
-    this.dataserv.getDepartments();
-    this.dataserv.departmentdata.subscribe((nextdept)=>{
+    this.dataserv.getDtoDepartments();
+    this.dataserv.departmentdtodata.subscribe((nextdept)=>{
       this.depts.push(nextdept);
       this.haveDept = true;
     })

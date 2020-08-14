@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Shift } from '../shift';
+import { ShiftDto } from '../shift-dto';
 import { AppDataService } from '../app-data.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { AppDataService } from '../app-data.service';
   styleUrls: ['./shiftsdata.component.css']
 })
 export class ShiftsdataComponent implements OnInit {
-  shift:Shift = new Shift;
+  shift:ShiftDto = new ShiftDto;
   shiftlisted:string='';
   shifts:string[]=[];
   haveShift:boolean = false;
@@ -17,9 +17,10 @@ export class ShiftsdataComponent implements OnInit {
   constructor(private dataserv:AppDataService) { }
 
   ngOnInit(): void {
-    this.dataserv.getShifts();
-    this.dataserv.shifttdata.subscribe((nextdept)=>{
-      this.shifts.push(nextdept);
+    this.dataserv.getDtoShifts();
+    this.dataserv.shiftdata.subscribe((nextdept)=>{
+      this.shifts.push('' + nextdept.shiftNumber + ' ' + + nextdept.department + ' ' + nextdept.startTime +
+       ' ' + nextdept.endTime + nextdept.timeOutMinutes );
       this.haveShift = true;
     })
   }

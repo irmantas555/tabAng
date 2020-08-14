@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 
-export class Shift {
-    department:number;
+export class ShiftDto {
+    department:string;
     shiftNumber:number;
     startTime:Time;
     endTime:Time;

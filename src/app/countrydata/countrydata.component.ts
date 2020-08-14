@@ -18,7 +18,7 @@ export class CountrydataComponent implements OnInit {
   ngOnInit(): void {
     this.dataserv.getCountries();
     this.dataserv.countrydata.subscribe((nextcountry)=>{
-      this.coutries.push(nextcountry);
+      this.coutries.push(nextcountry.name);
     })
   }
 

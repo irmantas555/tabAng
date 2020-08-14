@@ -1,7 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EmployeeObj } from './employee-obj';
-import { Subject } from 'rxjs';
+import { Subject, of, Observable } from 'rxjs';
+import { timeout, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +10,41 @@ import { Subject } from 'rxjs';
 export class ScheduleService implements OnInit{
 
   constructor(private http: HttpClient) { }
-  employeedata:EmployeeObj[]=[];
+  today = new Subject<Date>();
+  currentYear:number;
+  currentMonth:number;
+  daysInThisMonth = new Subject<number>();
+  weekDayOf1MDay= new Subject<number>();
 
 ngOnInit(){
-  this.loadEmployees();
+  this.today.next(new Date());
+  this.today.subscribe((date)=>{
+    this.currentYear = date.getFullYear();
+    this.currentMonth = date.getMonth();
+  });
+  this.getDaysInMonth();
+  this.getFirstWeekDay();
 };
 
-loadEmployees() {
-  this.http
-    .get('http://localhost:8080/employees/all')
-    .subscribe((response: EmployeeObj[]) => {
-      response.forEach((element) => {
-        this.employeedata.push(element);
-      });
-    });
+newDateData(newDate:Date){
+  this.today.next(newDate);
+  this.today.subscribe((date)=>{
+    this.currentYear = date.getFullYear();
+    this.currentMonth = date.getMonth();
+  });
+  this.getDaysInMonth();
+  this.getFirstWeekDay();
 }
 
-loadEmployeesHistory(){
-      
-}
+
+getDaysInMonth() {
+ this.daysInThisMonth.next((new Date(this.currentYear, this.currentMonth, 0)).getDate());
+};
+
+getFirstWeekDay(){
+  this.weekDayOf1MDay.next((new Date(this.currentYear, this.currentMonth, 0)).getDay());
+ };
+
 
 
 }
