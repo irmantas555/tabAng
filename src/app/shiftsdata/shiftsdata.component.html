@@ -20,14 +20,15 @@
                 >Pamaina:</span
               >
             </div>
-            <input
+            <select
               type="text"
               placeholder="Skyrius"
               class="inputBack form-control"
               id="causeid"
               [(ngModel)]="shift.department"
-              name="cause"
-            />
+              name="cause">
+              <option *ngFor="let dep of depts">{{dep}}</option>
+            </select>
             <input
               type="text"
               placeholder="Pamainos Nr."
@@ -55,7 +56,7 @@
             <input
               type="text"
               placeholder="Pertraukos (min.) su pietumis"
-              class="inputBack form-control"
+              class="inputBack form-control textxsm p-3"
               id="causeid"
               [(ngModel)]="shift.timeOutMinutes"
               name="cause"

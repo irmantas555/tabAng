@@ -8,6 +8,7 @@ import { AppDataService } from '../app-data.service';
   styleUrls: ['./shiftsdata.component.css']
 })
 export class ShiftsdataComponent implements OnInit {
+  depts:string[];
   shift:ShiftDto = new ShiftDto;
   shiftlisted:string='';
   shifts:string[]=[];
