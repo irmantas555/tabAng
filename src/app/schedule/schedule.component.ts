@@ -16,6 +16,8 @@ import { DateOb } from '../date-ob';
 import { Cause } from '../cause';
 import { CardOb } from '../card-ob';
 import { CardsArr } from '../cards-arr';
+import { AppDataService } from '../app-data.service';
+import { CalendarDate } from '../calendar-date';
 
 @Component({
   selector: 'app-schedule',
@@ -24,91 +26,88 @@ import { CardsArr } from '../cards-arr';
 })
 
 export class ScheduleComponent implements OnInit {
-    workers:Empl[] = this.scheduleHttp.employeedata;
+    employees:Empl[]=this.appdataservice.allEmployees;
     datedata:DateOb[];
-    empljobtdata:EmplJobData[];
-    departments:Department[];
-    causedata:Cause[]
-    countrydata:Country[];
-    holidays:Holiday[];
-    shifts:Shift[];
-    payments:Payment[];
+    empljobtdata:EmplJobData[]=this.appdataservice.allEmplJobData;
+    departments:Department[]=this.appdataservice.allDepartments;
+    causedata:Cause[]=this.appdataservice.allCauses
+    countrydata:Country[]=this.appdataservice.allCountries;
+    holidays:Holiday[]=this.appdataservice.allHolidays;
+    shifts:Shift[]=this.appdataservice.allShifts;
     emlpCards:CardsArr[];
-
+    thisMonthCalendar:CalendarDate[]=[];
+  
     thisMonthDates:DateOb[];
     thisMonthCards:CardOb[];
 
     today:Date;
     daysinMonth:number;
-    currentYear:number;
-    currentMonth:number;
+    currentYear:number=this.sheduleServ.currentYear;
+    currentMonth:number=this.sheduleServ.currentMonth;
     firstMonthDayWeekday:number;
 
 
-  constructor(private sheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, private chDetect:ChangeDetectorRef) { }
+  constructor(private sheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, 
+    private chDetect:ChangeDetectorRef, private appdataservice:AppDataService) { }
 
   ngOnInit(): void {
-    this.today = new Date();
-    this.currentMonth = this.today.getMonth()
-    this.currentYear = this.today.getFullYear();
-    this.daysinMonth = new Date(this.currentYear, this.currentMonth, 0).getDate()
-    this.getthisMonthDates()
+    // this.today = new Date();
+    // this.currentMonth = this.today.getMonth()
+    // this.currentYear = this.today.getFullYear();
+    // this.daysinMonth = new Date(this.currentYear, this.currentMonth, 0).getDate()
+    // this.getthisMonthDates()
     // this.loadWorkers();
     // this.loadToday();
   }
 
-  prevMonth(){
-      this.today.setMonth(this.today.getMonth()-1)
-      this.sheduleServ.newDateData(this.today)
-      this.chDetect.detectChanges();
-  };
+  nextCause(){
 
-  nextMonth(){
-    this.today.setMonth(this.today.getMonth()+1)
-    this.sheduleServ.newDateData(this.today)
-    this.chDetect.detectChanges();
+    this.appdataservice.allShifts.forEach(element => {
+      console.log(element);
+    });
   };
 
 
-
-   loadWorkers(){
-     if (this.scheduleHttp.employeedata === undefined || this.scheduleHttp.employeedata.length == 0){
-      this.scheduleHttp.loadEmployees();
-   }
-  }
-
-  getthisMonthDates(){
-    this.thisMonthDates = [];
-    if (this.datedata === undefined || this.datedata.length == 0){
-      from(this.datedata)
-      .pipe(
-        filter(dd=>dd.date.getMonth() == this.currentMonth)
-      )
-      .subscribe((filtered)=>this.thisMonthDates.push(filtered));
+  fillCalendar(){
+    let empCCard:CalendarDate
+    
+    for(let i=1;i<=this.daysinMonth;i++){
+        empCCard = new CalendarDate;
+        empCCard.day=i;
+        empCCard.month=this.currentMonth;
+        empCCard.year=this.currentYear;
+        empCCard.weekday=(this.firstMonthDayWeekday + ((i -1) % 7));
+        this.thisMonthCalendar.push(empCCard);
     };
   };
 
 
-  getId(){
-    from(this.workers)
-    .pipe(
-      map(empl=>empl.id),
-      map(id=>this.makeCards(id))
-    ).subscribe(col=>this.emlpCards.push())
-  };
-
-  getEmplById(id:number){
-    
-  };
 
 
-  makeCards(id:number){
-   return generate(1,x=>x<=this.daysinMonth,x=>x+1)
-    .pipe(
-      mapTo(new CardOb)
-    )
-      // .subscribe(co=>console.log('Got my cards'+co));
-  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // getthisMonthDates(){
+  //   this.thisMonthDates = [];
+  //   if (this.datedata === undefined || this.datedata.length == 0){
+  //     from(this.datedata)
+  //     .pipe(
+  //       filter(dd=>dd.date.getMonth() == this.currentMonth)
+  //     )
+  //     .subscribe((filtered)=>this.thisMonthDates.push(filtered));
+  //   };
+  // };
+
 
 
 

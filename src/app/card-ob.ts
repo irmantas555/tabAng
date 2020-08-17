@@ -1,14 +1,12 @@
 import { Time } from '@angular/common';
 
 export class CardOb {
-    employeeId:number
-    day:number;
-    startTime:Time;
-    timeouts:number;
-    duration:number;
-    cause:number
-    causeStr:string;
-    causeCod:string;
-    endTime:Time;
-    extraTime:number;
+    employeeId:number //Emlp
+    day:number;        //DayCard
+    startTime:Time;     //DayCard
+    cause:number        //DayCard
+    causeStr:string;    //Cause
+    causeCod:string;       //Cause
+    endTime:Time;          //DayCard
+    extraTime:number;       //calculated
 }

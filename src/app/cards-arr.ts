@@ -1,8 +1,10 @@
 import { CardOb } from './card-ob';
 
 export class CardsArr {
-    employeeId:number;
-    firstName:string;
-    lastName:string;
-    dayCards:CardOb[];
+    employeeId:number; //Monthcard
+    firstName:string;   //Monthcard
+    lastName:string;     //Monthcard
+    timeouts:number;    //Monthcard
+    duration:number;    //Monthcard
+    dayCards:CardOb[];  //tupleMonthcardDaycard
 }

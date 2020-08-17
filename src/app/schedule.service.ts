@@ -16,14 +16,18 @@ export class ScheduleService implements OnInit{
   daysInThisMonth = new Subject<number>();
   weekDayOf1MDay= new Subject<number>();
 
+  init(){
+    this.today.next(new Date());
+    this.today.subscribe((date)=>{
+      this.currentYear = date.getFullYear();
+      this.currentMonth = date.getMonth();
+    });
+    this.getDaysInMonth();
+    this.getFirstWeekDay();
+  };
+
 ngOnInit(){
-  this.today.next(new Date());
-  this.today.subscribe((date)=>{
-    this.currentYear = date.getFullYear();
-    this.currentMonth = date.getMonth();
-  });
-  this.getDaysInMonth();
-  this.getFirstWeekDay();
+
 };
 
 newDateData(newDate:Date){
