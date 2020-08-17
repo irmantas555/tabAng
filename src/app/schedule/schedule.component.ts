@@ -16,6 +16,7 @@ import { DateOb } from '../date-ob';
 import { Cause } from '../cause';
 import { CardOb } from '../card-ob';
 import { CardsArr } from '../cards-arr';
+import { DatesService } from '../dates-service';
 
 @Component({
   selector: 'app-schedule',
@@ -45,7 +46,8 @@ export class ScheduleComponent implements OnInit {
     firstMonthDayWeekday:number;
 
 
-  constructor(private sheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, private chDetect:ChangeDetectorRef) { }
+  constructor(private sheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, 
+    private chDetect:ChangeDetectorRef, private daetesServ:DatesService) { }
 
   ngOnInit(): void {
     this.today = new Date();
@@ -77,9 +79,17 @@ export class ScheduleComponent implements OnInit {
    }
   }
 
+  subscribeDates(){
+      this.daetesServ.dates.subscribe((date)=>{
+          this.datedata.push(date)
+          console.log('date pushed ' + date.date.getDay)
+      });
+      this.daetesServ.getDates();  
+  };
+
   getthisMonthDates(){
     this.thisMonthDates = [];
-    if (this.datedata === undefined || this.datedata.length == 0){
+    if (this.datedata !== undefined && this.datedata.length != 0){
       from(this.datedata)
       .pipe(
         filter(dd=>dd.date.getMonth() == this.currentMonth)
