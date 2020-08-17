@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CcellComponent implements OnInit {
   monthdays:number = 31;
   @Input() celld = '';
+  @Input() weekday:number;
   constructor() { }
 
   ngOnInit(): void {

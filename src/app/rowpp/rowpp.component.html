@@ -1,6 +1,6 @@
 <!-- <div class="row"> -->
 
     <div class="rowgrid">
-        <app-ccell *ngFor= "let day of days" [celld] = 'day'></app-ccell>
+        <app-ccell *ngFor= "let day of days" [celld] = 'day.day' [weekday]='day.weekday'></app-ccell>
     </div>
 <!-- </div> -->

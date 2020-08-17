@@ -1,1 +1,1 @@
-<p class="cell">{{celld}}</p>
+<p class="cell" [ngStyle]="weekday == 0  && {'background': 'red'} || weekday == 6  && {'background': 'red'}">{{celld}}</p>

@@ -34,23 +34,31 @@ export class ScheduleComponent implements OnInit {
     countrydata:Country[]=this.appdataservice.allCountries;
     holidays:Holiday[]=this.appdataservice.allHolidays;
     shifts:Shift[]=this.appdataservice.allShifts;
+    
     emlpCards:CardsArr[];
-    thisMonthCalendar:CalendarDate[]=[];
-  
+    
     thisMonthDates:DateOb[];
     thisMonthCards:CardOb[];
 
-    today:Date;
+    today:Date = this.scheduleServ.today;
+    currentYear:number=this.scheduleServ.currentYear;
+    currentMonth:number=this.scheduleServ.currentMonth;
     daysinMonth:number;
-    currentYear:number=this.sheduleServ.currentYear;
-    currentMonth:number=this.sheduleServ.currentMonth;
     firstMonthDayWeekday:number;
 
 
-  constructor(private sheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, 
+  constructor(private scheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, 
     private chDetect:ChangeDetectorRef, private appdataservice:AppDataService) { }
 
   ngOnInit(): void {
+    this.today= this.scheduleServ.today;
+    this.currentYear=this.scheduleServ.currentYear;
+    this.currentMonth=this.scheduleServ.currentMonth;
+    this.scheduleServ.dateChange.subscribe((ch)=>{
+      this.today= this.scheduleServ.today;
+      this.currentYear=this.scheduleServ.currentYear;
+      this.currentMonth=this.scheduleServ.currentMonth;
+    })
     // this.today = new Date();
     // this.currentMonth = this.today.getMonth()
     // this.currentYear = this.today.getFullYear();
@@ -67,19 +75,19 @@ export class ScheduleComponent implements OnInit {
     });
   };
 
-
-  fillCalendar(){
-    let empCCard:CalendarDate
-    
-    for(let i=1;i<=this.daysinMonth;i++){
-        empCCard = new CalendarDate;
-        empCCard.day=i;
-        empCCard.month=this.currentMonth;
-        empCCard.year=this.currentYear;
-        empCCard.weekday=(this.firstMonthDayWeekday + ((i -1) % 7));
-        this.thisMonthCalendar.push(empCCard);
-    };
+  nextMonth(){
+    this.scheduleServ.today.setMonth(this.today.getMonth()+1);
+    this.scheduleServ.newDateData(this.today)
   };
+
+  prevMonth(){
+    this.scheduleServ.today.setMonth(this.today.getMonth()-1);
+    this.scheduleServ.newDateData(this.today)
+  };
+
+
+
+
 
 
 
