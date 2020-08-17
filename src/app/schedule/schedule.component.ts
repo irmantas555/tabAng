@@ -16,12 +16,8 @@ import { DateOb } from '../date-ob';
 import { Cause } from '../cause';
 import { CardOb } from '../card-ob';
 import { CardsArr } from '../cards-arr';
-<<<<<<< HEAD
-import { DatesService } from '../dates-service';
-=======
 import { AppDataService } from '../app-data.service';
 import { CalendarDate } from '../calendar-date';
->>>>>>> f9773794f61c1949c81f8ba09692496b9cb867c5
 
 @Component({
   selector: 'app-schedule',
@@ -52,11 +48,7 @@ export class ScheduleComponent implements OnInit {
 
 
   constructor(private sheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, 
-<<<<<<< HEAD
-    private chDetect:ChangeDetectorRef, private daetesServ:DatesService) { }
-=======
     private chDetect:ChangeDetectorRef, private appdataservice:AppDataService) { }
->>>>>>> f9773794f61c1949c81f8ba09692496b9cb867c5
 
   ngOnInit(): void {
     // this.today = new Date();
@@ -88,31 +80,6 @@ export class ScheduleComponent implements OnInit {
         this.thisMonthCalendar.push(empCCard);
     };
   };
-
-
-
-
-<<<<<<< HEAD
-  subscribeDates(){
-      this.daetesServ.dates.subscribe((date)=>{
-          this.datedata.push(date)
-          console.log('date pushed ' + date.date.getDay)
-      });
-      this.daetesServ.getDates();  
-  };
-
-  getthisMonthDates(){
-    this.thisMonthDates = [];
-    if (this.datedata !== undefined && this.datedata.length != 0){
-      from(this.datedata)
-      .pipe(
-        filter(dd=>dd.date.getMonth() == this.currentMonth)
-      )
-      .subscribe((filtered)=>this.thisMonthDates.push(filtered));
-    };
-  };
-=======
->>>>>>> f9773794f61c1949c81f8ba09692496b9cb867c5
 
 
 

@@ -22,9 +22,6 @@ export class RowppComponent implements OnInit {
   }
 
   daysstrings(){
-    for (var i = 1 ; i<31; i++){
-      this.days.push(i.toString())
-    }
     // console.log(this.days.length)
   };
 }
