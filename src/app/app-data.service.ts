@@ -14,6 +14,8 @@ import { EmplJobData } from './empl-job-data';
 import { Payment } from './payment';
 import { ExHours } from './ex-hours';
 import { Position } from './position';
+import { Employee } from './employee';
+import { Empl } from './empl';
 
 @Injectable({
   providedIn: 'root',
@@ -23,41 +25,45 @@ export class AppDataService implements OnInit {
   causesStringdata = new Subject<Cause>();
   causesdata = new Subject<Cause>();
   causeob: Cause = new Cause();
-  allCauses: Cause[];
+  allCauses: Cause[]=[];
   // country properties
   countrydata = new Subject<Country>();
   countryob: Country = new Country();
-  allCounties: Country[];
+  allCountries: Country[]=[];
+  // emplouees properties
+  employeedata = new Subject<Empl>();
+  emploeeob: Empl = new Empl();
+  allEmployees: Empl[]=[];
   // payment properties
   paymentdata = new Subject<Payment>();
   paymentob: Payment = new Payment();
-  allPayments: Payment[];
+  allPayments: Payment[]=[];
   // exhours properties
   exhourstdata = new Subject<ExHours>();
   exhourob: ExHours = new ExHours();
-  allExHours: ExHours[];
+  allExHours: ExHours[]=[];
   // position properties
   positiondata = new Subject<Position>();
   positionob: Position = new Position();
-  allPositions: Position[];
+  allPositions: Position[]=[];
   //Department properties
   departmentdtodata = new Subject<string>();
   departmentdata = new Subject<Department>();
   departmentob: DepartmentDto = new DepartmentDto();
-  allDepartments: Department[];
+  allDepartments: Department[]=[];
   //DepartmentData properties
-  datadepartmentdata = new Subject<EmplJobData>();
-  allDataDepartments: EmplJobData[];
+  empljobtdata = new Subject<EmplJobData>();
+  allEmplJobData: EmplJobData[]=[];
   //Holiday properties
   holidaydtotdata = new Subject<string>();
   holidaytdata = new Subject<Holiday>();
   holidayob: HolidayDto = new HolidayDto();
-  allHolidays: Holiday[];
+  allHolidays: Holiday[]=[];
   //Shift properties
   shiftdtodata = new Subject<string>();
   shiftdata = new Subject<Shift>();
   shiftob: ShiftDto = new ShiftDto();
-  allShifts: Shift[];
+  allShifts: Shift[]=[];
 
   optionjson = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
@@ -66,13 +72,27 @@ export class AppDataService implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+  }
+
+  init(){
+    this.getEmployeess();
+    this.getCauses();
+    this.getCountries();
+    this.getDepartments();
+    this.getEmplJobData();
+    this.getPositions();
+    this.getShifts();
+    this.getHolidays();
+  };
 
   getCauses() {
     this.http
       .get('http://localhost:8080/data/cause')
       .subscribe((response: Cause[]) => {
-        response.forEach((element) => {
+        response.forEach((element:Cause) => {
+          this.allCauses.push(element);
           this.causesdata.next(element);
         });
       });
@@ -102,6 +122,7 @@ export class AppDataService implements OnInit {
       .subscribe((response: Country[]) => {
         response.forEach((element) => {
           this.countrydata.next(element);
+          this.allCountries.push(element);
         });
       });
   }
@@ -121,6 +142,32 @@ export class AppDataService implements OnInit {
         console.log('There was an error posting: ' + err);
       };
   }
+  getEmployeess() {
+    this.http
+      .get('http://localhost:8080/data/employee')
+      .subscribe((response: Empl[]) => {
+        response.forEach((element) => {
+          this.employeedata.next(element);
+          this.allEmployees.push(element);
+        });
+      });
+  }
+
+  postEmployee(receivedEmpl: Empl) {
+    this.emploeeob = receivedEmpl;
+    this.http
+      .post(
+        'http://localhost:8080/data/employee',
+        JSON.stringify(this.emploeeob),
+        this.optionjson
+      )
+      .subscribe((response: Empl) => {
+        this.employeedata.next(response);
+      }),
+      (err: any) => {
+        console.log('There was an error posting: ' + err);
+      };
+  }
 
   getDtoDepartments() {
     this.http
@@ -132,12 +179,13 @@ export class AppDataService implements OnInit {
       });
   }
 
-  getDataDepartments() {
+  getEmplJobData() {
     this.http
-      .get('http://localhost:8080/data/department')
+      .get('http://localhost:8080/data/empljobdata')
       .subscribe((response: EmplJobData[]) => {
         response.forEach((element) => {
-          this.datadepartmentdata.next(element);
+          this.empljobtdata.next(element);
+          this.allEmplJobData.push(element);
         });
       });
   }
@@ -148,6 +196,7 @@ export class AppDataService implements OnInit {
       .subscribe((response: Department[]) => {
         response.forEach((element) => {
           this.departmentdata.next(element);
+          this.allDepartments.push(element)
         });
       });
   }
@@ -192,6 +241,7 @@ export class AppDataService implements OnInit {
       .subscribe((response: Holiday[]) => {
         response.forEach((element) => {
           this.holidaytdata.next(element);
+          this.allHolidays.push(element)
         });
       });
   }
@@ -241,6 +291,7 @@ export class AppDataService implements OnInit {
       .subscribe((response: Shift[]) => {
         response.forEach((element) => {
           this.shiftdata.next(element);
+          this.allShifts.push(element)
         });
       });
   }
@@ -276,7 +327,7 @@ export class AppDataService implements OnInit {
     this.paymentob = receivedP;
     this.http
       .post(
-        'http://localhost:8080/data/cause',
+        'http://localhost:8080/data/payment',
         JSON.stringify(this.paymentob),
         this.optionjson
       )
@@ -316,10 +367,11 @@ export class AppDataService implements OnInit {
   }
   getPositions() {
     this.http
-      .get('http://localhost:8080/data/exhours')
+      .get('http://localhost:8080/data/position')
       .subscribe((response: Position[]) => {
         response.forEach((element) => {
           this.positiondata.next(element);
+          this.allPositions.push(element);
         });
       });
   }
@@ -329,7 +381,7 @@ export class AppDataService implements OnInit {
     this.positionob = receivedP;
     this.http
       .post(
-        'http://localhost:8080/data/exhours',
+        'http://localhost:8080/data/position',
         JSON.stringify(this.positionob),
         this.optionjson
       )

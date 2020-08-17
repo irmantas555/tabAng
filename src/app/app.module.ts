@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -20,8 +20,15 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { CausesdataComponent } from './causesdata/causesdata.component';
 import { CountrydataComponent } from './countrydata/countrydata.component';
 import { HolidaydataComponent } from './holidaydata/holidaydata.component';
+import { AppDataService } from './app-data.service';
+import { ScheduleService } from './schedule.service';
 
-
+export function appInit(appDataService: AppDataService,scheduleService:ScheduleService) {
+  return () =>{
+    appDataService.init();
+    scheduleService.init();
+  } 
+}
 
 @NgModule({
   declarations: [
@@ -48,10 +55,13 @@ import { HolidaydataComponent } from './holidaydata/holidaydata.component';
     FormsModule,
     NoopAnimationsModule
   ],
-  providers: [
-    DatePipe,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
+  providers: [AppDataService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInit,
+      multi: true,
+      deps: [AppDataService,ScheduleService]
+    }, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, DatePipe],
   bootstrap: [AppComponent],
   
 })

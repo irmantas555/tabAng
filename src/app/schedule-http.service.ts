@@ -9,25 +9,11 @@ import { Employee } from './employee';
   providedIn: 'root'
 })
 export class ScheduleHhtpService implements OnInit {
-  employeedata:Empl[]=[];
   employHistData:EmplHistOb[]=[];
-  datesObj
-
   constructor(private http:HttpClient) { }
 
   ngOnInit(){
-    this.loadEmployees();
   };
-
-  loadEmployees() {
-    this.http
-      .get('http://localhost:8080/employees')
-      .subscribe((response: Empl[]) => {
-        response.forEach((element) => {
-          this.employeedata.push(element);
-        });
-      });
-  }
 
   loadEmployeesHist() {
     this.http

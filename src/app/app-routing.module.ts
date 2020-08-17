@@ -9,6 +9,7 @@ import { Country } from './country';
 import { CountrydataComponent } from './countrydata/countrydata.component';
 import { HolidaydataComponent } from './holidaydata/holidaydata.component';
 import { DepartmentdataComponent } from './departmentdata/departmentdata.component';
+import { ShiftsdataComponent } from './shiftsdata/shiftsdata.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'countryedata', component:CountrydataComponent},
   {path: 'departmentdata', component:DepartmentdataComponent},
   {path: 'holidaydata', component:HolidaydataComponent},
+  {path: 'shiftdata', component:ShiftsdataComponent},
 
 ];
 

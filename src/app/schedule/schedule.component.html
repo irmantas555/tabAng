@@ -1,4 +1,6 @@
-<button class="btn btn-outline-warning" type="button" (click)="prevMonth()">Previous</button>
-<button class="btn btn-outline-warning" type="button" (click)="nextMonth()">Next</button>
-<app-rowpp *ngFor="let nn of workers"  ></app-rowpp>
+<!-- <button class="btn btn-outline-warning" type="button" (click)="prevMonth()">Previous</button>
+<button class="btn btn-outline-warning" type="button" (click)="nextMonth()">Next</button> -->
+<button class="btn btn-outline-warning my-4" type="button" (click)="nextCause()">Next</button>
+<app-rowpp></app-rowpp>
+<app-rowpp *ngFor="let nn of thisMonthCalendar"></app-rowpp>
 
