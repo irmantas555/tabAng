@@ -21,9 +21,10 @@ export class ScheduleService implements OnInit {
   weekDayOf1MDay: number;
 
   init() {
+    console.log('shedule service init')
     this.today = new Date();
     this.currentYear = this.today .getFullYear();
-    this.currentMonth = this.today.getMonth();
+    this.currentMonth = this.today.getMonth() + 1;
     this.getDaysInMonth();
     this.getFirstWeekDay();
     this.fillCalendar();
@@ -39,7 +40,7 @@ export class ScheduleService implements OnInit {
       empCCard.day = i;
       empCCard.month = this.currentMonth;
       empCCard.year = this.currentYear;
-      empCCard.weekday = this.weekDayOf1MDay + (i % 7);
+      empCCard.weekday = (this.weekDayOf1MDay + i -1) % 7;
       this.thisMonthCalendar.push(empCCard);
     }
   }
@@ -48,10 +49,9 @@ export class ScheduleService implements OnInit {
     this.today = newDate;
     console.log('Now ' + this.today.toDateString())
     this.currentYear = this.today.getFullYear();
-    this.currentMonth = this.today.getMonth();
+    this.currentMonth = this.today.getMonth() + 1;
     this.getDaysInMonth();
     this.getFirstWeekDay();
-    console.log('first weekday ' + this.weekDayOf1MDay)
     this.fillCalendar();
     this.dateChange.next(true);
   }
@@ -59,7 +59,7 @@ export class ScheduleService implements OnInit {
   getDaysInMonth() {
     this.daysInThisMonth = new Date(
       this.currentYear,
-      this.currentMonth +1,
+      this.currentMonth,
       0
     ).getDate();
   }

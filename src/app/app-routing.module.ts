@@ -10,6 +10,7 @@ import { CountrydataComponent } from './countrydata/countrydata.component';
 import { HolidaydataComponent } from './holidaydata/holidaydata.component';
 import { DepartmentdataComponent } from './departmentdata/departmentdata.component';
 import { ShiftsdataComponent } from './shiftsdata/shiftsdata.component';
+import { AlterCardComponent } from './alter-card/alter-card.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'departmentdata', component:DepartmentdataComponent},
   {path: 'holidaydata', component:HolidaydataComponent},
   {path: 'shiftdata', component:ShiftsdataComponent},
+  {path: 'cardinputmodal', component:AlterCardComponent},
 
 ];
 

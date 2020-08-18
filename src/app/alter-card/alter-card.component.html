@@ -1,0 +1,59 @@
+<div class="backdrop" (click)="dismis()">
+  <form (ngSubmit)="onSubmit(frm)" #frm="ngForm" class="alert-box">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="text-primary" for="userlist"
+            >Pakeisti dienos duomenis šiems vartotojams</label
+          >
+          <div class="row">
+            <div class="col-4">
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let worker of workers">
+                  {{ worker.firstName }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="text-primary" for="Pral. priežąstis">Slaptažodis</label>
+          <select>
+            type="text" placeholder="Priežąstis" class="inputBack form-control"
+            id="causeid" [(ngModel)]="newCardForAll.causeStr" name="cause"
+            <option *ngFor="let caus of causes">{{ caus }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="text-primary" for="Darbo pradžia">Slaptažodis</label>
+          <select>
+            placeholder="Darbo pradžios laikas" class="inputBack form-control"
+            id="startT" [(ngModel)]="newCardForAll.startTime" name="startTime"
+            <option *ngFor="let times of times">{{ times }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="text-primary" for="Darbo pradžia">Slaptažodis</label>
+          <select>
+            placeholder="Darbo pabaigos laikas" class="inputBack form-control"
+            id="endT" [(ngModel)]="newCardForAll.endTime" name="endTime"
+            <option *ngFor="let times of times">{{ times }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex row-hl">
+      <button
+        class="ml-auto btn btn-warning item-hl"
+        type="submit"
+        [disabled]="!frm.valid"
+      >
+        Pakeisti
+      </button>
+    </div>
+  </form>
+</div>

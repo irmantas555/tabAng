@@ -11,14 +11,14 @@ export class RowppComponent implements OnInit {
   monthdays:number;
   days:CalendarDate[];
 
-  constructor(private dateServ:ScheduleService) { }
+  constructor(private ScheduleDateServ:ScheduleService) { }
 
   ngOnInit(): void {
-    this.monthdays=this.dateServ.daysInThisMonth;
-    this.days=this.dateServ.thisMonthCalendar;
-    this.dateServ.dateChange.subscribe((ch)=>{
-      this.monthdays=this.dateServ.daysInThisMonth;
-      this.days=this.dateServ.thisMonthCalendar;
+    this.monthdays=this.ScheduleDateServ.daysInThisMonth;
+    this.days=this.ScheduleDateServ.thisMonthCalendar;
+    this.ScheduleDateServ.dateChange.subscribe((ch)=>{
+      this.monthdays=this.ScheduleDateServ.daysInThisMonth;
+      this.days=this.ScheduleDateServ.thisMonthCalendar;
       console.log('Now days ' + this.days.length)
     })
   };

@@ -14,10 +14,12 @@ import { Empl } from '../empl';
 import { Country } from '../country';
 import { DateOb } from '../date-ob';
 import { Cause } from '../cause';
-import { CardOb } from '../card-ob';
-import { CardsArr } from '../cards-arr';
+import { DayCard } from '../day-card';
+import { MonthCard } from '../moth-card';
 import { AppDataService } from '../app-data.service';
 import { CalendarDate } from '../calendar-date';
+import { JoinedCard } from '../joined-card';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -26,19 +28,18 @@ import { CalendarDate } from '../calendar-date';
 })
 
 export class ScheduleComponent implements OnInit {
-    employees:Empl[]=this.appdataservice.allEmployees;
-    datedata:DateOb[];
-    empljobtdata:EmplJobData[]=this.appdataservice.allEmplJobData;
-    departments:Department[]=this.appdataservice.allDepartments;
-    causedata:Cause[]=this.appdataservice.allCauses
-    countrydata:Country[]=this.appdataservice.allCountries;
-    holidays:Holiday[]=this.appdataservice.allHolidays;
-    shifts:Shift[]=this.appdataservice.allShifts;
+    // employees:Empl[]=this.appdataservice.allEmployees;
+    // datedata:DateOb[];
+    // empljobtdata:EmplJobData[]=this.appdataservice.allEmplJobData;
+    // departments:Department[]=this.appdataservice.allDepartments;
+    // causedata:Cause[]=this.appdataservice.allCauses
+    // countrydata:Country[]=this.appdataservice.allCountries;
+    // holidays:Holiday[]=this.appdataservice.allHolidays;
+    // shifts:Shift[]=this.appdataservice.allShifts;
     
-    emlpCards:CardsArr[];
+    emlpCards:JoinedCard[];
     
-    thisMonthDates:DateOb[];
-    thisMonthCards:CardOb[];
+    thisMonthDates:CalendarDate[];
 
     today:Date = this.scheduleServ.today;
     currentYear:number=this.scheduleServ.currentYear;
@@ -48,31 +49,28 @@ export class ScheduleComponent implements OnInit {
 
 
   constructor(private scheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, 
-    private chDetect:ChangeDetectorRef, private appdataservice:AppDataService) { }
+    private chDetect:ChangeDetectorRef, private appdataservice:AppDataService, private router:Router) { }
 
   ngOnInit(): void {
+    //calendar section
     this.today= this.scheduleServ.today;
     this.currentYear=this.scheduleServ.currentYear;
     this.currentMonth=this.scheduleServ.currentMonth;
+    this.thisMonthDates = this.scheduleServ.thisMonthCalendar;
     this.scheduleServ.dateChange.subscribe((ch)=>{
       this.today= this.scheduleServ.today;
       this.currentYear=this.scheduleServ.currentYear;
       this.currentMonth=this.scheduleServ.currentMonth;
+      this.thisMonthDates = this.scheduleServ.thisMonthCalendar;
+      //month caards depend on date change
+      this.emlpCards = this.scheduleHttp.emplMonthCards
     })
-    // this.today = new Date();
-    // this.currentMonth = this.today.getMonth()
-    // this.currentYear = this.today.getFullYear();
-    // this.daysinMonth = new Date(this.currentYear, this.currentMonth, 0).getDate()
-    // this.getthisMonthDates()
-    // this.loadWorkers();
-    // this.loadToday();
+    //month cards section
+    this.emlpCards = this.scheduleHttp.emplMonthCards
   }
 
   nextCause(){
-
-    this.appdataservice.allShifts.forEach(element => {
-      console.log(element);
-    });
+    this.router.navigate(['/cardinputmodal'])
   };
 
   nextMonth(){
@@ -84,15 +82,6 @@ export class ScheduleComponent implements OnInit {
     this.scheduleServ.today.setMonth(this.today.getMonth()-1);
     this.scheduleServ.newDateData(this.today)
   };
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,15 @@
+.joinedrow{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding: 0px;
+    margin: 0px
+}
+
+.emplcellborder{
+    outline: 0.5px solid gray;
+    height: 30px;
+    font-size: medium;
+    /* padding: .5rem; */
+    /* margin: 0px; */
+    color: rgb(60, 60, 60);
+}

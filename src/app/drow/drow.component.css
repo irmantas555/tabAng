@@ -1,0 +1,8 @@
+.rowgrid{
+    display: inline-flex;
+    text-align: center;
+    padding: 0rem;
+    margin: 0px;
+    /* grid-template-columns: repeat(31, 30.5px); */
+    /* grid-gap: .5px; */
+ }

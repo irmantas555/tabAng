@@ -1,6 +1,36 @@
-<button class="btn btn-outline-warning my-4" type="button" (click)="prevMonth()">Previous</button>
-<button class="btn btn-outline-warning" type="button" (click)="nextMonth()">Next</button>
-<!-- <button class="btn btn-outline-warning my-4" type="button" (click)="nextCause()">Next</button> -->
-<app-rowpp></app-rowpp>
-<app-rowpp *ngFor="let nn of employees"></app-rowpp>
+<div class="container">
+  <button
+    class="btn btn-outline-warning my-4"
+    type="button"
+    (click)="prevMonth()"
+  >
+    Previous
+  </button>
+  <button class="btn btn-outline-warning" type="button" (click)="nextMonth()">
+    Next
+  </button>
+  <button
+    class="btn btn-outline-warning my-4"
+    type="button"
+    (click)="nextCause()"
+  >
+    Next
+  </button>
+</div>
+<div>
+  <div class="joinedrow">
+    <app-empl-cell></app-empl-cell>
+    <app-rowpp></app-rowpp>
+  </div>
 
+  <div class="joinedrow" *ngFor="let monthC of emlpCards">
+    <app-empl-cell class="emplcellborder"
+      [emplFirstName]="monthC.t1.firstName"
+      [emplLastName]="monthC.t1.lastName"
+    ></app-empl-cell>
+    <app-drow
+      [rowjoinedcard]="monthC"
+      [allDaysInmonth]="thisMonthDates"
+    ></app-drow>
+  </div>
+</div>

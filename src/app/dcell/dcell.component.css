@@ -1,0 +1,9 @@
+.dcell{
+    height: 30px;
+    width: 30.5px;
+    outline: 0.5px solid gray;
+    font-size: medium;
+    padding-top: .4rem;
+    margin: 0px;
+    color: rgb(60, 60, 60);
+}

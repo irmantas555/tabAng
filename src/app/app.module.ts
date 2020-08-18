@@ -22,11 +22,17 @@ import { CountrydataComponent } from './countrydata/countrydata.component';
 import { HolidaydataComponent } from './holidaydata/holidaydata.component';
 import { AppDataService } from './app-data.service';
 import { ScheduleService } from './schedule.service';
+import { EmplCellComponent } from './empl-cell/empl-cell.component';
+import { DcellComponent } from './dcell/dcell.component';
+import { DrowComponent } from './drow/drow.component';
+import { ScheduleHhtpService } from './schedule-http.service';
+import { AlterCardComponent } from './alter-card/alter-card.component';
 
-export function appInit(appDataService: AppDataService,scheduleService:ScheduleService) {
+export function appInit(appDataService: AppDataService,scheduleService:ScheduleService, scheduleHttpService:ScheduleHhtpService) {
   return () =>{
     appDataService.init();
     scheduleService.init();
+    scheduleHttpService.init();
   } 
 }
 
@@ -46,6 +52,10 @@ export function appInit(appDataService: AppDataService,scheduleService:ScheduleS
     CausesdataComponent,
     CountrydataComponent,
     HolidaydataComponent,
+    EmplCellComponent,
+    DcellComponent,
+    DrowComponent,
+    AlterCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,12 +65,12 @@ export function appInit(appDataService: AppDataService,scheduleService:ScheduleS
     FormsModule,
     NoopAnimationsModule
   ],
-  providers: [AppDataService,
+  providers: [AppDataService, ScheduleService,ScheduleHhtpService,
     {
       provide: APP_INITIALIZER,
       useFactory: appInit,
       multi: true,
-      deps: [AppDataService,ScheduleService]
+      deps: [AppDataService,ScheduleService, ScheduleHhtpService]
     }, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, DatePipe],
   bootstrap: [AppComponent],
   
