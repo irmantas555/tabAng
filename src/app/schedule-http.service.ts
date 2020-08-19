@@ -88,9 +88,10 @@ export class ScheduleHhtpService implements OnInit {
         }
       )
       .subscribe((response:JoinedCard[]) => {
+
         // let mcds:JoinedCard = JSON.parse(response)
         response.forEach((element:JoinedCard) => {
-          // console.log('got month card ' + element.t1.firstName)
+          console.log('got month card ' + element.t1.firstName)
           this.emplMonthCards.push(element);
         });
       });

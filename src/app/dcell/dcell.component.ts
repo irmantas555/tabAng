@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { DayCard } from '../day-card';
 import { ScheduleComponent } from '../schedule/schedule.component';
 import { ScheduleService } from '../schedule.service';
-import {RowDirectiveDirective} from '../row-directive.directive'
 
 @Component({
   selector: 'app-dcell',
@@ -11,8 +10,9 @@ import {RowDirectiveDirective} from '../row-directive.directive'
 })
 export class DcellComponent implements OnInit {
   @Input() cellDayCard:DayCard;
-  celine:boolean=true;
-  constructor(private scheduleService:ScheduleService, private elementRef:ElementRef) {
+  @Input() row:number;
+  celine:boolean=false;
+  constructor(private scheduleService:ScheduleService, private el:ElementRef) {
     
   }
 
@@ -27,8 +27,32 @@ export class DcellComponent implements OnInit {
       })
   }
 
-  getInfo(){
-    this.scheduleService.colsSub.next(this.elementRef.nativeElement.getAttribute('data-col-index'))
-  };
+  // getInfo(){
+  //   console.log(this.elementRef.nativeElement.getAttribute('data-col-index'))
+  //   // this.scheduleService.colsSub.next(this.elementRef.nativeElement)
+  // };
+
+  // getInfoTwo(){
+  //   // this.scheduleService.colsSub.next(this.elementRef.nativeElement)
+  // };
+
+  mouseDown(){
+    if(this.scheduleService.mouseDProperty==false){
+      this.scheduleService.colsRowsSub.next({row:this.row,col:this.cellDayCard.day})
+    }
+  }
+  mouseenter(){
+    if(this.scheduleService.mouseDProperty==true){
+      this.scheduleService.colsRowsSub.next({row:this.row,col:this.cellDayCard.day})
+    }
+
+  }
+  mouseup(){
+    if(this.scheduleService.mouseDProperty==true){
+      this.scheduleService.mouseDProperty=false;
+    }
+
+  }
+
 
 }

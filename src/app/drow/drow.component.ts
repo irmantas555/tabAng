@@ -15,7 +15,6 @@ import {
   reduce,
 } from 'rxjs/operators';
 import { JoinedCard } from '../joined-card';
-import {RowDirectiveDirective} from '../row-directive.directive'
 
 @Component({
   selector: 'app-drow',
