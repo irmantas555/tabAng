@@ -1,1 +1,25 @@
-<p class="dcell" >{{cellDayCard.causeCod}}</p>
+<ng-template [ngIf]="celine">
+    <div class="relative">
+      <svg width="30" height="3">
+        <rect
+        width="30"
+        height="3"
+        style="
+        fill: rgba(85, 208, 219, 0.876);
+        stroke-width: 0.5;
+        stroke: rgb(7, 13, 49);
+        "
+        />
+      </svg>
+    </div>
+    <div class="relative2">
+      <svg width="30" height="5">
+        <rect
+        width="30"
+        height="5"
+        style="fill: rgba(117, 117, 117, 0.596); stroke-width: 0.5;"
+        />
+      </svg>
+    </div>
+  <p appRowDirective class="dcell static" (click)="getInfo()">{{cellDayCard.causeCod}}</p>
+</ng-template>

@@ -1,6 +1,7 @@
 .emplcell{
     /* height: 30px;
     width: 15em; */
+    display: flex;
     padding-top: .5rem;
     margin: 0px;
 }

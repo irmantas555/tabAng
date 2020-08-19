@@ -85,6 +85,7 @@ export class AppDataService implements OnInit {
     this.getPositions();
     this.getShifts();
     this.getHolidays();
+    this.getEmployeess();
   };
 
   getCauses() {

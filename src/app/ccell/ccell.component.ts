@@ -6,9 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./ccell.component.css']
 })
 export class CcellComponent implements OnInit {
-  monthdays:number = 31;
   @Input() celld = '';
   @Input() weekday:number;
+  celine:boolean=false;
+  
   constructor() { }
 
   ngOnInit(): void {

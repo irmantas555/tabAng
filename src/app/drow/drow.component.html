@@ -1,4 +1,3 @@
 <div class="rowgrid">
-    <app-empl-cell></app-empl-cell>
-    <app-dcell *ngFor= "let cal of allDaysInmonth; let i = index" [cellDayCard] = 'updatedCards[i]'></app-dcell>
+    <app-dcell *ngFor= "let cal of allDaysInmonth; let i = index" [attr.data-col-index]="i"  [cellDayCard] = 'updatedCards[i]'></app-dcell>
 </div>

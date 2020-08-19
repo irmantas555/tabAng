@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, ElementRef } from '@angular/core';
 import { CalendarDate } from '../calendar-date';
 import { ScheduleService } from '../schedule.service';
 import { Empl } from '../empl';
 import { AppDataService } from '../app-data.service';
 import { MonthCard } from '../moth-card';
 import { DayCard } from '../day-card';
-import { Observable, pipe, from, merge, of } from 'rxjs';
+import { Observable, pipe, from, merge, of, Subject } from 'rxjs';
 import {
   filter,
   map,
@@ -15,6 +15,7 @@ import {
   reduce,
 } from 'rxjs/operators';
 import { JoinedCard } from '../joined-card';
+import {RowDirectiveDirective} from '../row-directive.directive'
 
 @Component({
   selector: 'app-drow',
@@ -26,9 +27,11 @@ export class DrowComponent implements OnInit {
   @Input() rowjoinedcard: JoinedCard;
   updatedCards: DayCard[] = [];
 
+
   constructor(
     private scheduleDateServ: ScheduleService,
-    private dataService: AppDataService
+    private dataService: AppDataService,
+    private elementRef:ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -60,10 +63,16 @@ export class DrowComponent implements OnInit {
       if (pushed == false) {
         let tempCard = new DayCard();
         tempCard.day = index;
-        tempCard.causeCod = '0';
+        tempCard.causeCod = '';
         tempCard.employeeId = this.rowjoinedcard.t1.employeeId;
         this.updatedCards.push(tempCard);
       }
     }
   }
+
+  // onrowclick(){
+  //   console.log('row clicked')
+  //   this.scheduleDateServ.rowsSub.next(this.elementRef.nativeElement.getAttribute('data-row-index'))
+  // }
+
 }

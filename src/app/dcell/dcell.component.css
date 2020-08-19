@@ -1,9 +1,34 @@
 .dcell{
-    height: 30px;
-    width: 30.5px;
-    outline: 0.5px solid gray;
+    display:flex;
+    height: 1.9rem;
+    border-color: gray;
+    border-style: solid;
+    border-width: .2px;
     font-size: medium;
-    padding-top: .4rem;
+    padding-top: .6rem;
     margin: 0px;
-    color: rgb(60, 60, 60);
+    justify-content: center;
+    color: rgb(98, 79, 79);
+    /* white-space: nowrap; */
+}
+
+.static{
+    position: static;
+    /* left: 5; */
+    z-index: 0;
+}
+
+.relative{
+    position: absolute;
+    line-height: .35rem;
+    /* top: 10; */
+    z-index: 4;
+    /* white-space: nowrap; */
+}
+.relative2{
+    position: absolute;
+    line-height: .5rem;
+    /* top: 2; */
+    z-index: 3;
+    /* white-space: nowrap; */
 }

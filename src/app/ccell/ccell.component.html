@@ -1,1 +1,33 @@
-<p class="cell" [ngStyle]="weekday == 0  && {'background': 'red'} || weekday == 6  && {'background': 'red'}">{{celld}}</p>
+<ng-template [ngIf]="celine">
+    <div class="relative">
+      <svg width="30" height="3">
+        <rect
+          width="30"
+          height="3"
+          style="
+            fill: rgba(85, 208, 219, 0.876);
+            stroke-width: 0.5;
+            stroke: rgb(7, 13, 49);
+          "
+        />
+      </svg>
+    </div>
+    <div class="relative2">
+      <svg width="30" height="4">
+        <rect
+          width="30"
+          height="4"
+          style="fill: rgba(117, 117, 117, 0.596); stroke-width: 0.5;"
+        />
+      </svg>
+    </div>
+</ng-template>
+<p
+  class="cell static"
+  [ngStyle]="
+    (weekday == 0 && { background: 'red' }) ||
+    (weekday == 6 && { background: 'red' })
+  "
+>
+  {{ celld }}
+</p>

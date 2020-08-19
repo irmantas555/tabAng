@@ -1,3 +1,39 @@
+<ng-template [ngIf]="modal">
+  <div class="backdrop"></div>
+  <div class="alert-box">
+      <label class="text-warning my-2 col-6" for="userlist"
+        >Pakeisti dienos duomenis šiems vartotojams</label
+      >
+      <ul class="row text-info my-2" name=userlist>
+        <li class="col-4" *ngFor="let worker of workers">
+          {{ worker.firstName }}
+        </li>
+      </ul>
+    <div class="my-4 row">
+      <div class="btn-group col-4">
+        <select class="btn btn-secondary dropdown-toggle" type="button">
+          <option *ngFor="let caus of causes">{{ caus.cause }}</option>
+        </select>
+      </div>
+      <div class="btn-group col-4">
+        <select class="btn btn-secondary dropdown-toggle" type="button" name="start">
+          <option *ngFor="let times of times">{{ times }}</option>
+        </select>
+      </div>
+      <div class="btn-group col-4">
+        <select class="btn btn-secondary dropdown-toggle" type="button" name="end">
+          <option *ngFor="let times of times">{{ times }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex row-hl">
+      <button class="ml-auto btn btn-warning item-hl" (click)="onClick()">
+        Pakeisti
+      </button>
+    </div>
+  </div>
+</ng-template>
+
 <div class="container">
   <button
     class="btn btn-outline-warning my-4"
@@ -17,20 +53,23 @@
     Next
   </button>
 </div>
-<div>
-  <div class="joinedrow">
-    <app-empl-cell></app-empl-cell>
-    <app-rowpp></app-rowpp>
-  </div>
-
-  <div class="joinedrow" *ngFor="let monthC of emlpCards">
-    <app-empl-cell class="emplcellborder"
-      [emplFirstName]="monthC.t1.firstName"
-      [emplLastName]="monthC.t1.lastName"
-    ></app-empl-cell>
-    <app-drow
-      [rowjoinedcard]="monthC"
-      [allDaysInmonth]="thisMonthDates"
-    ></app-drow>
+<div class="">
+  <div>
+    <div class="joinedrow">
+      <app-empl-cell></app-empl-cell>
+      <app-rowpp></app-rowpp>
+    </div>
+  
+    <div class="joinedrow" *ngFor="let monthC of emlpCards; let i = index">
+      <app-empl-cell
+        class="emplcellborder"
+        [emplFirstName]="monthC.t1.firstName"
+        [emplLastName]="monthC.t1.lastName"
+      ></app-empl-cell>
+      <app-drow [attr.data-row-index]="i"
+        [rowjoinedcard]="monthC"
+        [allDaysInmonth]="thisMonthDates"
+      ></app-drow>
+    </div>
   </div>
 </div>
