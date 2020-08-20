@@ -25,6 +25,7 @@ import {RowDirectiveDirective} from '../row-directive.directive'
 export class DrowComponent implements OnInit {
   @Input() allDaysInmonth: CalendarDate[];
   @Input() rowjoinedcard: JoinedCard;
+  @Input() rowrow:number;
   updatedCards: DayCard[] = [];
 
 
@@ -70,9 +71,5 @@ export class DrowComponent implements OnInit {
     }
   }
 
-  // onrowclick(){
-  //   console.log('row clicked')
-  //   this.scheduleDateServ.rowsSub.next(this.elementRef.nativeElement.getAttribute('data-row-index'))
-  // }
 
 }

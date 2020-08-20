@@ -1,34 +1,46 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DayCard } from '../day-card';
 import { ScheduleComponent } from '../schedule/schedule.component';
 import { ScheduleService } from '../schedule.service';
-import {RowDirectiveDirective} from '../row-directive.directive'
+import { RowCol } from '../row-col';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dcell',
   templateUrl: './dcell.component.html',
-  styleUrls: ['./dcell.component.css']
+  styleUrls: ['./dcell.component.css'],
 })
 export class DcellComponent implements OnInit {
-  @Input() cellDayCard:DayCard;
-  celine:boolean=true;
-  constructor(private scheduleService:ScheduleService, private elementRef:ElementRef) {
-    
-  }
+  @Input() cellDayCard: DayCard;
+  celine: boolean = false;
+  @Input() currow: number;
+  constructor(
+    private scheduleService: ScheduleService,
+  ) {}
 
   ngOnInit(): void {
-          //cell select overlay section
-      this.scheduleService.celineStatus.subscribe((next)=>{
-        this.celine=next;
-      })
-      this.scheduleService.celineStatus.subscribe((status)=>{
-        console.log(status)
-        this.celine=status;
-      })
   }
 
-  getInfo(){
-    this.scheduleService.colsSub.next(this.elementRef.nativeElement.getAttribute('data-col-index'))
-  };
+  mouseenter() {
+    if (this.scheduleService.mouseDProperty == true) {
+      this.scheduleService.colsRowsSub.next(
+        new RowCol(this.currow,this.cellDayCard.day)
+      );
+      this.celine = true;
+      this.addCelineListener();
+    }
+  }
+
+  addCelineListener() {
+    this.scheduleService.celineStatus.pipe(
+      takeWhile(status=>status==true)
+    ).subscribe((status) => {
+    },
+    (err)=>console.log(err),
+    ()=>
+    this.celine = false);
+  }
+
+
 
 }

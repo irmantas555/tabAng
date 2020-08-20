@@ -4,10 +4,8 @@ import { EmployeeObj } from './employee-obj';
 import { Subject, of, Observable, BehaviorSubject } from 'rxjs';
 import { timeout, map } from 'rxjs/operators';
 import { CalendarDate } from './calendar-date';
-interface rowcol{
-  row:number;
-  col:number;
-}
+import { RowCol } from './row-col';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,11 +18,8 @@ export class ScheduleService implements OnInit {
   currentMonth: number;
   dateChange = new Subject<boolean>();
   celineStatus = new Subject<boolean>();
-  rowsSub = new Subject<number>();
-  colsSub = new Subject<number>();
-  colsRowsSub = new Subject<rowcol>();
+  colsRowsSub = new Subject<RowCol>();
   
-  mouseDown = new Subject<boolean>();
   mouseDProperty:boolean=false;
 
   daysInThisMonth: number;
@@ -35,7 +30,6 @@ export class ScheduleService implements OnInit {
     this.today = new Date();
     this.currentYear = this.today .getFullYear();
     this.currentMonth = this.today.getMonth() + 1;
-    
     this.getDaysInMonth();
     this.getFirstWeekDay();
     this.fillCalendar();

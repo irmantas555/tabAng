@@ -66,7 +66,7 @@ export class ScheduleComponent implements OnInit {
     workersA:AlterDataSet[]=[];
     now:boolean
 
-  constructor(private scheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, 
+    constructor(private scheduleServ:ScheduleService, private scheduleHttp:ScheduleHhtpService, 
     private chDetect:ChangeDetectorRef, private appdataservice:AppDataService, private router:Router, private el: ElementRef) { }
 
   ngOnInit(): void {
@@ -147,7 +147,8 @@ enterDates(){
       if(pair.row==null){
         return;
       }
-    emplId=this.emlpCards[pair.row].t1.employeeId
+      emplId=this.emlpCards[pair.row].t1.employeeId
+      console.log('empId' + emplId)
     found = false;
     this.workersA.forEach(element => {
       if(element.employeeId==emplId){
@@ -167,8 +168,19 @@ enterDates(){
 
 };
 
-
-
+mousedown(){
+  if (this.scheduleServ.mouseDProperty == false){
+    this.scheduleServ.mouseDProperty = true;
+    this.workersA=[];
+  }
+}
+mouseup(){
+  console.log('mouseup fired')
+  if (this.scheduleServ.mouseDProperty == true){
+    this.scheduleServ.mouseDProperty = false;
+    this.scheduleServ.celineStatus.next(false);
+  }
+}
 
 
 

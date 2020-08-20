@@ -60,13 +60,14 @@
       <app-rowpp></app-rowpp>
     </div>
   
-    <div class="joinedrow" *ngFor="let monthC of emlpCards; let i = index">
+    <div class="joinedrow" *ngFor="let monthC of emlpCards; let i = index" (mousedown)="mousedown()" (mouseup)="mouseup()">
       <app-empl-cell
         class="emplcellborder"
         [emplFirstName]="monthC.t1.firstName"
         [emplLastName]="monthC.t1.lastName"
       ></app-empl-cell>
       <app-drow [attr.data-row-index]="i"
+        [rowrow]="i"
         [rowjoinedcard]="monthC"
         [allDaysInmonth]="thisMonthDates"
       ></app-drow>
