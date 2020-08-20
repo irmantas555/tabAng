@@ -4,35 +4,40 @@
       <label class="text-warning my-2 col-6"
         >Pakeisti dienos duomenis šiems vartotojams</label
       >
-      <ul class="row text-info my-2" >
-        <li class="col-4" *ngFor="let worker of workersA">
+      <ul class="row text-info my-2"  >
+        <li class="col-4 my-1" *ngFor="let worker of workersA; let i = index trackBy: trackById"  [value]="i" >
           {{ worker.firstName }} {{ worker.lastName }}
+          <span class="badge badge-primary"  (click)="removeWorker($event)" >x</span>
         </li>
       </ul>
     <div class="my-4 row">
-      <div class="btn-group col-4">
-        <label> Priežastis
-          <select class="btn btn-secondary dropdown-toggle" [(ngModel)]="causeObject" >
+      <div class="btn-group-vertical col-6">
+        <label class="btn text-light"> Priežastis
+        </label>
+          <select class="btn btn-secondary dropdown-toggle" [(ngModel)]="causeObject" [scrollTop]="1">
             <option *ngFor="let caus of causes" ngDefaultControl [ngValue]="caus">{{ caus.cause }}</option>
           </select>
+      </div>
+      <div class="btn-group-vertical col-3">
+        <label  class="btn text-light"> Pražios laikas
         </label>
-      </div>name
-      <div class="btn-group col-4">
-        <label> Pražios laikas
           <select class="btn btn-secondary dropdown-toggle" name="start" [(ngModel)]="startToAlter">
             <option *ngFor="let time of times" [ngValue]="time" name="startselect">{{ time }}</option>
           </select>
+      </div>
+      <div class="btn-group-vertical col-3">
+        <label class="btn text-light"> Pabaigos laikas
         </label>
-
-        <label> Pabaigos laikas
           <select class="btn btn-secondary dropdown-toggle" name="end" [(ngModel)]="endToAlter">
             <option *ngFor="let time of times" [ngValue]="time" name="endselect">{{ time }}</option>
           </select>
-        </label>
       </div>
     </div>
     <div class="d-flex row-hl">
-      <button class="ml-auto btn btn-warning item-hl" (click)="onClick()">
+      <button class="ml-auto mr-2 btn btn-warning item-hl" (click)="onRetreat()">
+        Atšaukti
+      </button>
+      <button class="ml-2 btn btn-warning item-hl" (click)="onClick()">
         Pakeisti
       </button>
     </div>

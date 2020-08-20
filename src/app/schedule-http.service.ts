@@ -96,7 +96,7 @@ export class ScheduleHhtpService {
 
   sendCards(cards: DateOb[]) {
     this.http
-      .post('http://localhost:8080/schedule/setcards', JSON.parse(cards.toString()))
+      .post('http://localhost:8080/schedule/setcards', JSON.stringify(cards), {headers: this.myheaders})
       .subscribe((response: EmplHistOb[]) => {
       },
       (err) => console.log(err),

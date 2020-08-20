@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import {AuthInterceptor} from './auth-interceptor.service'
 import { HomeComponent } from './home/home.component';
@@ -33,7 +33,7 @@ export function appInit(appDataService: AppDataService,scheduleService:ScheduleS
     appDataService.init();
     scheduleService.init();
     scheduleHttpService.init();
-  } 
+  }
 }
 
 @NgModule({
@@ -57,14 +57,15 @@ export function appInit(appDataService: AppDataService,scheduleService:ScheduleS
     DrowComponent,
     RowDirectiveDirective,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    CommonModule,
-    FormsModule,
-    NoopAnimationsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        CommonModule,
+        FormsModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule
+    ],
   providers: [AppDataService, ScheduleService,ScheduleHhtpService,
     {
       provide: APP_INITIALIZER,
@@ -73,6 +74,6 @@ export function appInit(appDataService: AppDataService,scheduleService:ScheduleS
       deps: [AppDataService,ScheduleService, ScheduleHhtpService]
     }, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, DatePipe],
   bootstrap: [AppComponent],
-  
+
 })
 export class AppModule { }

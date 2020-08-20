@@ -20,50 +20,50 @@ import { Empl } from './empl';
 @Injectable({
   providedIn: 'root',
 })
-export class AppDataService implements OnInit {
+export class AppDataService {
   // cause properties
   causesStringdata = new Subject<Cause>();
   causesdata = new Subject<Cause>();
   causeob: Cause = new Cause();
-  allCauses: Cause[]=[];
+  allCauses: Cause[] = [];
   // country properties
   countrydata = new Subject<Country>();
   countryob: Country = new Country();
-  allCountries: Country[]=[];
+  allCountries: Country[] = [];
   // emplouees properties
   employeedata = new Subject<Empl>();
   emploeeob: Empl = new Empl();
-  allEmployees: Empl[]=[];
+  allEmployees: Empl[] = [];
   // payment properties
   paymentdata = new Subject<Payment>();
   paymentob: Payment = new Payment();
-  allPayments: Payment[]=[];
+  allPayments: Payment[] = [];
   // exhours properties
   exhourstdata = new Subject<ExHours>();
   exhourob: ExHours = new ExHours();
-  allExHours: ExHours[]=[];
+  allExHours: ExHours[] = [];
   // position properties
   positiondata = new Subject<Position>();
   positionob: Position = new Position();
-  allPositions: Position[]=[];
-  //Department properties
+  allPositions: Position[] = [];
+  // Department properties
   departmentdtodata = new Subject<string>();
   departmentdata = new Subject<Department>();
   departmentob: DepartmentDto = new DepartmentDto();
-  allDepartments: Department[]=[];
-  //DepartmentData properties
+  allDepartments: Department[] = [];
+  // DepartmentData properties
   empljobtdata = new Subject<EmplJobData>();
-  allEmplJobData: EmplJobData[]=[];
-  //Holiday properties
+  allEmplJobData: EmplJobData[] = [];
+  // Holiday properties
   holidaydtotdata = new Subject<string>();
   holidaytdata = new Subject<Holiday>();
   holidayob: HolidayDto = new HolidayDto();
-  allHolidays: Holiday[]=[];
-  //Shift properties
+  allHolidays: Holiday[] = [];
+  // Shift properties
   shiftdtodata = new Subject<string>();
   shiftdata = new Subject<Shift>();
   shiftob: ShiftDto = new ShiftDto();
-  allShifts: Shift[]=[];
+  allShifts: Shift[] = [];
 
   optionjson = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
@@ -72,9 +72,6 @@ export class AppDataService implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-   
-  }
 
   init(){
     this.getEmployeess();
@@ -86,13 +83,13 @@ export class AppDataService implements OnInit {
     this.getShifts();
     this.getHolidays();
     this.getEmployeess();
-  };
+  }
 
   getCauses() {
     this.http
       .get('http://localhost:8080/data/cause')
       .subscribe((response: Cause[]) => {
-        response.forEach((element:Cause) => {
+        response.forEach((element: Cause) => {
           this.allCauses.push(element);
           this.causesdata.next(element);
         });
@@ -197,7 +194,7 @@ export class AppDataService implements OnInit {
       .subscribe((response: Department[]) => {
         response.forEach((element) => {
           this.departmentdata.next(element);
-          this.allDepartments.push(element)
+          this.allDepartments.push(element);
         });
       });
   }
@@ -242,7 +239,7 @@ export class AppDataService implements OnInit {
       .subscribe((response: Holiday[]) => {
         response.forEach((element) => {
           this.holidaytdata.next(element);
-          this.allHolidays.push(element)
+          this.allHolidays.push(element);
         });
       });
   }
@@ -292,7 +289,7 @@ export class AppDataService implements OnInit {
       .subscribe((response: Shift[]) => {
         response.forEach((element) => {
           this.shiftdata.next(element);
-          this.allShifts.push(element)
+          this.allShifts.push(element);
         });
       });
   }

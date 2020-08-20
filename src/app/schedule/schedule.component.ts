@@ -10,6 +10,7 @@ import { JoinedCard } from '../joined-card';
 import { RouterLink, Router } from '@angular/router';
 import {AlterDataSet} from '../alter-data-set';
 import {DateOb} from '../date-ob';
+import {FormControl} from '@angular/forms';
 
 
 @Component({
@@ -29,9 +30,8 @@ export class ScheduleComponent implements OnInit {
 
     modal = false;
     causes: Cause[] = [];
-    newCardForAll: DayCard;
     times: string[] = [];
-    // workers: Empl[] = [];
+    // curentW: AlterDataSet = new AlterDataSet(0);
     workersA: AlterDataSet[] = [];
     causeObject: Cause = new Cause();
     alterDates: DateOb[] = [];
@@ -39,6 +39,8 @@ export class ScheduleComponent implements OnInit {
     endToAlter;
     duraToAlter;
     // now: boolean;
+
+  selectedCausesControl = new FormControl();
 
     constructor(private scheduleServ: ScheduleService, private scheduleHttp: ScheduleHhtpService,
                 private chDetect: ChangeDetectorRef, private appdataservice: AppDataService,
@@ -62,6 +64,7 @@ export class ScheduleComponent implements OnInit {
     this.emlpCards = this.scheduleHttp.emplMonthCards;
     // alter-box section
     this.causes = this.appdataservice.allCauses;
+    this.causeObject = this.appdataservice.allCauses[0];
     // this.causeToAlter  = this.appdataservice.allCauses[0].id;
     this.makeTimes();
     // this.appdataservice.employeedata.pipe(
@@ -82,11 +85,13 @@ export class ScheduleComponent implements OnInit {
 
   nextMonth(){
     this.scheduleServ.today.setMonth(this.today.getMonth() + 1);
+    this.emlpCards = [];
     this.scheduleServ.newDateData(this.today);
   }
 
   prevMonth(){
     this.scheduleServ.today.setMonth(this.today.getMonth() - 1);
+    this.emlpCards = [];
     this.scheduleServ.newDateData(this.today);
   }
 
@@ -101,11 +106,35 @@ export class ScheduleComponent implements OnInit {
         }
       }
     }
+    this.startToAlter = ('8:00:00');
+    this.endToAlter = ('17:00:00');
   }
 
   onClick(){
       this.newCauses();
+      this.scheduleHttp.sendCards(this.alterDates);
+      this.alterDates = [];
       this.modal = false;
+  }
+
+  onRetreat(){
+      this.modal = false;
+  }
+
+  removeWorker(val: any){
+      this.workersA.splice(val.currentTarget.closest('li').value, 1 );
+  }
+
+
+
+  trackById(index: number, worker: any){
+    if (!worker){ return null ; }
+    // console.log('w ' + index + 'i ' + worker);
+    return worker.id;
+  }
+
+  compareFn(c1: Cause, c2: Cause): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   dismisModal(){
@@ -170,25 +199,35 @@ mouseup(){
   if (this.scheduleServ.mouseDProperty === true){
     this.scheduleServ.mouseDProperty = false;
     this.scheduleServ.celineStatus.next(false);
+    this.scheduleServ.dCardChange.next(false);
     this.modal = true;
   }
 }
 
-
   newCauses(){
     let id;
+    let tempDCard = new DayCard();
     this.workersA.forEach((emplToAlter) => {
         id = emplToAlter.employeeId;
         emplToAlter.days.forEach((day) => {
           const tempDate = new DateOb();
           tempDate.employeeId = id;
           tempDate.date = new Date(this.currentYear, this.currentMonth, day);
-          console.log(this.causeObject);
           tempDate.cause = this.causeObject.id;
           tempDate.startTime = this.startToAlter;
           tempDate.duration = this.getTimeDiff(this.startToAlter, this.endToAlter);
+          tempDCard.cause = this.causeObject.id;
+          tempDCard.day = day;
+          tempDCard.startTime = this.startToAlter;
+          this.appdataservice.allCauses.forEach((cause) => {
+            if (cause.id === tempDCard.cause) {
+              tempDCard.causeStr = cause.cause;
+              tempDCard.causeCod = cause.cod;
+            }
+          });
+          this.scheduleServ.newCardValue = tempDCard;
+          this.scheduleServ.dCardChange.next(true);
           this.alterDates.push(tempDate);
-          console.log(tempDate);
         });
     });
   }
@@ -196,58 +235,19 @@ mouseup(){
   getTimeDiff(start, end){
       const startA: string[] = start.split(':');
       const endA: string[] = end.split(':');
+      // console.log(startA);
+      // console.log(endA);
       let dura = 0;
       if (Number(startA[1]) > Number(endA[1])){
-          dura = new Date(1950, 1, 1, Number(startA[1]), Number(startA[2]), Number(startA[3] )).getMinutes() -
-        new Date(1950, 1, 1, Number(endA[1]), Number(endA[2]), Number(end[3])).getMinutes();
+          dura = new Date(1950, 1, 1, Number(startA[0]), Number(startA[1]), Number(startA[2] )).getMinutes() -
+        new Date(1950, 1, 1, Number(endA[0]), Number(endA[1]), Number(end[2])).getMinutes();
         } else {
-          dura = new Date(1950, 1, 2, Number(endA[1]), Number(endA[2]), Number(endA[3] )).getMinutes() -
-          new Date(1950, 1, 1, Number(startA[1]), Number(startA[2]), Number(startA[3] )).getMinutes();
+          dura = new Date(1950, 1, 2, Number(endA[0]), Number(endA[1]), Number(endA[2] )).getMinutes() -
+          new Date(1950, 1, 1, Number(startA[0]), Number(startA[1]), Number(startA[2] )).getMinutes();
         }
       return dura;
   }
 
-
-
-  // getthisMonthDates(){
-  //   this.thisMonthDates = [];
-  //   if (this.datedata === undefined || this.datedata.length === 0){
-  //     from(this.datedata)
-  //     .pipe(
-  //       filter(dd=>dd.date.getMonth() === this.currentMonth)
-  //     )
-  //     .subscribe((filtered) =>this.thisMonthDates.push(filtered));
-  //   };
-  // };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // loadToday(){
-  //   this.sheduleServ.today.subscribe((tod) =>{
-  //     console.log('today = ' + tod )
-  //     this.today = tod;
-  //   })
-  //   this.sheduleServ.daysInThisMonth.subscribe((days) =>{
-  //     console.log('today = ' + days )
-  //     this.daysinMonth = days;
-  //   })
-  //   this.sheduleServ.weekDayOf1MDay.subscribe((day) =>{
-  //     console.log('today = ' + day )
-  //     this.daysinMonth = day;
-  //   })
-  // };
 
 
 }

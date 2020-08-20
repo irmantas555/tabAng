@@ -3,7 +3,7 @@ import { DayCard } from '../day-card';
 import { ScheduleComponent } from '../schedule/schedule.component';
 import { ScheduleService } from '../schedule.service';
 import { RowCol } from '../row-col';
-import { takeWhile } from 'rxjs/operators';
+import {take, takeWhile} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dcell',
@@ -28,6 +28,7 @@ export class DcellComponent implements OnInit {
       );
       this.celine = true;
       this.addCelineListener();
+      this.addDCardListener();
     }
   }
 
@@ -41,8 +42,18 @@ export class DcellComponent implements OnInit {
       // console.log('usubscribed');
       this.celine = false;
     });
+
   }
 
-
+  addDCardListener(){
+    let id = 0;
+    this.scheduleService.dCardChange.pipe(take(1)).subscribe((status) => {
+      if (status === true){
+       id = this.cellDayCard.employeeId;
+       this.cellDayCard = this.scheduleService.newCardValue;
+       this.cellDayCard.employeeId = id;
+      }
+    });
+  }
 
 }

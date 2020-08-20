@@ -5,11 +5,12 @@ import { Subject, of, Observable, BehaviorSubject } from 'rxjs';
 import { timeout, map } from 'rxjs/operators';
 import { CalendarDate } from './calendar-date';
 import { RowCol } from './row-col';
+import {DayCard} from './day-card';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ScheduleService implements OnInit {
+export class ScheduleService {
   thisMonthCalendar: CalendarDate[] = [];
 
   constructor(private http: HttpClient) {}
@@ -19,14 +20,15 @@ export class ScheduleService implements OnInit {
   dateChange = new Subject<boolean>();
   celineStatus = new Subject<boolean>();
   colsRowsSub = new Subject<RowCol>();
-  
-  mouseDProperty:boolean=false;
+  dCardChange = new Subject<boolean>();
+  mouseDProperty = false;
+  newCardValue: DayCard;
 
   daysInThisMonth: number;
   weekDayOf1MDay: number;
 
   init() {
-    console.log('shedule service init')
+    console.log('shedule service init');
     this.today = new Date();
     this.currentYear = this.today .getFullYear();
     this.currentMonth = this.today.getMonth() + 1;
@@ -35,8 +37,6 @@ export class ScheduleService implements OnInit {
     this.fillCalendar();
   }
 
-  ngOnInit() {
-  }
 
   fillCalendar() {
     let empCCard: CalendarDate;
