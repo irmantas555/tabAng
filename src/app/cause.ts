@@ -1,5 +1,5 @@
 export class Cause {
-    id:number;
-    cause:string;
-    cod:string;
+    id: number;
+    cause: string;
+    cod: string;
 }

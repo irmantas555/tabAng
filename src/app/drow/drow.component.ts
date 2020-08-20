@@ -25,20 +25,20 @@ import {RowDirectiveDirective} from '../row-directive.directive'
 export class DrowComponent implements OnInit {
   @Input() allDaysInmonth: CalendarDate[];
   @Input() rowjoinedcard: JoinedCard;
-  @Input() rowrow:number;
+  @Input() rowrow: number;
   updatedCards: DayCard[] = [];
 
 
   constructor(
     private scheduleDateServ: ScheduleService,
     private dataService: AppDataService,
-    private elementRef:ElementRef
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
     this.addmissingcards();
     // this.allDaysInmonth = this.scheduleDateServ.thisMonthCalendar;
-    // this.scheduleDateServ.dateChange.subscribe((change)=>{
+    // this.scheduleDateServ.dateChange.subscribe((change) =>{
     //   this.allDaysInmonth = this.scheduleDateServ.thisMonthCalendar;
   }
   addmissingcards() {
@@ -46,12 +46,12 @@ export class DrowComponent implements OnInit {
     for (let index = 1; index < this.allDaysInmonth.length + 1; index++) {
       pushed = false;
       this.rowjoinedcard.t2.forEach((element: DayCard) => {
-        if (pushed == false) {
-          if (element.day == index) {
+        if (pushed === false) {
+          if (element.day === index) {
             this.updatedCards.push(element);
-            this.dataService.allCauses.forEach((cause)=>
+            this.dataService.allCauses.forEach((cause) =>
             {
-              if(cause.id == element.cause){
+              if(cause.id === element.cause){
                 element.causeStr = cause.cause;
                 element.causeCod = cause.cod;
               }
@@ -61,7 +61,7 @@ export class DrowComponent implements OnInit {
           }
         }
       });
-      if (pushed == false) {
+      if (pushed === false) {
         let tempCard = new DayCard();
         tempCard.day = index;
         tempCard.causeCod = '';

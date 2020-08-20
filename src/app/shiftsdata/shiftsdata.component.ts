@@ -19,7 +19,7 @@ export class ShiftsdataComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataserv.getDtoShifts();
-    this.dataserv.shiftdata.subscribe((nextdept)=>{
+    this.dataserv.shiftdata.subscribe((nextdept) =>{
       this.shifts.push('' + nextdept.shiftNumber + ' ' + + nextdept.department + ' ' + nextdept.startTime +
        ' ' + nextdept.endTime + nextdept.timeOutMinutes );
       this.haveShift = true;
@@ -27,7 +27,7 @@ export class ShiftsdataComponent implements OnInit {
   }
 
   sendDept(){
-   console.log('started country = ' + this.shift) 
+   console.log('started country = ' + this.shift)
    this.dataserv.postShift(this.shift)
   }
 

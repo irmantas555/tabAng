@@ -16,7 +16,7 @@ export class RowppComponent implements OnInit {
   ngOnInit(): void {
     this.monthdays=this.ScheduleDateServ.daysInThisMonth;
     this.days=this.ScheduleDateServ.thisMonthCalendar;
-    this.ScheduleDateServ.dateChange.subscribe((ch)=>{
+    this.ScheduleDateServ.dateChange.subscribe((ch) =>{
       this.monthdays=this.ScheduleDateServ.daysInThisMonth;
       this.days=this.ScheduleDateServ.thisMonthCalendar;
       console.log('Now days ' + this.days.length)
@@ -24,6 +24,6 @@ export class RowppComponent implements OnInit {
   };
 
 
-  
+
 
 }

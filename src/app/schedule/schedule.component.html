@@ -1,29 +1,34 @@
 <ng-template [ngIf]="modal">
   <div class="backdrop"></div>
   <div class="alert-box">
-      <label class="text-warning my-2 col-6" for="userlist"
+      <label class="text-warning my-2 col-6"
         >Pakeisti dienos duomenis šiems vartotojams</label
       >
-      <ul class="row text-info my-2" name=userlist>
-        <li class="col-4" *ngFor="let worker of workers">
-          {{ worker.firstName }}
+      <ul class="row text-info my-2" >
+        <li class="col-4" *ngFor="let worker of workersA">
+          {{ worker.firstName }} {{ worker.lastName }}
         </li>
       </ul>
     <div class="my-4 row">
       <div class="btn-group col-4">
-        <select class="btn btn-secondary dropdown-toggle" type="button">
-          <option *ngFor="let caus of causes">{{ caus.cause }}</option>
-        </select>
-      </div>
+        <label> Priežastis
+          <select class="btn btn-secondary dropdown-toggle" [(ngModel)]="causeObject" >
+            <option *ngFor="let caus of causes" ngDefaultControl [ngValue]="caus">{{ caus.cause }}</option>
+          </select>
+        </label>
+      </div>name
       <div class="btn-group col-4">
-        <select class="btn btn-secondary dropdown-toggle" type="button" name="start">
-          <option *ngFor="let times of times">{{ times }}</option>
-        </select>
-      </div>
-      <div class="btn-group col-4">
-        <select class="btn btn-secondary dropdown-toggle" type="button" name="end">
-          <option *ngFor="let times of times">{{ times }}</option>
-        </select>
+        <label> Pražios laikas
+          <select class="btn btn-secondary dropdown-toggle" name="start" [(ngModel)]="startToAlter">
+            <option *ngFor="let time of times" [ngValue]="time" name="startselect">{{ time }}</option>
+          </select>
+        </label>
+
+        <label> Pabaigos laikas
+          <select class="btn btn-secondary dropdown-toggle" name="end" [(ngModel)]="endToAlter">
+            <option *ngFor="let time of times" [ngValue]="time" name="endselect">{{ time }}</option>
+          </select>
+        </label>
       </div>
     </div>
     <div class="d-flex row-hl">
@@ -59,7 +64,7 @@
       <app-empl-cell></app-empl-cell>
       <app-rowpp></app-rowpp>
     </div>
-  
+
     <div class="joinedrow" *ngFor="let monthC of emlpCards; let i = index" (mousedown)="mousedown()" (mouseup)="mouseup()">
       <app-empl-cell
         class="emplcellborder"

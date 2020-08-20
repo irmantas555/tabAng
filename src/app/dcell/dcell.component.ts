@@ -12,7 +12,7 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class DcellComponent implements OnInit {
   @Input() cellDayCard: DayCard;
-  celine: boolean = false;
+  celine = false;
   @Input() currow: number;
   constructor(
     private scheduleService: ScheduleService,
@@ -22,9 +22,9 @@ export class DcellComponent implements OnInit {
   }
 
   mouseenter() {
-    if (this.scheduleService.mouseDProperty == true) {
+    if (this.scheduleService.mouseDProperty === true) {
       this.scheduleService.colsRowsSub.next(
-        new RowCol(this.currow,this.cellDayCard.day)
+        new RowCol(this.currow, this.cellDayCard.day)
       );
       this.celine = true;
       this.addCelineListener();
@@ -33,12 +33,14 @@ export class DcellComponent implements OnInit {
 
   addCelineListener() {
     this.scheduleService.celineStatus.pipe(
-      takeWhile(status=>status==true)
+      takeWhile(status => status === true)
     ).subscribe((status) => {
     },
-    (err)=>console.log(err),
-    ()=>
-    this.celine = false);
+    (err) => console.log(err),
+    () => {
+      // console.log('usubscribed');
+      this.celine = false;
+    });
   }
 
 

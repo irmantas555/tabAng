@@ -13,7 +13,7 @@ export class RowDirectiveDirective {
 
   @HostListener('mouseenter') onmouseenter() {
     // console.log('Mouse enter fired')
-    if (this.scheduleService.mouseDProperty == true) {
+    if (this.scheduleService.mouseDProperty === true) {
     }
   }
 
