@@ -18,15 +18,15 @@ export class DepartmentdataComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataserv.getDtoDepartments();
-    this.dataserv.departmentdtodata.subscribe((nextdept)=>{
+    this.dataserv.departmentdtodata.subscribe((nextdept) =>{
       this.depts.push(nextdept);
       this.haveDept = true;
     })
   }
 
   sendDept(){
-   console.log('started country = ' + this.department) 
+   console.log('started country = ' + this.department)
    this.dataserv.postDepartment(this.department)
-  
+
   }
 }

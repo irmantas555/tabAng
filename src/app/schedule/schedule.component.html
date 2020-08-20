@@ -1,33 +1,43 @@
 <ng-template [ngIf]="modal">
   <div class="backdrop"></div>
   <div class="alert-box">
-      <label class="text-warning my-2 col-6" for="userlist"
+      <label class="text-warning my-2 col-6"
         >Pakeisti dienos duomenis šiems vartotojams</label
       >
-      <ul class="row text-info my-2" name=userlist>
-        <li class="col-4" *ngFor="let worker of workers">
-          {{ worker.firstName }}
+      <ul class="row text-info my-2"  >
+        <li class="col-4 my-1" *ngFor="let worker of workersA; let i = index trackBy: trackById"  [value]="i" >
+          {{ worker.firstName }} {{ worker.lastName }}
+          <span class="badge badge-primary"  (click)="removeWorker($event)" >x</span>
         </li>
       </ul>
     <div class="my-4 row">
-      <div class="btn-group col-4">
-        <select class="btn btn-secondary dropdown-toggle" type="button">
-          <option *ngFor="let caus of causes">{{ caus.cause }}</option>
-        </select>
+      <div class="btn-group-vertical col-6">
+        <label class="btn text-light"> Priežastis
+        </label>
+          <select class="btn btn-secondary dropdown-toggle" [(ngModel)]="causeObject" [scrollTop]="1">
+            <option *ngFor="let caus of causes" ngDefaultControl [ngValue]="caus">{{ caus.cause }}</option>
+          </select>
       </div>
-      <div class="btn-group col-4">
-        <select class="btn btn-secondary dropdown-toggle" type="button" name="start">
-          <option *ngFor="let times of times">{{ times }}</option>
-        </select>
+      <div class="btn-group-vertical col-3">
+        <label  class="btn text-light"> Pražios laikas
+        </label>
+          <select class="btn btn-secondary dropdown-toggle" name="start" [(ngModel)]="startToAlter">
+            <option *ngFor="let time of times" [ngValue]="time" name="startselect">{{ time }}</option>
+          </select>
       </div>
-      <div class="btn-group col-4">
-        <select class="btn btn-secondary dropdown-toggle" type="button" name="end">
-          <option *ngFor="let times of times">{{ times }}</option>
-        </select>
+      <div class="btn-group-vertical col-3">
+        <label class="btn text-light"> Pabaigos laikas
+        </label>
+          <select class="btn btn-secondary dropdown-toggle" name="end" [(ngModel)]="endToAlter">
+            <option *ngFor="let time of times" [ngValue]="time" name="endselect">{{ time }}</option>
+          </select>
       </div>
     </div>
     <div class="d-flex row-hl">
-      <button class="ml-auto btn btn-warning item-hl" (click)="onClick()">
+      <button class="ml-auto mr-2 btn btn-warning item-hl" (click)="onRetreat()">
+        Atšaukti
+      </button>
+      <button class="ml-2 btn btn-warning item-hl" (click)="onClick()">
         Pakeisti
       </button>
     </div>
@@ -59,14 +69,18 @@
       <app-empl-cell></app-empl-cell>
       <app-rowpp></app-rowpp>
     </div>
-  
-    <div class="joinedrow" *ngFor="let monthC of emlpCards; let i = index">
+
+    <div class="joinedrow" *ngFor="let monthC of emlpCards; let i = index" (mousedown)="mousedown()" (mouseup)="mouseup()">
       <app-empl-cell
         class="emplcellborder"
         [emplFirstName]="monthC.t1.firstName"
         [emplLastName]="monthC.t1.lastName"
       ></app-empl-cell>
-      <app-drow [rowjoinedcard]="monthC" [allDaysInmonth]="thisMonthDates" ></app-drow>
+      <app-drow [attr.data-row-index]="i"
+        [rowrow]="i"
+        [rowjoinedcard]="monthC"
+        [allDaysInmonth]="thisMonthDates"
+      ></app-drow>
     </div>
   </div>
 </div>

@@ -18,16 +18,16 @@ export class CausesdataComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataserv.getCauses();
-    this.dataserv.causesdata.subscribe((nextcause)=>{
+    this.dataserv.causesdata.subscribe((nextcause) =>{
       console.log('received causes' + nextcause)
       this.resp.push(nextcause.cause + ' ' + nextcause.cod);
     })
   }
 
   sendCause(){
-   console.log('started couse = ' + this.cause) 
+   console.log('started couse = ' + this.cause)
    this.dataserv.postCause(this.cause)
-  
+
   }
 
 }

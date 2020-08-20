@@ -8,12 +8,12 @@ import { Subject } from 'rxjs';
 export class ClipboardService {
   cdata: string = '';
   ccontent = new Subject<string>();
- 
+
 
   constructor(private clipboard: Clipboard) {}
 
   pCContent() {
-    navigator.clipboard.readText().then((res)=>{
+    navigator.clipboard.readText().then((res) =>{
       this.cdata = res
     })
     console.log(this.cdata)

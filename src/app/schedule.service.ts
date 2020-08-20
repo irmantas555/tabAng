@@ -4,14 +4,13 @@ import { EmployeeObj } from './employee-obj';
 import { Subject, of, Observable, BehaviorSubject } from 'rxjs';
 import { timeout, map } from 'rxjs/operators';
 import { CalendarDate } from './calendar-date';
-interface rowcol{
-  row:number;
-  col:number;
-}
+import { RowCol } from './row-col';
+import {DayCard} from './day-card';
+
 @Injectable({
   providedIn: 'root',
 })
-export class ScheduleService implements OnInit {
+export class ScheduleService {
   thisMonthCalendar: CalendarDate[] = [];
 
   constructor(private http: HttpClient) {}
@@ -20,29 +19,24 @@ export class ScheduleService implements OnInit {
   currentMonth: number;
   dateChange = new Subject<boolean>();
   celineStatus = new Subject<boolean>();
-  rowsSub = new Subject<number>();
-  colsSub = new Subject<number>();
-  colsRowsSub = new Subject<rowcol>();
-  
-  mouseDown = new Subject<boolean>();
-  mouseDProperty:boolean=false;
+  colsRowsSub = new Subject<RowCol>();
+  dCardChange = new Subject<boolean>();
+  mouseDProperty = false;
+  newCardValue: DayCard;
 
   daysInThisMonth: number;
   weekDayOf1MDay: number;
 
   init() {
-    console.log('shedule service init')
+    console.log('shedule service init');
     this.today = new Date();
     this.currentYear = this.today .getFullYear();
     this.currentMonth = this.today.getMonth() + 1;
-    
     this.getDaysInMonth();
     this.getFirstWeekDay();
     this.fillCalendar();
   }
 
-  ngOnInit() {
-  }
 
   fillCalendar() {
     let empCCard: CalendarDate;

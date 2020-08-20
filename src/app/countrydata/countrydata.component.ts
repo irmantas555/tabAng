@@ -17,14 +17,14 @@ export class CountrydataComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataserv.getCountries();
-    this.dataserv.countrydata.subscribe((nextcountry)=>{
+    this.dataserv.countrydata.subscribe((nextcountry) =>{
       this.coutries.push(nextcountry.name);
     })
   }
 
   sendCause(){
-   console.log('started country = ' + this.country) 
+   console.log('started country = ' + this.country)
    this.dataserv.postCountry(this.country)
-  
+
   }
 }

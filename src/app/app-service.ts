@@ -48,7 +48,7 @@ export class AppServiceService {
   authenticate(credentials: loging) {
 
     const params = new HttpParams().append('email',credentials.email).append('password',credentials.password)
-    
+
     this.http
       .post('http://localhost:8080/login',params.toString(),this.option)
       .subscribe((response:resp) => {
@@ -90,13 +90,13 @@ export class AppServiceService {
       .post('http://localhost:8080/dto/fempl',JSON.stringify(element),this.optionjson)
       .subscribe((response:resp) => {
           this.count++;
-  
-      },(err)=>{
+
+      },(err) =>{
         console.log('emloyee: '  + element + ' could not be saved' + err)
       }
       )
     });
-    console.log('so much elements posted: ' + this.count)  
+    console.log('so much elements posted: ' + this.count)
     this.count = 0;
   };
 

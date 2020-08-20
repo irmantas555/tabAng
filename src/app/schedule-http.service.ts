@@ -9,22 +9,24 @@ import { ScheduleService } from './schedule.service';
 import { Time } from '@angular/common';
 import { PartialObserver } from 'rxjs';
 import { JoinedCard } from './joined-card';
+import {DateOb} from './date-ob';
 
+// tslint:disable-next-line:class-name
 interface type4{
-  employeeId: number;   //Emlp
-  day: number;          //DayCard
-  cause: number;        //DayCard
-  startTime:Time;      //DayCard
-  endTime: Time;        //DayCard
-  causeStr: string;     //Cause
-  causeCod: string;     //Cause
-  extraTime: number;    //calculated
+  employeeId: number;   // Emlp
+  day: number;          // DayCard
+  cause: number;        // DayCard
+  startTime: Time;      // DayCard
+  endTime: Time;        // DayCard
+  causeStr: string;     // Cause
+  causeCod: string;     // Cause
+  extraTime: number;    // calculated
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class ScheduleHhtpService implements OnInit {
+export class ScheduleHhtpService {
   employHistData: EmplHistOb[] = [];
   emplMonthCards: JoinedCard[] = [];
 
@@ -37,8 +39,8 @@ export class ScheduleHhtpService implements OnInit {
   currentYear: number = this.scheduleServ.currentYear;
   currentMonth: number = this.scheduleServ.currentMonth;
 
-    myheaders:HttpHeaders;
-    myparams:HttpParams;
+    myheaders: HttpHeaders;
+    myparams: HttpParams;
 
   dateparam;
 
@@ -49,17 +51,17 @@ export class ScheduleHhtpService implements OnInit {
   // };
 
   init(){
-        //calendar section
+        // calendar section
         this.today = this.scheduleServ.today;
         this.currentYear = this.scheduleServ.currentYear;
         this.currentMonth = this.scheduleServ.currentMonth;
-          this.myheaders = new HttpHeaders().append('Content-Type', 'application/json'),
+        this.myheaders = new HttpHeaders().append('Content-Type', 'application/json'),
           this.myparams = new HttpParams()
           .append('year', this.currentYear.toString())
           .append('month', this.currentMonth.toString())
-          .append('responseType','json')
-          .append('withCredentials', 'true')
-        console.log('loading schedule')
+          .append('responseType', 'json')
+          .append('withCredentials', 'true');
+        console.log('loading schedule');
         this.loadEmployMonthCards();
         this.scheduleServ.dateChange.subscribe((ch) => {
           this.today = this.scheduleServ.today;
@@ -68,14 +70,10 @@ export class ScheduleHhtpService implements OnInit {
           this.myparams = new HttpParams()
           .append('year', this.currentYear.toString())
           .append('month', this.currentMonth.toString())
-          .append('responseType','json')
-          .append('withCredentials', 'true')
+          .append('responseType', 'json')
+          .append('withCredentials', 'true');
           this.loadEmployMonthCards();
         });
-  };
-
-  ngOnInit() {
-
   }
 
   loadEmployMonthCards() {
@@ -83,18 +81,26 @@ export class ScheduleHhtpService implements OnInit {
       .get(
         'http://localhost:8080/schedule/allmonthcards',
         {
-          headers:this.myheaders,
-          params:this.myparams
+          headers: this.myheaders,
+          params: this.myparams
         }
       )
-      .subscribe((response:JoinedCard[]) => {
-
+      .subscribe((response: JoinedCard[]) => {
         // let mcds:JoinedCard = JSON.parse(response)
-        response.forEach((element:JoinedCard) => {
-          console.log('got month card ' + element.t1.firstName)
+        response.forEach((element: JoinedCard) => {
+          // console.log('got month card ' + element.t1.firstName)
           this.emplMonthCards.push(element);
         });
       });
+  }
+
+  sendCards(cards: DateOb[]) {
+    this.http
+      .post('http://localhost:8080/schedule/setcards', JSON.stringify(cards), {headers: this.myheaders})
+      .subscribe((response: EmplHistOb[]) => {
+      },
+      (err) => console.log(err),
+      () => console.log('All sent'));
   }
 
   loadEmployeesHist() {
@@ -106,4 +112,6 @@ export class ScheduleHhtpService implements OnInit {
         });
       });
   }
+
+
 }
