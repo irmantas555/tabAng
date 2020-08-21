@@ -38,9 +38,9 @@ export class ScheduleHhtpService {
   today: Date = this.scheduleServ.today;
   currentYear: number = this.scheduleServ.currentYear;
   currentMonth: number = this.scheduleServ.currentMonth;
-
     myheaders: HttpHeaders;
     myparams: HttpParams;
+    myMonthparams: HttpParams;
 
   dateparam;
 
@@ -58,10 +58,15 @@ export class ScheduleHhtpService {
         this.myheaders = new HttpHeaders().append('Content-Type', 'application/json'),
           this.myparams = new HttpParams()
           .append('year', this.currentYear.toString())
-          .append('month', this.currentMonth.toString())
+          .append('month', (this.currentMonth  + 1).toString())
           .append('responseType', 'json')
           .append('withCredentials', 'true');
-        console.log('loading schedule');
+        this.myMonthparams = new HttpParams()
+          .append('year', this.currentYear.toString())
+          .append('month', (this.currentMonth).toString())
+          .append('responseType', 'json')
+          .append('withCredentials', 'true');
+        // console.log('loading schedule');
         this.loadEmployMonthCards();
         this.scheduleServ.dateChange.subscribe((ch) => {
           this.today = this.scheduleServ.today;
@@ -69,7 +74,7 @@ export class ScheduleHhtpService {
           this.currentMonth = this.scheduleServ.currentMonth;
           this.myparams = new HttpParams()
           .append('year', this.currentYear.toString())
-          .append('month', this.currentMonth.toString())
+          .append('month', (this.currentMonth  + 1).toString())
           .append('responseType', 'json')
           .append('withCredentials', 'true');
           this.loadEmployMonthCards();
@@ -95,9 +100,15 @@ export class ScheduleHhtpService {
   }
 
   sendCards(cards: DateOb[]) {
+
+    // cards.forEach(card => {
+    //   console.log('received card in HTTP ' + card.date);
+    //   console.log(JSON.stringify(card));
+    //   }
+    // );
     this.http
       .post('http://localhost:8080/schedule/setcards', JSON.stringify(cards), {headers: this.myheaders})
-      .subscribe((response: EmplHistOb[]) => {
+      .subscribe((response: any) => {
       },
       (err) => console.log(err),
       () => console.log('All sent'));
@@ -114,4 +125,22 @@ export class ScheduleHhtpService {
   }
 
 
+  sendDeleteCards(cards: DateOb[]) {
+    // cards.forEach(card => {
+    //   console.log('received card in HTTP ' + card.date);
+    //   // console.log(JSON.stringify(card));
+    //   }
+    // );
+    // cards.forEach(card => {
+    //   console.log('received card in HTTP ' + card.date);
+    //   console.log(JSON.stringify(card));
+    //   }
+    // );
+    this.http
+      .post('http://localhost:8080/schedule/dcards', JSON.stringify(cards), {headers: this.myheaders})
+      .subscribe((response: any) => {
+        },
+        (err) => console.log(err),
+        () => console.log('All delete sent'));
+  }
 }

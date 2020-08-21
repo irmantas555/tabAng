@@ -25,8 +25,7 @@
 <p
   class="cell static"
   [ngStyle]="
-    (weekday === 0 && { background: 'red' }) ||
-    (weekday === 6 && { background: 'red' })
+    (weekday === 0  || weekday === 6 ? { background: 'rgb(250,180,40)' } :{ background: 'rgb(238, 240, 242)' } )
   "
 >
   {{ celld }}

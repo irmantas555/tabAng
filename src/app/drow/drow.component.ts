@@ -46,7 +46,7 @@ export class DrowComponent implements OnInit {
                 }
               }
             );
-            console.log(element);
+            // console.log(element);
             this.updatedCards.push(element);
             pushed = true;
           }

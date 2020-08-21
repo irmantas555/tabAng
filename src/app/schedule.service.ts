@@ -12,6 +12,7 @@ import {DayCard} from './day-card';
 })
 export class ScheduleService {
   thisMonthCalendar: CalendarDate[] = [];
+  menesiai: string[] = ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužis', 'Birželis', 'Liepa', 'Rūgpjūtis', 'Rūgsėjis', 'Spalis', 'Lapkritis', 'Gruodis' ];
 
   constructor(private http: HttpClient) {}
   today: Date;
@@ -20,7 +21,7 @@ export class ScheduleService {
   dateChange = new Subject<boolean>();
   celineStatus = new Subject<boolean>();
   colsRowsSub = new Subject<RowCol>();
-  dCardChange = new Subject<boolean>();
+  dCardChange = new Subject<number>();
   mouseDProperty = false;
   newCardValue: DayCard;
 
@@ -31,7 +32,7 @@ export class ScheduleService {
     console.log('shedule service init');
     this.today = new Date();
     this.currentYear = this.today .getFullYear();
-    this.currentMonth = this.today.getMonth() + 1;
+    this.currentMonth = this.today.getMonth();
     this.getDaysInMonth();
     this.getFirstWeekDay();
     this.fillCalendar();
@@ -46,16 +47,16 @@ export class ScheduleService {
       empCCard.day = i;
       empCCard.month = this.currentMonth;
       empCCard.year = this.currentYear;
-      empCCard.weekday = (this.weekDayOf1MDay + i -1) % 7;
+      empCCard.weekday = (this.weekDayOf1MDay + i - 1) % 7;
       this.thisMonthCalendar.push(empCCard);
     }
   }
 
   newDateData(newDate: Date) {
     this.today = newDate;
-    console.log('Now ' + this.today.toDateString())
+    // console.log('Now ' + this.today.toDateString());
     this.currentYear = this.today.getFullYear();
-    this.currentMonth = this.today.getMonth() + 1;
+    this.currentMonth = this.today.getMonth();
     this.getDaysInMonth();
     this.getFirstWeekDay();
     this.fillCalendar();

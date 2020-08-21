@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 export class DatesService{
   dates = new Subject<DateOb>();
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
   getDates() {

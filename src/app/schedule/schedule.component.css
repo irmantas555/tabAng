@@ -7,6 +7,18 @@
     margin: 0px
 }
 
+.sticky-offset-button {
+  top: 4rem;
+}
+
+.sticky-offset-daybar{
+  top: 6rem;
+}
+
+.all-offset{
+  top: 80px;
+}
+
 .emplcellborder{
     border-color: gray;
     border-style: solid;

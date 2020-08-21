@@ -1,12 +1,12 @@
 import { Time } from '@angular/common';
 
 export class DayCard {
-  employeeId: number;   //Emlp
-  day: number;          //DayCard
-  cause: number;        //DayCard
-  startTime: Time;      //DayCard
-  endTime: Time;        //DayCard
-  causeStr: string;     //Cause
-  causeCod: string;     //Cause
-  extraTime: number;    //calculated
+  employeeId: number;   // Emlp
+  day: number;          // DayCard
+  cause: number;        // DayCard
+  startTime: Time;      // DayCard
+  endTime: Time;        // DayCard
+  causeStr: string;     // Cause
+  causeCod: string;     // Cause
+  extraTime: number;    // calculated
 }

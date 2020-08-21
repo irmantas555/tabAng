@@ -7,7 +7,7 @@ import { DayCard } from '../day-card';
 import { AppDataService } from '../app-data.service';
 import { CalendarDate } from '../calendar-date';
 import { JoinedCard } from '../joined-card';
-import { RouterLink, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import {AlterDataSet} from '../alter-data-set';
 import {DateOb} from '../date-ob';
 import {FormControl} from '@angular/forms';
@@ -25,22 +25,21 @@ export class ScheduleComponent implements OnInit {
     today: Date = this.scheduleServ.today;
     currentYear: number = this.scheduleServ.currentYear;
     currentMonth: number = this.scheduleServ.currentMonth;
-    daysinMonth: number;
+    menes: string[];
+    daysInMonth: number;
     firstMonthDayWeekday: number;
 
     modal = false;
     causes: Cause[] = [];
     times: string[] = [];
-    // curentW: AlterDataSet = new AlterDataSet(0);
     workersA: AlterDataSet[] = [];
     causeObject: Cause = new Cause();
     alterDates: DateOb[] = [];
     startToAlter;
     endToAlter;
     duraToAlter;
-    // now: boolean;
 
-  selectedCausesControl = new FormControl();
+    selectedCausesControl = new FormControl();
 
     constructor(private scheduleServ: ScheduleService, private scheduleHttp: ScheduleHhtpService,
                 private chDetect: ChangeDetectorRef, private appdataservice: AppDataService,
@@ -52,6 +51,7 @@ export class ScheduleComponent implements OnInit {
     this.currentYear = this.scheduleServ.currentYear;
     this.currentMonth = this.scheduleServ.currentMonth;
     this.thisMonthDates = this.scheduleServ.thisMonthCalendar;
+    this.menes = this.scheduleServ.menesiai;
     this.scheduleServ.dateChange.subscribe((ch) => {
       this.today = this.scheduleServ.today;
       this.currentYear = this.scheduleServ.currentYear;
@@ -65,13 +65,7 @@ export class ScheduleComponent implements OnInit {
     // alter-box section
     this.causes = this.appdataservice.allCauses;
     this.causeObject = this.appdataservice.allCauses[0];
-    // this.causeToAlter  = this.appdataservice.allCauses[0].id;
     this.makeTimes();
-    // this.appdataservice.employeedata.pipe(
-    //   take(10)
-    //   ).subscribe((empl) => {
-    //     this.workers.push(empl);
-    //   });
     this.enterDates();
   }
 
@@ -85,19 +79,19 @@ export class ScheduleComponent implements OnInit {
 
   nextMonth(){
     this.scheduleServ.today.setMonth(this.today.getMonth() + 1);
-    this.emlpCards = [];
+    this.scheduleHttp.emplMonthCards = [];
     this.scheduleServ.newDateData(this.today);
   }
 
   prevMonth(){
     this.scheduleServ.today.setMonth(this.today.getMonth() - 1);
-    this.emlpCards = [];
+    this.scheduleHttp.emplMonthCards = [];
     this.scheduleServ.newDateData(this.today);
   }
 
 
   makeTimes() {
-    for (let indexH = 0; indexH < 25; indexH++) {
+    for (let indexH = 0; indexH < 24; indexH++) {
       for (let indexM = 0; indexM < 50; indexM += 15) {
         if (indexM === 0){
           this.times.push('' + indexH + ':00:00');
@@ -111,14 +105,33 @@ export class ScheduleComponent implements OnInit {
   }
 
   onClick(){
+
       this.newCauses();
       this.scheduleHttp.sendCards(this.alterDates);
       this.alterDates = [];
+      this.scheduleServ.dCardChange.next(1);
+      document.getSelection().removeAllRanges();
       this.modal = false;
   }
 
   onRetreat(){
       this.modal = false;
+      this.alterDates = [];
+      document.getSelection().removeAllRanges();
+      this.scheduleServ.dCardChange.next(0);
+  }
+
+  onDelete() {
+    // console.log('so much workers');
+    // this.workersA.forEach((wrk) => {
+    //   console.log(wrk);
+    // });
+    this.newDeletes();
+    this.scheduleHttp.sendDeleteCards(this.alterDates);
+    this.alterDates = [];
+    this.scheduleServ.dCardChange.next(2);
+    document.getSelection().removeAllRanges();
+    this.modal = false;
   }
 
   removeWorker(val: any){
@@ -133,13 +146,6 @@ export class ScheduleComponent implements OnInit {
     return worker.id;
   }
 
-  compareFn(c1: Cause, c2: Cause): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
-  }
-
-  dismisModal(){
-    this.modal = false;
-  }
 
 enterDates(){
   // let v1 = this.scheduleServ.rowsSub;
@@ -181,9 +187,6 @@ enterDates(){
         this.workersA.push(tempAlter);
       }
       found = false;
-      // this.workersA.forEach(element => {
-      //   console.log(element);
-      // });
     });
 
 }
@@ -199,26 +202,26 @@ mouseup(){
   if (this.scheduleServ.mouseDProperty === true){
     this.scheduleServ.mouseDProperty = false;
     this.scheduleServ.celineStatus.next(false);
-    this.scheduleServ.dCardChange.next(false);
     this.modal = true;
   }
 }
 
   newCauses(){
     let id;
-    let tempDCard = new DayCard();
+    const tempDCard = new DayCard();
     this.workersA.forEach((emplToAlter) => {
         id = emplToAlter.employeeId;
         emplToAlter.days.forEach((day) => {
           const tempDate = new DateOb();
           tempDate.employeeId = id;
-          tempDate.date = new Date(this.currentYear, this.currentMonth, day);
+          tempDate.date = new Date(this.currentYear, this.currentMonth, day, 4); // keiciam i iso kuris yra -3 val
           tempDate.cause = this.causeObject.id;
           tempDate.startTime = this.startToAlter;
           tempDate.duration = this.getTimeDiff(this.startToAlter, this.endToAlter);
           tempDCard.cause = this.causeObject.id;
           tempDCard.day = day;
           tempDCard.startTime = this.startToAlter;
+          // console.log(tempDCard.startTime);
           this.appdataservice.allCauses.forEach((cause) => {
             if (cause.id === tempDCard.cause) {
               tempDCard.causeStr = cause.cause;
@@ -226,25 +229,44 @@ mouseup(){
             }
           });
           this.scheduleServ.newCardValue = tempDCard;
-          this.scheduleServ.dCardChange.next(true);
           this.alterDates.push(tempDate);
         });
     });
   }
 
+  newDeletes(){
+    let id;
+    this.workersA.forEach((emplToAlter) => {
+      id = emplToAlter.employeeId;
+      if (id != null) {
+      // console.log(' parsing id' + id);
+      emplToAlter.days.forEach((day) => {
+            const tempDate = new DateOb();
+            tempDate.employeeId = id;
+            tempDate.date = new Date(this.currentYear, this.currentMonth, day, 4); // keiciam i iso kuris yra -3 val
+            tempDate.cause = 0;
+            tempDate.startTime = this.startToAlter;
+            tempDate.duration = 0;
+            this.alterDates.push(tempDate);
+          });
+        }});
+  }
+
   getTimeDiff(start, end){
       const startA: string[] = start.split(':');
       const endA: string[] = end.split(':');
-      // console.log(startA);
-      // console.log(endA);
+      const startDate: Date =  new Date(1950, 1, 1, Number(startA[0]), Number(startA[1]), Number(startA[2] ));
+      const endDate: Date =  new Date(1950, 1, 1, Number(endA[0]), Number(endA[1]), Number(endA[2] ));
+      const nextDate: Date =  new Date(1950, 1, 2, Number(endA[0]), Number(endA[1]), Number(endA[2] ));
+      // console.log(startDate);
+      // console.log(startDate);
       let dura = 0;
-      if (Number(startA[1]) > Number(endA[1])){
-          dura = new Date(1950, 1, 1, Number(startA[0]), Number(startA[1]), Number(startA[2] )).getMinutes() -
-        new Date(1950, 1, 1, Number(endA[0]), Number(endA[1]), Number(end[2])).getMinutes();
+      if (endDate.getTime() >= startDate.getTime()){
+          dura = Math.round((endDate.getTime() - startDate.getTime()) / 60000);
         } else {
-          dura = new Date(1950, 1, 2, Number(endA[0]), Number(endA[1]), Number(endA[2] )).getMinutes() -
-          new Date(1950, 1, 1, Number(startA[0]), Number(startA[1]), Number(startA[2] )).getMinutes();
+        dura = Math.round((nextDate.getTime() - startDate.getTime()) / 60000);
         }
+      // console.log(dura);
       return dura;
   }
 

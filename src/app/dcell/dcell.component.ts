@@ -48,10 +48,17 @@ export class DcellComponent implements OnInit {
   addDCardListener(){
     let id = 0;
     this.scheduleService.dCardChange.pipe(take(1)).subscribe((status) => {
-      if (status === true){
+      if (status === 1){
        id = this.cellDayCard.employeeId;
        this.cellDayCard = this.scheduleService.newCardValue;
        this.cellDayCard.employeeId = id;
+      } else if (status === 2) {
+        this.cellDayCard.cause = null;
+        this.cellDayCard.startTime = null;
+        this.cellDayCard.endTime = null;
+        this.cellDayCard.causeStr = null;
+        this.cellDayCard.causeCod = '';
+        this.cellDayCard.extraTime = null;
       }
     });
   }

@@ -8,20 +8,20 @@ import { CalendarDate } from '../calendar-date';
   styleUrls: ['./rowpp.component.css']
 })
 export class RowppComponent implements OnInit {
-  monthdays:number;
-  days:CalendarDate[];
+  monthdays: number;
+  days: CalendarDate[];
 
-  constructor(private ScheduleDateServ:ScheduleService) { }
+  constructor(private ScheduleDateServ: ScheduleService) { }
 
   ngOnInit(): void {
-    this.monthdays=this.ScheduleDateServ.daysInThisMonth;
-    this.days=this.ScheduleDateServ.thisMonthCalendar;
-    this.ScheduleDateServ.dateChange.subscribe((ch) =>{
-      this.monthdays=this.ScheduleDateServ.daysInThisMonth;
-      this.days=this.ScheduleDateServ.thisMonthCalendar;
-      console.log('Now days ' + this.days.length)
-    })
-  };
+    this.monthdays = this.ScheduleDateServ.daysInThisMonth;
+    this.days = this.ScheduleDateServ.thisMonthCalendar;
+    this.ScheduleDateServ.dateChange.subscribe((ch) => {
+      this.monthdays = this.ScheduleDateServ.daysInThisMonth;
+      this.days = this.ScheduleDateServ.thisMonthCalendar;
+      // console.log('Now days ' + this.days.length)
+    });
+  }
 
 
 
