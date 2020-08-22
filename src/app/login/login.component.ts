@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
-import { AppServiceService } from '../app-service';
+import { AppServiceService } from '../services/app-service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import { AppServiceService } from '../app-service';
 })
 export class LoginComponent implements OnInit {
   credentials = {email: '', password: ''};
-  
+
   constructor(private app: AppServiceService, private http: HttpClient,private router: Router) { }
 
   ngOnInit(): void {

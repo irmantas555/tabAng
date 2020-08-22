@@ -1,15 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { EmployeeObj } from './employee-obj';
-import { EmplHistOb } from './empl-hist-ob';
-import { Empl } from './empl';
-import { Employee } from './employee';
-import { MonthCard } from './moth-card';
+import { EmployeeObj } from '../employee-obj';
+import { EmplHistOb } from '../empl-hist-ob';
+import { Empl } from '../empl';
+import { Employee } from '../employee';
+import { MonthCard } from '../moth-card';
 import { ScheduleService } from './schedule.service';
 import { Time } from '@angular/common';
 import { PartialObserver } from 'rxjs';
-import { JoinedCard } from './joined-card';
-import {DateOb} from './date-ob';
+import { JoinedCard } from '../joined-card';
+import {DateOb} from '../date-ob';
 
 // tslint:disable-next-line:class-name
 interface type4{
@@ -55,8 +55,7 @@ export class ScheduleHhtpService {
         this.today = this.scheduleServ.today;
         this.currentYear = this.scheduleServ.currentYear;
         this.currentMonth = this.scheduleServ.currentMonth;
-        this.myheaders = new HttpHeaders().append('Content-Type', 'application/json'),
-          this.myparams = new HttpParams()
+        this.myheaders = new HttpHeaders().append('Content-Type', 'application/json'), this.myparams = new HttpParams()
           .append('year', this.currentYear.toString())
           .append('month', (this.currentMonth  + 1).toString())
           .append('responseType', 'json')
@@ -100,7 +99,6 @@ export class ScheduleHhtpService {
   }
 
   sendCards(cards: DateOb[]) {
-
     // cards.forEach(card => {
     //   console.log('received card in HTTP ' + card.date);
     //   console.log(JSON.stringify(card));
@@ -124,16 +122,10 @@ export class ScheduleHhtpService {
       });
   }
 
-
   sendDeleteCards(cards: DateOb[]) {
     // cards.forEach(card => {
     //   console.log('received card in HTTP ' + card.date);
     //   // console.log(JSON.stringify(card));
-    //   }
-    // );
-    // cards.forEach(card => {
-    //   console.log('received card in HTTP ' + card.date);
-    //   console.log(JSON.stringify(card));
     //   }
     // );
     this.http

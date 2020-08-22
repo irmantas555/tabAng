@@ -4,7 +4,7 @@ import { stringify } from 'querystring';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { logging } from 'protractor';
 import { Router } from '@angular/router';
-import { Employee } from './employee';
+import { Employee } from '../employee';
 import { count } from 'console';
 
 

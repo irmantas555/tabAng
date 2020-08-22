@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DayCard } from '../day-card';
 import { ScheduleComponent } from '../schedule/schedule.component';
-import { ScheduleService } from '../schedule.service';
+import { ScheduleService } from '../services/schedule.service';
 import { RowCol } from '../row-col';
 import {take, takeWhile} from 'rxjs/operators';
 

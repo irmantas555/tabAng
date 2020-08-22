@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppDataService } from '../app-data.service';
+import { AppDataService } from '../services/app-data.service';
 import { HolidayDto } from '../holiday-dto';
 import { Country } from '../country';
 

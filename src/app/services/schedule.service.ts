@@ -1,11 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EmployeeObj } from './employee-obj';
+import { EmployeeObj } from '../employee-obj';
 import { Subject, of, Observable, BehaviorSubject } from 'rxjs';
 import { timeout, map } from 'rxjs/operators';
-import { CalendarDate } from './calendar-date';
-import { RowCol } from './row-col';
-import {DayCard} from './day-card';
+import { CalendarDate } from '../calendar-date';
+import { RowCol } from '../row-col';
+import {DayCard} from '../day-card';
 
 @Injectable({
   providedIn: 'root',

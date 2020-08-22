@@ -7,7 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule, DatePipe } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
-import {AuthInterceptor} from './auth-interceptor.service'
+import {AuthInterceptor} from './services/auth-interceptor.service'
 import { HomeComponent } from './home/home.component';
 import { EmployeedataComponent } from './employeedata/employeedata.component';
 import { DepartmentdataComponent } from './departmentdata/departmentdata.component';
@@ -20,12 +20,12 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { CausesdataComponent } from './causesdata/causesdata.component';
 import { CountrydataComponent } from './countrydata/countrydata.component';
 import { HolidaydataComponent } from './holidaydata/holidaydata.component';
-import { AppDataService } from './app-data.service';
-import { ScheduleService } from './schedule.service';
+import { AppDataService } from './services/app-data.service';
+import { ScheduleService } from './services/schedule.service';
 import { EmplCellComponent } from './empl-cell/empl-cell.component';
 import { DcellComponent } from './dcell/dcell.component';
 import { DrowComponent } from './drow/drow.component';
-import { ScheduleHhtpService } from './schedule-http.service';
+import { ScheduleHhtpService } from './services/schedule-http.service';
 
 export function appInit(appDataService: AppDataService,scheduleService:ScheduleService, scheduleHttpService:ScheduleHhtpService) {
   return () =>{

@@ -1,10 +1,10 @@
 import {Component, OnInit, ElementRef, Input} from '@angular/core';
-import { ScheduleService } from '../schedule.service';
-import { ScheduleHhtpService } from '../schedule-http.service';
+import { ScheduleService } from '../services/schedule.service';
+import { ScheduleHhtpService } from '../services/schedule-http.service';
 import {  ChangeDetectorRef } from '@angular/core';
 import { Cause } from '../cause';
 import { DayCard } from '../day-card';
-import { AppDataService } from '../app-data.service';
+import { AppDataService } from '../services/app-data.service';
 import { CalendarDate } from '../calendar-date';
 import { JoinedCard } from '../joined-card';
 import {  Router } from '@angular/router';

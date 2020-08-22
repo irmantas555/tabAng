@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ScheduleService } from '../schedule.service';
+import { ScheduleService } from '../services/schedule.service';
 import { CalendarDate } from '../calendar-date';
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, ElementRef} from '@angular/core';
 import {CalendarDate} from '../calendar-date';
-import {ScheduleService} from '../schedule.service';
-import {AppDataService} from '../app-data.service';
+import {ScheduleService} from '../services/schedule.service';
+import {AppDataService} from '../services/app-data.service';
 import {DayCard} from '../day-card';
 import {JoinedCard} from '../joined-card';
 

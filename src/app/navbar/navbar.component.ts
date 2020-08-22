@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppServiceService } from '../app-service';
+import { AppServiceService } from '../services/app-service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +19,6 @@ export class NavbarComponent implements OnInit {
   }
 
 
-  
+
 
 }

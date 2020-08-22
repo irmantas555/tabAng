@@ -1,5 +1,5 @@
 import { Directive,  HostListener } from '@angular/core';
-import { ScheduleService } from './schedule.service';
+import { ScheduleService } from './services/schedule.service';
 interface rowcol {
   row: number;
   col: number;

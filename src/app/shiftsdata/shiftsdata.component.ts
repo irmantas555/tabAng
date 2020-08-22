@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShiftDto } from '../shift-dto';
-import { AppDataService } from '../app-data.service';
+import { AppDataService } from '../services/app-data.service';
 
 @Component({
   selector: 'app-shiftsdata',

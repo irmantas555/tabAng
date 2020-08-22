@@ -1,21 +1,21 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { CausesdataComponent } from './causesdata/causesdata.component';
-import { Cause } from './cause';
-import { Country } from './country';
-import { DepartmentDto } from './department-dto';
-import { Department } from './department';
-import { HolidayDto } from './holiday-dto';
-import { Holiday } from './holiday';
-import { ShiftDto } from './shift-dto';
-import { Shift } from './shift';
-import { EmplJobData } from './empl-job-data';
-import { Payment } from './payment';
-import { ExHours } from './ex-hours';
-import { Position } from './position';
-import { Employee } from './employee';
-import { Empl } from './empl';
+import { CausesdataComponent } from '../causesdata/causesdata.component';
+import { Cause } from '../cause';
+import { Country } from '../country';
+import { DepartmentDto } from '../department-dto';
+import { Department } from '../department';
+import { HolidayDto } from '../holiday-dto';
+import { Holiday } from '../holiday';
+import { ShiftDto } from '../shift-dto';
+import { Shift } from '../shift';
+import { EmplJobData } from '../empl-job-data';
+import { Payment } from '../payment';
+import { ExHours } from '../ex-hours';
+import { Position } from '../position';
+import { Employee } from '../employee';
+import { Empl } from '../empl';
 
 @Injectable({
   providedIn: 'root',
@@ -108,10 +108,10 @@ export class AppDataService {
       )
       .subscribe((response: Cause) => {
         this.causesdata.next(response);
-      }),
+      },
       (err) => {
         console.log('there was an error posting: ' + err);
-      };
+      });
   }
 
   getCountries() {
@@ -135,10 +135,10 @@ export class AppDataService {
       )
       .subscribe((response: Country) => {
         this.countrydata.next(response);
-      }),
+      },
       (err: any) => {
         console.log('There was an error posting: ' + err);
-      };
+      });
   }
   getEmployeess() {
     this.http
@@ -161,10 +161,10 @@ export class AppDataService {
       )
       .subscribe((response: Empl) => {
         this.employeedata.next(response);
-      }),
+      },
       (err: any) => {
         console.log('There was an error posting: ' + err);
-      };
+      });
   }
 
   getDtoDepartments() {
@@ -199,21 +199,20 @@ export class AppDataService {
       });
   }
 
-  postDepartment(receivedDept: DepartmentDto) {
-    this.departmentob = receivedDept;
+  postDepartment(receivedDept: Department) {
     this.http
       .post(
         'http://localhost:8080/data/department',
-        JSON.stringify(this.departmentob),
+        JSON.stringify(receivedDept),
         this.optionjson
       )
       .subscribe((response: Department) => {
         this.departmentdata.next(response);
         this.departmentdtodata.next(receivedDept.name);
-      }),
+      },
       (err: any) => {
         console.log('There was an error posting: ' + err);
-      };
+      });
   }
   getDtoHolidays() {
     this.http
@@ -255,10 +254,10 @@ export class AppDataService {
       .subscribe((response: Holiday) => {
         this.holidaydtotdata.next(response.date + ' ' + response.name);
         this.holidaytdata.next(response);
-      }),
-      (err: any) => {
+      },
+      ( err: any) => {
         console.log('There was an error posting: ' + err);
-      };
+      });
   }
   getDtoShifts() {
     this.http
@@ -304,10 +303,10 @@ export class AppDataService {
       )
       .subscribe((response: Shift) => {
         this.shiftdata.next(response);
-      }),
+      },
       (err: any) => {
         console.log('There was an error posting: ' + err);
-      };
+      });
   }
 
   getPayments() {
@@ -331,10 +330,10 @@ export class AppDataService {
       )
       .subscribe((response: Payment) => {
         this.paymentdata.next(response);
-      }),
+      },
       (err) => {
         console.log('there was an error posting: ' + err);
-      };
+      });
   }
 
   getExhours() {
@@ -358,10 +357,10 @@ export class AppDataService {
       )
       .subscribe((response: ExHours) => {
         this.exhourstdata.next(response);
-      }),
+      },
       (err) => {
         console.log('there was an error posting: ' + err);
-      };
+      });
   }
   getPositions() {
     this.http
@@ -385,9 +384,9 @@ export class AppDataService {
       )
       .subscribe((response: Position) => {
         this.positiondata.next(response);
-      }),
+      },
       (err) => {
         console.log('there was an error posting: ' + err);
-      };
+      });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
-import { AppDataService } from '../app-data.service';
+import { AppDataService } from '../services/app-data.service';
 import { Cause } from '../cause';
 
 @Component({
