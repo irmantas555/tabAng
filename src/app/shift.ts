@@ -1,10 +1,10 @@
 import { Time } from '@angular/common';
 
 export class Shift {
-    department: number;
+    deptNumber: number;
     shiftNumber: number;
-    startTime: Time;
-    endTime: Time;
+    startTime: string;
+    endTime: string;
     timeOutMinutes: number;
     validFrom: boolean;
 }

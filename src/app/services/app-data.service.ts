@@ -21,6 +21,10 @@ import { Empl } from '../empl';
   providedIn: 'root',
 })
 export class AppDataService {
+  // serverString:string = '192.168.1.105:8080'
+  // serverString:string = '78.63.114.206:50000'
+  serverString:string = 'localhost:8080'
+
   // cause properties
   causesStringdata = new Subject<Cause>();
   causesdata = new Subject<Cause>();
@@ -64,6 +68,7 @@ export class AppDataService {
   shiftdata = new Subject<Shift>();
   shiftob: ShiftDto = new ShiftDto();
   allShifts: Shift[] = [];
+  times: string[] = [];
 
   optionjson = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
@@ -83,11 +88,12 @@ export class AppDataService {
     this.getShifts();
     this.getHolidays();
     this.getEmployeess();
+    this.makeTimes()
   }
 
   getCauses() {
     this.http
-      .get('http://localhost:8080/data/cause')
+      .get('http://' + this.serverString + '/data/cause')
       .subscribe((response: Cause[]) => {
         response.forEach((element: Cause) => {
           this.allCauses.push(element);
@@ -102,7 +108,7 @@ export class AppDataService {
     console.log(this.causeob);
     this.http
       .post(
-        'http://localhost:8080/data/cause',
+        'http://' + this.serverString + '/data/cause',
         JSON.stringify(this.causeob),
         this.optionjson
       )
@@ -116,7 +122,7 @@ export class AppDataService {
 
   getCountries() {
     this.http
-      .get('http://localhost:8080/data/country')
+      .get('http://' + this.serverString + '/data/country')
       .subscribe((response: Country[]) => {
         response.forEach((element) => {
           this.countrydata.next(element);
@@ -129,7 +135,7 @@ export class AppDataService {
     this.countryob = receivedCountry;
     this.http
       .post(
-        'http://localhost:8080/data/country',
+        'http://' + this.serverString + '/data/country',
         JSON.stringify(this.countryob),
         this.optionjson
       )
@@ -142,7 +148,7 @@ export class AppDataService {
   }
   getEmployeess() {
     this.http
-      .get('http://localhost:8080/data/employee')
+      .get('http://' + this.serverString + '/data/employee')
       .subscribe((response: Empl[]) => {
         response.forEach((element) => {
           this.employeedata.next(element);
@@ -155,7 +161,7 @@ export class AppDataService {
     this.emploeeob = receivedEmpl;
     this.http
       .post(
-        'http://localhost:8080/data/employee',
+        'http://' + this.serverString + '/data/employee',
         JSON.stringify(this.emploeeob),
         this.optionjson
       )
@@ -169,7 +175,7 @@ export class AppDataService {
 
   getDtoDepartments() {
     this.http
-      .get('http://localhost:8080/dto/department')
+      .get('http://' + this.serverString + '/dto/department')
       .subscribe((response: DepartmentDto[]) => {
         response.forEach((element) => {
           this.departmentdtodata.next(element.name + ' ' + element.country);
@@ -179,7 +185,7 @@ export class AppDataService {
 
   getEmplJobData() {
     this.http
-      .get('http://localhost:8080/data/empljobdata')
+      .get('http://' + this.serverString + '/data/empljobdata')
       .subscribe((response: EmplJobData[]) => {
         response.forEach((element) => {
           this.empljobtdata.next(element);
@@ -190,7 +196,7 @@ export class AppDataService {
 
   getDepartments() {
     this.http
-      .get('http://localhost:8080/data/department')
+      .get('http://' + this.serverString + '/data/department')
       .subscribe((response: Department[]) => {
         response.forEach((element) => {
           this.departmentdata.next(element);
@@ -200,9 +206,10 @@ export class AppDataService {
   }
 
   postDepartment(receivedDept: Department) {
+    console.log(JSON.stringify(receivedDept))
     this.http
       .post(
-        'http://localhost:8080/data/department',
+        'http://' + this.serverString + '/data/department',
         JSON.stringify(receivedDept),
         this.optionjson
       )
@@ -216,7 +223,7 @@ export class AppDataService {
   }
   getDtoHolidays() {
     this.http
-      .get('http://localhost:8080/dto/holiday')
+      .get('http://' + this.serverString + '/dto/holiday')
       .subscribe((response: HolidayDto[]) => {
         response.forEach((element) => {
           this.holidaydtotdata.next(
@@ -234,7 +241,7 @@ export class AppDataService {
 
   getHolidays() {
     this.http
-      .get('http://localhost:8080/data/holiday')
+      .get('http://' + this.serverString + '/data/holiday')
       .subscribe((response: Holiday[]) => {
         response.forEach((element) => {
           this.holidaytdata.next(element);
@@ -243,12 +250,11 @@ export class AppDataService {
       });
   }
 
-  postHoliday(receivedHoliday: HolidayDto) {
-    this.holidayob = receivedHoliday;
+  postHoliday(receivedHoliday: Holiday) {
     this.http
       .post(
-        'http://localhost:8080/data/holiday',
-        JSON.stringify(this.departmentob),
+        'http://' + this.serverString + '/data/holiday',
+        JSON.stringify(receivedHoliday),
         this.optionjson
       )
       .subscribe((response: Holiday) => {
@@ -261,7 +267,7 @@ export class AppDataService {
   }
   getDtoShifts() {
     this.http
-      .get('http://localhost:8080/dto/shift')
+      .get('http://' + this.serverString + '/dto/shift')
       .subscribe((response: ShiftDto[]) => {
         response.forEach((element) => {
           this.shiftdtodata.next(
@@ -284,7 +290,7 @@ export class AppDataService {
 
   getShifts() {
     this.http
-      .get('http://localhost:8080/data/shift')
+      .get('http://' + this.serverString + '/data/shift')
       .subscribe((response: Shift[]) => {
         response.forEach((element) => {
           this.shiftdata.next(element);
@@ -293,12 +299,12 @@ export class AppDataService {
       });
   }
 
-  postShift(receivedShift: ShiftDto) {
-    this.shiftob = receivedShift;
+  postShift(receivedShift: Shift) {
+    console.log(JSON.stringify(receivedShift))
     this.http
       .post(
-        'http://localhost:8080/data/shift',
-        JSON.stringify(this.shiftob),
+        'http://' + this.serverString + '/data/shift',
+        JSON.stringify(receivedShift),
         this.optionjson
       )
       .subscribe((response: Shift) => {
@@ -311,7 +317,7 @@ export class AppDataService {
 
   getPayments() {
     this.http
-      .get('http://localhost:8080/data/payment')
+      .get('http://' + this.serverString + '/data/payment')
       .subscribe((response: Payment[]) => {
         response.forEach((element) => {
           this.paymentdata.next(element);
@@ -324,7 +330,7 @@ export class AppDataService {
     this.paymentob = receivedP;
     this.http
       .post(
-        'http://localhost:8080/data/payment',
+        'http://' + this.serverString + '/data/payment',
         JSON.stringify(this.paymentob),
         this.optionjson
       )
@@ -338,7 +344,7 @@ export class AppDataService {
 
   getExhours() {
     this.http
-      .get('http://localhost:8080/data/exhours')
+      .get('http://' + this.serverString + '/data/exhours')
       .subscribe((response: ExHours[]) => {
         response.forEach((element) => {
           this.exhourstdata.next(element);
@@ -351,7 +357,7 @@ export class AppDataService {
     this.exhourob = receivedH;
     this.http
       .post(
-        'http://localhost:8080/data/exhours',
+        'http://' + this.serverString + '/data/exhours',
         JSON.stringify(this.exhourob),
         this.optionjson
       )
@@ -364,7 +370,7 @@ export class AppDataService {
   }
   getPositions() {
     this.http
-      .get('http://localhost:8080/data/position')
+      .get('http://' + this.serverString + '/data/position')
       .subscribe((response: Position[]) => {
         response.forEach((element) => {
           this.positiondata.next(element);
@@ -378,7 +384,7 @@ export class AppDataService {
     this.positionob = receivedP;
     this.http
       .post(
-        'http://localhost:8080/data/position',
+        'http://' + this.serverString + '/data/position',
         JSON.stringify(this.positionob),
         this.optionjson
       )
@@ -388,5 +394,18 @@ export class AppDataService {
       (err) => {
         console.log('there was an error posting: ' + err);
       });
+  }
+
+
+  makeTimes() {
+    for (let indexH = 0; indexH < 24; indexH++) {
+      for (let indexM = 0; indexM < 50; indexM += 15) {
+        if (indexM === 0){
+          this.times.push('' + indexH + ':00:00');
+        } else{
+          this.times.push('' + indexH + ':' + indexM + ':00');
+        }
+      }
+    }
   }
 }

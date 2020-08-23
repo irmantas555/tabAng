@@ -1,85 +1,84 @@
 <div class="h2 text-center text-secondary mt-3">
-    Paimainų pildymas
-  </div>
+  Paimainų pildymas
+</div>
 
+<div class="card bg-secondary mt-1">
+  <div class="card-header">
+    <h3 class="cardTitle card-title text-light font-italic">
+      Įvęskite pamainą
+    </h3>
+    <!-- <button class="close" >&times;</button> -->
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div  class="d-flex flex-column" >
+            <label class="btn text-light" for="pamaina">Skyriaus pav.
+            </label>
+            <select class="inputBack form-control"
+                    [(ngModel)]="defaultDept" [compareWith]="compareFn" (change)="onDepCange()" name="department">
+              <option *ngFor="let dep of deptslist" [ngValue]="dep">{{dep.name}}</option>
+            </select>
+          </div>
+          <div class="d-flex flex-column col-2">
+            <label class="btn text-light row" for="pamaina">Pamainos Nr.
+            </label>
+            <input
+              class="btn btn-light row"
+              [(ngModel)]="shift.shiftNumber"
+              name="pamaina"
+              id="pamaina"
+            />
+          </div>
+          <div class="d-flex flex-column col-2">
+            <label class="btn text-light row" for="start"> Pražios laikas
+            </label>
+            <select class="btn btn-light dropdown-toggle row"  id="start" name="start" [(ngModel)]="shift.startTime">
+              <option *ngFor="let time of times" [ngValue]="time" name="startselect">{{ time }}</option>
+            </select>
+          </div>
+          <div class="d-flex flex-column col-2">
+            <label class="btn text-light row"> Pabaigos laikas
+            </label>
+            <select class="btn btn-light row align-items-center" name="end" [(ngModel)]="shift.endTime">
+              <option *ngFor="let time of times" [ngValue]="time" name="endselect">{{ time }}</option>
+            </select>
+          </div>
+          <div class="d-flex flex-column col-3">
+            <label class="btn text-light row" for="pertrauka">Pertraukos (bendrai min.)
+            </label>
+          <input
+            id="pertrauka"
+            class="btn btn-light row "
+            [(ngModel)]="shift.timeOutMinutes"
+            name="pertr"
+          />
+          </div>
+          <div class="input-group-append flex-column align-self-end">
+            <button
+              class="btn btn-outline-warning"
+              id="loginBtn"
+              type="submit"
+              (click)="sendDept()"
+            >
+              Įvęsti
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="shiftlist.length>0">
   <div class="card bg-secondary mt-1">
     <div class="card-header">
       <h3 class="cardTitle card-title text-light font-italic">
-        Įvęskite pamainą
+        Ęsamos pamainos
       </h3>
-      <!-- <button class="close" >&times;</button> -->
-    </div>
-    <div class="card-body">
-      <form>
-        <div class="form-group">
-          <div class="input-group">
-            <div class="imput-group-prepend">
-              <span
-                class="input-group-text cardHeading text-secondary h5"
-                for="cause"
-                >Pamaina:</span
-              >
-            </div>
-            <select
-              type="text"
-              placeholder="Skyrius"
-              class="inputBack form-control"
-             [(ngModel)]="shift.department"
-              name="cause">
-              <option *ngFor="let dep of depts">{{dep}}</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Pamainos Nr."
-              class="inputBack form-control"
-              [(ngModel)]="shift.shiftNumber"
-              name="cause"
-            />
-            <input
-              type="text"
-              placeholder="Darbo pradžia"
-              class="inputBack form-control"
-              [(ngModel)]="shift.shiftNumber"
-              name="cause"
-            />
-            <input
-              type="text"
-              placeholder="Darbo pabaiga"
-              class="inputBack form-control"
-              [(ngModel)]="shift.endTime"
-              name="cause"
-            />
-            <input
-              type="text"
-              placeholder="Pertraukos (min.) su pietumis"
-              class="inputBack form-control textxsm p-3"
-              [(ngModel)]="shift.timeOutMinutes"
-              name="cause"
-            />
-            <div class="input-group-append">
-              <button
-                class="btn btn-outline-warning item-hl px-4"
-                id="loginBtn"
-                type="submit"
-                (click)="sendDept()"
-              >
-                Įvęsti
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div *ngIf="haveShift">
-    <div class="card bg-secondary mt-1">
-      <div class="card-header">
-        <h3 class="cardTitle card-title text-light font-italic">
-          Ęsamos pamainos
-        </h3>
-        <div class="card-body text-light">
-          <li *ngFor="let dp of shifts">{{ dp }}</li>
-        </div>
+      <div class="card-body text-light">
+        <li *ngFor="let shiftt of shiftlist">Pamaina šiame skyriuje {{ shiftt.shiftNumber }}</li>
       </div>
     </div>
   </div>
+</div>

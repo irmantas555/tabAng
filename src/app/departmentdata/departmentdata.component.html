@@ -1,64 +1,62 @@
 <div class="h2 text-center text-secondary mt-3">
-    Skyrių pildymas
-  </div>
+  Skyrių pildymas
+</div>
 
-  <div class="card bg-secondary mt-1">
-    <div class="card-header">
-      <h3 class="cardTitle card-title text-light font-italic">
-        Įvęskite skyrių
-      </h3>
-      <!-- <button class="close" >&times;</button> -->
-    </div>
-    <div class="card-body">
-      <form>
-        <div class="form-group">
-          <div class="input-group">
-            <div class="imput-group-prepend">
+<div class="card bg-secondary mt-1">
+  <div class="card-header">
+    <h3 class="cardTitle card-title text-light font-italic">
+      Įvęskite skyrių
+    </h3>
+    <!-- <button class="close" >&times;</button> -->
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="imput-group-prepend">
               <span
                 class="input-group-text cardHeading text-secondary h5"
                 for="cause"
-                >Priežąstis:</span
+              >Priežąstis:</span
               >
-            </div>
-            <input
-              type="text"
-              placeholder="Skyrius"
-              class="inputBack form-control"
-              id="causeid"
-              [(ngModel)]="department.name"
-              name="cause"
-            />
-            <input
-              type="text"
-              class="inputBack form-control"
-              id="countryid"
-              [(ngModel)]="department.country"
-              name="country"
-            />
-            <div class="input-group-append">
-              <button
-                class="btn btn-outline-warning item-hl px-4"
-                id="loginBtn"
-                type="submit"
-                (click)="sendDept()"
-              >
-                Įvęsti
-              </button>
-            </div>
+          </div>
+          <input
+            type="text"
+            placeholder="Skyrius"
+            class="inputBack form-control col-8"
+            id="causeid"
+            [(ngModel)]="department.name"
+            name="cause"
+          />
+          <select class="btn btn-light dropdown-toggle col-4" [(ngModel)]="defaultCountry"
+                  [compareWith]="compareFn" name="country">
+            <option *ngFor="let country of countries" ngDefaultControl [ngValue]="country">
+              {{ country.name }}</option>
+          </select>
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-warning item-hl px-4"
+              id="loginBtn"
+              type="submit"
+              (click)="sendDept()"
+            >
+              Įvęsti
+            </button>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
-  <div *ngIf="depts.length > 0">
-    <div class="card bg-secondary mt-1">
-      <div class="card-header">
-        <h3 class="cardTitle card-title text-light font-italic">
-          Ęsami skyriai
-        </h3>
-        <div class="card-body text-light">
-          <li *ngFor="let dp of depts">{{ dp }}</li>
-        </div>
+</div>
+<div *ngIf="depts.length > 0">
+  <div class="card bg-secondary mt-1">
+    <div class="card-header">
+      <h3 class="cardTitle card-title text-light font-italic">
+        Ęsami skyriai
+      </h3>
+      <div class="card-body text-light">
+        <li class="my-2" *ngFor="let dept of depts">{{ dept.name }}</li>
       </div>
     </div>
   </div>
+</div>

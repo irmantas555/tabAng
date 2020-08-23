@@ -6,6 +6,7 @@ import { logging } from 'protractor';
 import { Router } from '@angular/router';
 import { Employee } from '../employee';
 import { count } from 'console';
+import {AppDataService} from "./app-data.service";
 
 
 interface loging {
@@ -31,9 +32,9 @@ export class AppServiceService {
   authUser = new BehaviorSubject<resp>(null);
   customHeaders:HttpHeaders = new HttpHeaders();
   count:number=0;
+  serverString = this.dataService.serverString
 
-
-  constructor(private http: HttpClient, private router:Router) {};
+  constructor(private http: HttpClient, private router:Router, private dataService:AppDataService) {};
 
   option={
     headers:new HttpHeaders().append('Content-Type', 'application/x-www-form-urlencoded'),
@@ -50,7 +51,7 @@ export class AppServiceService {
     const params = new HttpParams().append('email',credentials.email).append('password',credentials.password)
 
     this.http
-      .post('http://localhost:8080/login',params.toString(),this.option)
+      .post('http://' + this.serverString + '/login',params.toString(),this.option)
       .subscribe((response:resp) => {
         this.authUser.next(response);
         this.authenticated = true;
@@ -61,7 +62,7 @@ export class AppServiceService {
 
   logout() {
     this.http
-      .get('http://localhost:8080/logout')
+      .get('http://' + this.serverString + '/logout')
       .subscribe((response:resp) => {
         this.authUser.next(null);
         this.authenticated = false;
@@ -72,7 +73,7 @@ export class AppServiceService {
 
   signout() {
     this.http
-      .get('http://localhost:8080/logout')
+      .get('http://' + this.serverString + '/logout')
       .subscribe((response:resp) => {
         this.authenticated = false;
         this.auth.next(this.authenticated)
@@ -87,7 +88,7 @@ export class AppServiceService {
     empl.forEach(element => {
       // console.log('got one')
       this.http
-      .post('http://localhost:8080/dto/fempl',JSON.stringify(element),this.optionjson)
+      .post('http://' + this.serverString + '/dto/fempl',JSON.stringify(element),this.optionjson)
       .subscribe((response:resp) => {
           this.count++;
 

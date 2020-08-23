@@ -10,24 +10,17 @@ import { Cause } from '../cause';
 })
 export class CausesdataComponent implements OnInit {
   cause:Cause = new Cause;
-  causeSymb:string='';
-  resp:string[]=[];
+  causes: Cause[]=[];
 
-
-  constructor(private dataserv:AppDataService) { }
+  constructor(private dataserv:AppDataService) {}
 
   ngOnInit(): void {
-    this.dataserv.getCauses();
-    this.dataserv.causesdata.subscribe((nextcause) =>{
-      console.log('received causes' + nextcause)
-      this.resp.push(nextcause.cause + ' ' + nextcause.cod);
-    })
+    this.causes = this.dataserv.allCauses
   }
 
   sendCause(){
    console.log('started couse = ' + this.cause)
    this.dataserv.postCause(this.cause)
-
   }
 
 }

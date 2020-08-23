@@ -10,34 +10,27 @@ import {Country} from '../country';
   styleUrls: ['./departmentdata.component.css']
 })
 export class DepartmentdataComponent implements OnInit {
-  department: DepartmentDto = new DepartmentDto();
-  departmentlisted = '';
-  depts: string[] = [];
-  haveDept = false;
+  department: Department = new Department();
+  depts: Department[]= this.dataserv.allDepartments;
+  countries: Country[] = this.dataserv.allCountries;
+  defaultCountry: Country = new Country();
+
 
 
   constructor(private dataserv: AppDataService) { }
 
   ngOnInit(): void {
-    this.dataserv.getDtoDepartments();
-    this.dataserv.departmentdtodata.subscribe((nextdept) => {
-      this.depts.push(nextdept);
-      this.haveDept = true;
-      this.department.country = 'Lietuva';
-      this.department.name = '';
-    });
+    this.defaultCountry =  this.dataserv.allCountries[0];
+  }
+
+  compareFn(c1: any, c2:any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   sendDept(){
-    let id: number;
-    this.dataserv.allCountries.forEach((countr) => {
-    if (countr.name === this.department.country) {
-      id = countr.id;
-    }
-    }
-    );
-    const tmpDep: Department = {deptId: null, name: this.department.name, country: id};
-    this.dataserv.postDepartment(tmpDep);
-
+    // let id: number;
+    // const tmpDep: Department = {deptId: null, name: this.department.name, country: this.defaultCountry.id};
+    this.department.country = this.defaultCountry.id
+    this.dataserv.postDepartment(this.department);
   }
 }

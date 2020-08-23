@@ -1,7 +1,7 @@
 <div class="h2 text-center text-secondary mt-3">
     Šventinių dienų pildymas
   </div>
-  
+
   <div class="card bg-secondary mt-1">
     <div class="card-header">
       <h3 class="cardTitle card-title text-light font-italic">
@@ -13,35 +13,37 @@
       <form>
         <div class="form-group">
           <div class="input-group">
-            <div class="imput-group-prepend">
-              <span
-                class="input-group-text cardHeading text-secondary h5"
-                for="cause"
-                >Šventinė diena:</span
-              >
+            <div class="d-flex flex-column col-3">
+              <label class="btn text-light row" for="diena">Švetinė diena
+              </label>
+              <input
+                class="btn btn-light row"
+                [(ngModel)]="holiday.name"
+                name="diena"
+                id="diena"
+              />
             </div>
-            <input
-              type="text"
-              placeholder="Švetinė diena"
-              class="inputBack form-control"
-              id="causeid"
-              [(ngModel)]="holiday.name"
-              name="cause"
-            />
-
-            <div class="input-group-text  textxs text-secondary" name="everyear">
-                    <input class="mx-1" type="checkbox" [(ngModel)]="holiday.everyear" name="everyyear">Kavienais metais?
+            <div class="d-flex flex-column col-3">
+              <label class="btn text-light row" for="country"> Šalis
+              </label>
+              <select class="btn btn-light dropdown-toggle row"  id="country" name="country" [(ngModel)]="defaultCountry">
+                <option *ngFor="let coun of countries" [ngValue]="coun" name="startselect">{{ coun.name }}</option>
+              </select>
             </div>
-        
-            <select class="px-4" [(ngModel)]="holiday.country"  name = "country">
-               <option class="text-secondary input-group-text"  *ngFor="let co of countries" [value]="co">
-                {{co}}
-               </option> 
-            </select>
-
-            <div class="input-group-append">
+            <div class="d-flex flex-column col-3">
+              <label class="btn text-light row" for="data">Data
+              </label>
+              <input
+                type="date"
+                class="btn btn-light row"
+                [(ngModel)]="date"
+                name="data"
+                id="data"
+              />
+            </div>
+            <div class="input-group-append col-2 flex-column align-self-end">
               <button
-                class="btn btn-outline-warning item-hl px-4"
+                class="btn btn-outline-warning row"
                 id="loginBtn"
                 type="submit"
                 (click)="sendHoliday()"
@@ -61,9 +63,8 @@
           Ęsamos Šventės
         </h3>
         <div class="card-body text-light">
-          <li *ngFor="let cr of holidays">{{ cr }}</li>
+          <li *ngFor="let cr of holidays">{{ cr.name }}</li>
         </div>
       </div>
     </div>
   </div>
-  

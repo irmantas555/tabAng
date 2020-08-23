@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AppDataService } from '../services/app-data.service';
-import { HolidayDto } from '../holiday-dto';
-import { Country } from '../country';
+import {Component, OnInit} from '@angular/core';
+import {AppDataService} from '../services/app-data.service';
+import {HolidayDto} from '../holiday-dto';
+import {Country} from '../country';
+import {Holiday} from "../holiday";
 
 
 @Component({
@@ -10,30 +11,28 @@ import { Country } from '../country';
   styleUrls: ['./holidaydata.component.css']
 })
 export class HolidaydataComponent implements OnInit {
-  holiday: HolidayDto = new HolidayDto;
-  everyyear: boolean;
-  countries: string[] = [];
-  holidaylisted = '';
-  holidays: string[] = [];
+  holiday: Holiday = new Holiday();
+  holidays: Holiday[] = [];
+  countries: Country[] = [];
+  date: string;
+  defaultCountry: Country = new Country();
+  everyY:boolean;
 
 
-  constructor(private dataserv: AppDataService) { }
-
-  ngOnInit(): void {
-    this.dataserv.getDtoHolidays();
-    this.dataserv.holidaytdata.subscribe((nexth) => {
-      this.holidays.push(nexth.name + ' ' + nexth.date + ' ' + nexth.everyear + ' ' + nexth.country);
-    });
-    this.dataserv.getCountries();
-    this.dataserv.countrydata.subscribe((nextcountry) => {
-      console.log(nextcountry);
-      this.countries.push(nextcountry.name);
-    });
+  constructor(private dataserv: AppDataService) {
   }
 
-  sendHoliday(){
-   console.log('started country = ' + this.holiday);
-   this.dataserv.postHoliday(this.holiday);
+  ngOnInit(): void {
+    this.holidays = this.dataserv.allHolidays
+    this.countries = this.dataserv.allCountries
+    this.defaultCountry = this.dataserv.allCountries[0]
+  }
+
+  sendHoliday() {
+    this.holiday.date = this.date
+    this.holiday.everyear = true;
+    // console.log('started country = ' + JSON.stringify(this.holiday));
+    this.dataserv.postHoliday(this.holiday);
 
   }
 }

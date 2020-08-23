@@ -10,6 +10,7 @@ import { Time } from '@angular/common';
 import { PartialObserver } from 'rxjs';
 import { JoinedCard } from '../joined-card';
 import {DateOb} from '../date-ob';
+import {AppDataService} from "./app-data.service";
 
 // tslint:disable-next-line:class-name
 interface type4{
@@ -29,10 +30,12 @@ interface type4{
 export class ScheduleHhtpService {
   employHistData: EmplHistOb[] = [];
   emplMonthCards: JoinedCard[] = [];
+  serverString = this.dataService.serverString
 
   constructor(
     private http: HttpClient,
-    private scheduleServ: ScheduleService
+    private scheduleServ: ScheduleService,
+    private dataService: AppDataService
   ) {}
 
   today: Date = this.scheduleServ.today;
@@ -83,7 +86,7 @@ export class ScheduleHhtpService {
   loadEmployMonthCards() {
     this.http
       .get(
-        'http://localhost:8080/schedule/allmonthcards',
+        'http://' + this.serverString + '/schedule/allmonthcards',
         {
           headers: this.myheaders,
           params: this.myparams
@@ -105,7 +108,7 @@ export class ScheduleHhtpService {
     //   }
     // );
     this.http
-      .post('http://localhost:8080/schedule/setcards', JSON.stringify(cards), {headers: this.myheaders})
+      .post('http://' + this.serverString + '/schedule/setcards', JSON.stringify(cards), {headers: this.myheaders})
       .subscribe((response: any) => {
       },
       (err) => console.log(err),
@@ -114,7 +117,7 @@ export class ScheduleHhtpService {
 
   loadEmployeesHist() {
     this.http
-      .get('http://localhost:8080/employees/hist')
+      .get('http://' + this.serverString + '/employees/hist')
       .subscribe((response: EmplHistOb[]) => {
         response.forEach((element) => {
           this.employHistData.push(element);
@@ -129,7 +132,7 @@ export class ScheduleHhtpService {
     //   }
     // );
     this.http
-      .post('http://localhost:8080/schedule/dcards', JSON.stringify(cards), {headers: this.myheaders})
+      .post('http://' + this.serverString + '/schedule/dcards', JSON.stringify(cards), {headers: this.myheaders})
       .subscribe((response: any) => {
         },
         (err) => console.log(err),

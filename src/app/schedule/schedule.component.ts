@@ -65,8 +65,10 @@ export class ScheduleComponent implements OnInit {
     // alter-box section
     this.causes = this.appdataservice.allCauses;
     this.causeObject = this.appdataservice.allCauses[0];
-    this.makeTimes();
     this.enterDates();
+    this.times=this.appdataservice.times;
+    this.startToAlter = ('8:00:00');
+    this.endToAlter = ('17:00:00');
   }
 
   nextCause(){
@@ -89,20 +91,6 @@ export class ScheduleComponent implements OnInit {
     this.scheduleServ.newDateData(this.today);
   }
 
-
-  makeTimes() {
-    for (let indexH = 0; indexH < 24; indexH++) {
-      for (let indexM = 0; indexM < 50; indexM += 15) {
-        if (indexM === 0){
-          this.times.push('' + indexH + ':00:00');
-        } else{
-          this.times.push('' + indexH + ':' + indexM + ':00');
-        }
-      }
-    }
-    this.startToAlter = ('8:00:00');
-    this.endToAlter = ('17:00:00');
-  }
 
   onClick(){
 
