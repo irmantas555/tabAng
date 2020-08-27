@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
 import { AppServiceService } from '../services/app-service';
-import { DatePipe  } from '@angular/common'
+import { DatePipe  } from '@angular/common';
 
 
 @Component({
@@ -12,11 +12,11 @@ import { DatePipe  } from '@angular/common'
 export class EmployeedataComponent implements OnInit {
   texta: string;
   rows: string[];
-  employees: Employee[]=[];
+  employees: Employee[] = [];
   tempEmp: Employee;
   tarr: string[];
 
-  constructor(private app:AppServiceService,private datePipe:DatePipe) {}
+  constructor(private app: AppServiceService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {}
 
@@ -27,30 +27,30 @@ export class EmployeedataComponent implements OnInit {
 
 
   copy() {
-    this.employees=[];
-    console.log(this.texta)
+    this.employees = [];
+    // console.log(this.texta)
     this.rows = this.texta.split('\n');
-    console.log('so much rows - ' + this.rows.length)
+    // console.log('so much rows - ' + this.rows.length)
     this.rows.forEach((element) => {
       this.tarr = element.split('\t');
       this.tempEmp = {
         firstName: this.tarr[0],
         lasttName: this.tarr[1],
-        birthDate: this.datePipe.transform(Date.parse(this.tarr[2]),'yyyy-MM-dd'),
+        birthDate: this.datePipe.transform(Date.parse(this.tarr[2]), 'yyyy-MM-dd'),
         email: this.tarr[3],
-        jobEnd: this.datePipe.transform(Date.parse(this.tarr[4]),'yyyy-MM-dd'),
-        jobStart: this.datePipe.transform(Date.parse(this.tarr[5]),'yyyy-MM-dd'),
+        jobEnd: this.datePipe.transform(Date.parse(this.tarr[4]), 'yyyy-MM-dd'),
+        jobStart: this.datePipe.transform(Date.parse(this.tarr[5]), 'yyyy-MM-dd'),
         phone: this.tarr[6],
         photo: this.tarr[7],
         position: this.tarr[8],
         payment: Number.parseInt(this.tarr[9]),
         department: this.tarr[10],
-        shift:Number.parseInt(this.tarr[11]),
+        shift: Number.parseInt(this.tarr[11]),
       };
-      console.log(this.tempEmp)
+      // console.log(this.tempEmp);
       this.employees.push(this.tempEmp);
     });
-    console.log('There are ' + this.employees.length + 'el;emets in array added')
+    // console.log('There are ' + this.employees.length + 'el;emets in array added');
     this.app.postEmployee(this.employees);
   }
 

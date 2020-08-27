@@ -26,6 +26,7 @@ import { EmplCellComponent } from './empl-cell/empl-cell.component';
 import { DcellComponent } from './dcell/dcell.component';
 import { DrowComponent } from './drow/drow.component';
 import { ScheduleHhtpService } from './services/schedule-http.service';
+import { DEntryComponent } from './d-entry/d-entry.component';
 
 export function appInit(appDataService: AppDataService,scheduleService:ScheduleService, scheduleHttpService:ScheduleHhtpService) {
   return () =>{
@@ -54,6 +55,7 @@ export function appInit(appDataService: AppDataService,scheduleService:ScheduleS
     EmplCellComponent,
     DcellComponent,
     DrowComponent,
+    DEntryComponent,
   ],
     imports: [
         BrowserModule,

@@ -1,0 +1,125 @@
+<div class="h2 text-center text-secondary mt-3">
+  Darbuotojų pildymas
+</div>
+
+<div class="card bg-secondary container mb-4">
+  <div class="card-header">
+    <h3 class="cardTitle card-title text-light font-italic">
+      Įvęskite darbuotojo duomenis
+    </h3>
+    <!-- <button class="close" >&times;</button> -->
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <label class="btn text-light" for="fname">Vardas
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="fname"
+          [(ngModel)]="empl.firstName"
+          name="cause"
+        />
+      </div>
+      <div class="col-lg-4">
+        <label class="btn text-light" for="lname">Pavardė
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="lname"
+          [(ngModel)]="empl.lastName"
+          name="cause"
+        />
+      </div>
+      <div class="col-lg-4">
+        <label class="btn text-light" for="bdaet">Gim. data
+        </label>
+        <input
+          type="date"
+          class="form-control"
+          id="bdaet"
+          [(ngModel)]="emplPersData.birthDate"
+          name="cause"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <label class="btn text-light" for="jstart">Darbo pr. data
+        </label>
+        <input
+          type="date"
+          class="form-control"
+          id="jstart"
+          [(ngModel)]="emplPersData.jobStart"
+          name="cause"
+        />
+      </div>
+      <div class="col-lg-4">
+        <label class="btn text-light" for="phone"> Telefonas
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          [(ngModel)]="emplPersData.phone"
+          name="cause"
+        />
+      </div>
+      <div class="col-lg-4">
+        <label class="btn text-light" for="pos">Pareigos
+        </label>
+        <select class="btn btn-light form-control" [(ngModel)]="pos" [compareWith]="compareFn" name="position">
+          <option *ngFor="let poss of positions" ngDefaultControl [ngValue]="poss" id="pos">
+            {{ poss.position }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <label class="btn text-light" for="deppp">Skyrius
+        </label>
+        <select class="btn btn-light form-control" [(ngModel)]="dept" [compareWith]="compareFn"
+                name="department" (change)="fillterShifts()">
+          <option *ngFor="let depp of depts" ngDefaultControl [ngValue]="depp" id="deppp">
+            {{ depp.name }}</option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label class="btn text-light" for="shift">Pamaina
+        </label>
+        <select class="btn btn-light form-control" [(ngModel)]="shift" [compareWith]="compareFn"
+                name="shift">
+          <option *ngFor="let shif of shifts" ngDefaultControl [ngValue]="shif" id="shift">
+            {{ shif.shiftNumber }}</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-end row-hl">
+      <button
+        class="btn btn-outline-warning ml-auto"
+        id="loginBtn"
+        (click)="sendEmp()"
+      >
+        Įvęsti
+      </button>
+    </div>
+  </div>
+</div>
+<div *ngIf="show">
+  <div class="card bg-secondary container">
+    <div class="card-header">
+      <h3 class="cardTitle card-title text-light font-italic">
+        Ęsami darbuotojai
+      </h3>
+      <div class="card-body text-light">
+        <li class="mb-2" *ngFor="let emp of employees">{{ emp.firstName }} {{ emp.lastName }}</li>
+      </div>
+    </div>
+  </div>
+</div>

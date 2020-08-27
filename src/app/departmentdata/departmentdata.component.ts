@@ -3,6 +3,7 @@ import { DepartmentDto } from '../department-dto';
 import { AppDataService } from '../services/app-data.service';
 import {Department} from '../department';
 import {Country} from '../country';
+import {Empl} from '../empl';
 
 @Component({
   selector: 'app-departmentdata',
@@ -11,9 +12,10 @@ import {Country} from '../country';
 })
 export class DepartmentdataComponent implements OnInit {
   department: Department = new Department();
-  depts: Department[]= this.dataserv.allDepartments;
+  depts: Department[] = this.dataserv.allDepartments;
   countries: Country[] = this.dataserv.allCountries;
   defaultCountry: Country = new Country();
+
 
 
 

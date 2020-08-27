@@ -1,8 +1,8 @@
-<div class="h2 text-center text-secondary mt-3">
+<div class="h2 text-center text-secondary mt-3  container">
     Šventinių dienų pildymas
   </div>
 
-  <div class="card bg-secondary mt-1">
+  <div class="card bg-secondary mt-1  container">
     <div class="card-header">
       <h3 class="cardTitle card-title text-light font-italic">
         Įvęskite šventinę dieną
@@ -11,59 +11,60 @@
     </div>
     <div class="card-body">
       <form>
-        <div class="form-group">
-          <div class="input-group">
-            <div class="d-flex flex-column col-3">
-              <label class="btn text-light row" for="diena">Švetinė diena
+        <div class="form-group row">
+             <div class="col-lg-4">
+              <label class="btn text-light" for="diena">Švetinė diena
               </label>
               <input
-                class="btn btn-light row"
+                class="form-control"
                 [(ngModel)]="holiday.name"
                 name="diena"
                 id="diena"
               />
             </div>
-            <div class="d-flex flex-column col-3">
-              <label class="btn text-light row" for="country"> Šalis
+            <div class="col-lg-4">
+              <label class="btn text-light" for="country"> Šalis
               </label>
-              <select class="btn btn-light dropdown-toggle row"  id="country" name="country" [(ngModel)]="defaultCountry">
-                <option *ngFor="let coun of countries" [ngValue]="coun" name="startselect">{{ coun.name }}</option>
+              <select class="btn btn-light form-control" name="country" [(ngModel)]="defaultCountry">
+                <option *ngFor="let coun of countries" [ngValue]="coun" name="startselect" id="country">{{ coun.name }}</option>
               </select>
             </div>
-            <div class="d-flex flex-column col-3">
-              <label class="btn text-light row" for="data">Data
+            <div class="col-lg-4">
+              <label class="btn text-light" for="data">Data
               </label>
               <input
                 type="date"
-                class="btn btn-light row"
+                class="form-control"
                 [(ngModel)]="date"
                 name="data"
                 id="data"
               />
             </div>
-            <div class="input-group-append col-2 flex-column align-self-end">
-              <button
-                class="btn btn-outline-warning row"
-                id="loginBtn"
-                type="submit"
-                (click)="sendHoliday()"
-              >
-                Įvęsti
-              </button>
-            </div>
+
           </div>
-        </div>
       </form>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-end row-h">
+        <button
+          class="btn btn-outline-warning row"
+          id="loginBtn"
+          type="submit"
+          (click)="sendHoliday()"
+        >
+          Įvęsti
+        </button>
+      </div>
     </div>
   </div>
   <div *ngIf="holidays.length > 0">
-    <div class="card bg-secondary mt-1">
+    <div class="card bg-secondary mt-1  container">
       <div class="card-header">
         <h3 class="cardTitle card-title text-light font-italic">
-          Ęsamos Šventės
+          Ęsamos šventės:
         </h3>
         <div class="card-body text-light">
-          <li *ngFor="let cr of holidays">{{ cr.name }}</li>
+          <li class="mb-3 text-warning" *ngFor="let cr of holidays">{{ cr.name }}</li>
         </div>
       </div>
     </div>

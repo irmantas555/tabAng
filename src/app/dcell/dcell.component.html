@@ -22,4 +22,4 @@
       </svg>
     </div>
   </ng-template>
-  <p class="dcell static" (mouseenter)="mouseenter()">{{cellDayCard.causeCod}}</p>
+  <p class="dcell static" [ngClass]="{'bord-gray': !weekend, 'bord-weekend': weekend }" (mouseenter)="mouseenter()">{{cellDayCard.causeCod}}</p>

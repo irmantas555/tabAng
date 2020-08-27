@@ -1,5 +1,6 @@
 export class AlterDataSet {
   employeeId: number;
+  emplRow: number;
   firstName: string;
   lastName: string;
   days: number[];

@@ -1,16 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { EmployeeObj } from '../employee-obj';
 import { EmplHistOb } from '../empl-hist-ob';
-import { Empl } from '../empl';
-import { Employee } from '../employee';
-import { MonthCard } from '../moth-card';
 import { ScheduleService } from './schedule.service';
 import { Time } from '@angular/common';
-import { PartialObserver } from 'rxjs';
 import { JoinedCard } from '../joined-card';
 import {DateOb} from '../date-ob';
-import {AppDataService} from "./app-data.service";
+import {AppDataService} from './app-data.service';
 
 // tslint:disable-next-line:class-name
 interface type4{
@@ -30,7 +25,7 @@ interface type4{
 export class ScheduleHhtpService {
   employHistData: EmplHistOb[] = [];
   emplMonthCards: JoinedCard[] = [];
-  serverString = this.dataService.serverString
+  serverString = this.dataService.serverString;
 
   constructor(
     private http: HttpClient,
@@ -58,7 +53,8 @@ export class ScheduleHhtpService {
         this.today = this.scheduleServ.today;
         this.currentYear = this.scheduleServ.currentYear;
         this.currentMonth = this.scheduleServ.currentMonth;
-        this.myheaders = new HttpHeaders().append('Content-Type', 'application/json'), this.myparams = new HttpParams()
+        this.myheaders = new HttpHeaders().append('Content-Type', 'application/json'),
+          this.myparams = new HttpParams()
           .append('year', this.currentYear.toString())
           .append('month', (this.currentMonth  + 1).toString())
           .append('responseType', 'json')
@@ -95,21 +91,31 @@ export class ScheduleHhtpService {
       .subscribe((response: JoinedCard[]) => {
         // let mcds:JoinedCard = JSON.parse(response)
         response.forEach((element: JoinedCard) => {
-          // console.log('got month card ' + element.t1.firstName)
+          // console.log('got month card ' + JSON.stringify(element.t2));
           this.emplMonthCards.push(element);
         });
       });
   }
 
   sendCards(cards: DateOb[]) {
-    // cards.forEach(card => {
-    //   console.log('received card in HTTP ' + card.date);
-    //   console.log(JSON.stringify(card));
-    //   }
-    // );
     this.http
       .post('http://' + this.serverString + '/schedule/setcards', JSON.stringify(cards), {headers: this.myheaders})
       .subscribe((response: any) => {
+      },
+      (err) => console.log(err),
+      () => console.log('All sent'));
+  }
+
+  sendCard(card: DateOb) {
+
+    this.http
+      .post('http://' + this.serverString + '/schedule/datesave', JSON.stringify(card), {headers: this.myheaders})
+      .subscribe((response: number) => {
+        if (null == card.id){
+          console.log('response cardID from service ' + response);
+          card.id = response;
+          this.scheduleServ.newCardWithId.next(card);
+        }
       },
       (err) => console.log(err),
       () => console.log('All sent'));
@@ -124,18 +130,26 @@ export class ScheduleHhtpService {
         });
       });
   }
-
-  sendDeleteCards(cards: DateOb[]) {
-    // cards.forEach(card => {
-    //   console.log('received card in HTTP ' + card.date);
-    //   // console.log(JSON.stringify(card));
-    //   }
-    // );
+  sendDeleteCards(card: DateOb[]) {
     this.http
-      .post('http://' + this.serverString + '/schedule/dcards', JSON.stringify(cards), {headers: this.myheaders})
+      .post('http://' + this.serverString + '/schedule/dcards', JSON.stringify(card), {headers: this.myheaders})
       .subscribe((response: any) => {
         },
         (err) => console.log(err),
         () => console.log('All delete sent'));
+  }
+
+  sendDeleteCard(crdID: number, date: Date, eid: number) {
+    // console.log('received for sending dates ' + date);
+    const myDelparams: HttpParams = new HttpParams()
+      .append('id', crdID.toString())
+      .append('date', date.toString())
+      .append('employeeid', eid.toString());
+    this.http
+      .get('http://' + this.serverString + '/schedule/datedelete',  {params: myDelparams})
+      .subscribe((response: any) => {
+        },
+        (err) => console.log(err),
+        () => console.log('Delete sent'));
   }
 }

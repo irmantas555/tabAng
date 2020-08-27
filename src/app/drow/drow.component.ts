@@ -39,6 +39,7 @@ export class DrowComponent implements OnInit {
       this.rowjoinedcard.t2.forEach((element: DayCard) => {
         if (pushed === false) {
           if (element.day === index) {
+            // console.log('before ' + JSON.stringify(element));
             this.dataService.allCauses.forEach((cause) => {
                 if (cause.id === element.cause) {
                   element.causeStr = cause.cause;
@@ -46,7 +47,8 @@ export class DrowComponent implements OnInit {
                 }
               }
             );
-            // console.log(element);
+            element.employeeId = this.rowjoinedcard.t1.employeeId;
+            // console.log('after ' + JSON.stringify(element));
             this.updatedCards.push(element);
             pushed = true;
           }

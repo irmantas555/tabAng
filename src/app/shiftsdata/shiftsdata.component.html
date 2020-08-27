@@ -2,82 +2,81 @@
   Paimainų pildymas
 </div>
 
-<div class="card bg-secondary mt-1">
+<div class="card bg-secondary mt-1 container mb-2">
   <div class="card-header">
-    <h3 class="cardTitle card-title text-light font-italic">
+    <h3 class="h2-sm card-title text-light font-italic">
       Įvęskite pamainą
     </h3>
     <!-- <button class="close" >&times;</button> -->
   </div>
   <div class="card-body">
-    <form>
-      <div class="form-group">
-        <div class="input-group">
-          <div  class="d-flex flex-column" >
+    <div class="row">
+          <div  class="col-lg-3 ml-auto" >
             <label class="btn text-light" for="pamaina">Skyriaus pav.
             </label>
             <select class="inputBack form-control"
-                    [(ngModel)]="defaultDept" [compareWith]="compareFn" (change)="onDepCange()" name="department">
+                    [(ngModel)]="defaultDept" [compareWith]="compareFn" (change)="onDepCange()" name="department" >
               <option *ngFor="let dep of deptslist" [ngValue]="dep">{{dep.name}}</option>
             </select>
           </div>
-          <div class="d-flex flex-column col-2">
-            <label class="btn text-light row" for="pamaina">Pamainos Nr.
+          <div class="col-lg-2">
+            <label class="btn text-light" for="pamaina">Pamainos Nr.
             </label>
             <input
-              class="btn btn-light row"
+              class="btn btn-light form-control"
               [(ngModel)]="shift.shiftNumber"
               name="pamaina"
               id="pamaina"
             />
           </div>
-          <div class="d-flex flex-column col-2">
-            <label class="btn text-light row" for="start"> Pražios laikas
+          <div class="col-lg-2">
+            <label class="btn text-light text-truncate" for="start"> Pražios laikas
             </label>
-            <select class="btn btn-light dropdown-toggle row"  id="start" name="start" [(ngModel)]="shift.startTime">
+            <select class="btn btn-light form-control"  id="start" name="start" [(ngModel)]="shift.startTime">
               <option *ngFor="let time of times" [ngValue]="time" name="startselect">{{ time }}</option>
             </select>
           </div>
-          <div class="d-flex flex-column col-2">
-            <label class="btn text-light row"> Pabaigos laikas
+          <div class="col-lg-2">
+            <label class="btn text-light text-truncate"> Pabaigos laikas
             </label>
-            <select class="btn btn-light row align-items-center" name="end" [(ngModel)]="shift.endTime">
+            <select class="btn btn-light form-control" name="end" [(ngModel)]="shift.endTime">
               <option *ngFor="let time of times" [ngValue]="time" name="endselect">{{ time }}</option>
             </select>
           </div>
-          <div class="d-flex flex-column col-3">
-            <label class="btn text-light row" for="pertrauka">Pertraukos (bendrai min.)
+          <div class="col-lg-3 ">
+            <label class="btn text-light text-truncate" for="pertrauka">Pertraukos (bendrai min.)
             </label>
           <input
             id="pertrauka"
-            class="btn btn-light row "
+            class="btn btn-light  form-control"
             [(ngModel)]="shift.timeOutMinutes"
             name="pertr"
           />
           </div>
-          <div class="input-group-append flex-column align-self-end">
-            <button
-              class="btn btn-outline-warning"
-              id="loginBtn"
-              type="submit"
-              (click)="sendDept()"
-            >
-              Įvęsti
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
+ <div class="card-footer">
+   <div class="d-flex justify-content-end row-hl">
+     <button
+       class="btn btn-outline-warning"
+       id="loginBtn"
+       type="submit"
+       (click)="sendDept()"
+     >
+       Įvęsti
+     </button>
+   </div>
+ </div>
+
 </div>
 <div *ngIf="shiftlist.length>0">
-  <div class="card bg-secondary mt-1">
+  <div class="card bg-secondary container">
     <div class="card-header">
       <h3 class="cardTitle card-title text-light font-italic">
         Ęsamos pamainos
       </h3>
       <div class="card-body text-light">
-        <li *ngFor="let shiftt of shiftlist">Pamaina šiame skyriuje {{ shiftt.shiftNumber }}</li>
+        <li *ngFor="let shiftt of shiftlist">Pamaina jau ęsanti skyriuje {{ defaultDept.name }} - {{ shiftt.shiftNumber }}</li>
       </div>
     </div>
   </div>

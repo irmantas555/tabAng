@@ -10,18 +10,20 @@ import { CountrydataComponent } from './countrydata/countrydata.component';
 import { HolidaydataComponent } from './holidaydata/holidaydata.component';
 import { DepartmentdataComponent } from './departmentdata/departmentdata.component';
 import { ShiftsdataComponent } from './shiftsdata/shiftsdata.component';
+import {DEntryComponent} from './d-entry/d-entry.component';
 
 
 const routes: Routes = [
-  {path: 'signin', component:LoginComponent},
-  {path: 'home', component:HomeComponent},
-  {path: 'schedule', component:ScheduleComponent},
-  {path: 'employeedata', component:EmployeedataComponent},
-  {path: 'causesedata', component:CausesdataComponent},
-  {path: 'countryedata', component:CountrydataComponent},
-  {path: 'departmentdata', component:DepartmentdataComponent},
-  {path: 'holidaydata', component:HolidaydataComponent},
-  {path: 'shiftdata', component:ShiftsdataComponent},
+  {path: 'signin', component: LoginComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'schedule', component: ScheduleComponent},
+  {path: 'employeedata', component: EmployeedataComponent},
+  {path: 'causesedata', component: CausesdataComponent},
+  {path: 'countryedata', component: CountrydataComponent},
+  {path: 'departmentdata', component: DepartmentdataComponent},
+  {path: 'holidaydata', component: HolidaydataComponent},
+  {path: 'shiftdata', component: ShiftsdataComponent},
+  {path: 'emdataentry', component: DEntryComponent},
 
 ];
 

@@ -6,18 +6,18 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class ClipboardService {
-  cdata: string = '';
+  cdata = '';
   ccontent = new Subject<string>();
 
 
   constructor(private clipboard: Clipboard) {}
 
   pCContent() {
-    navigator.clipboard.readText().then((res) =>{
-      this.cdata = res
-    })
-    console.log(this.cdata)
-    this.ccontent.next(this.cdata)
+    navigator.clipboard.readText().then((res) => {
+      this.cdata = res;
+    });
+    // console.log(this.cdata);
+    this.ccontent.next(this.cdata);
 }
 
 

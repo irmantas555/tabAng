@@ -6,6 +6,7 @@ import { timeout, map } from 'rxjs/operators';
 import { CalendarDate } from '../calendar-date';
 import { RowCol } from '../row-col';
 import {DayCard} from '../day-card';
+import {DateOb} from '../date-ob';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,7 @@ export class ScheduleService {
   celineStatus = new Subject<boolean>();
   colsRowsSub = new Subject<RowCol>();
   dCardChange = new Subject<number>();
+  newCardWithId = new Subject<DateOb>();
   mouseDProperty = false;
   newCardValue: DayCard;
 
@@ -29,7 +31,7 @@ export class ScheduleService {
   weekDayOf1MDay: number;
 
   init() {
-    console.log('shedule service init');
+    // console.log('shedule service init');
     this.today = new Date();
     this.currentYear = this.today .getFullYear();
     this.currentMonth = this.today.getMonth();

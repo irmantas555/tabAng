@@ -2,60 +2,57 @@
   Skyrių pildymas
 </div>
 
-<div class="card bg-secondary mt-1">
+<div class="card bg-secondary container mb-4">
   <div class="card-header">
     <h3 class="cardTitle card-title text-light font-italic">
       Įvęskite skyrių
     </h3>
     <!-- <button class="close" >&times;</button> -->
   </div>
-  <div class="card-body">
-    <form>
-      <div class="form-group">
-        <div class="input-group">
-          <div class="imput-group-prepend">
-              <span
-                class="input-group-text cardHeading text-secondary h5"
-                for="cause"
-              >Priežąstis:</span
-              >
-          </div>
-          <input
-            type="text"
-            placeholder="Skyrius"
-            class="inputBack form-control col-8"
-            id="causeid"
-            [(ngModel)]="department.name"
-            name="cause"
-          />
-          <select class="btn btn-light dropdown-toggle col-4" [(ngModel)]="defaultCountry"
-                  [compareWith]="compareFn" name="country">
-            <option *ngFor="let country of countries" ngDefaultControl [ngValue]="country">
-              {{ country.name }}</option>
-          </select>
-          <div class="input-group-append">
-            <button
-              class="btn btn-outline-warning item-hl px-4"
-              id="loginBtn"
-              type="submit"
-              (click)="sendDept()"
-            >
-              Įvęsti
-            </button>
-          </div>
-        </div>
+  <div class="card-body row">
+      <div class="col-lg-6">
+        <label class="btn text-light" for="causeid">Priežąstis
+        </label>
+        <input
+          type="text"
+          placeholder="Skyrius"
+          class="form-control"
+          id="causeid"
+          [(ngModel)]="department.name"
+          name="cause"
+        />
       </div>
-    </form>
+      <div class="col-lg-6">
+        <label class="btn text-light" for="country">Šalis
+        </label>
+        <select class="btn btn-light form-control" [(ngModel)]="defaultCountry" [compareWith]="compareFn" name="country">
+        <option *ngFor="let country of countries" ngDefaultControl [ngValue]="country" id="country">
+          {{ country.name }}</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-end row-hl">
+        <button
+          class="btn btn-outline-warning ml-auto"
+          id="loginBtn"
+          type="submit"
+          (click)="sendDept()"
+        >
+          Įvęsti
+        </button>
+      </div>
   </div>
 </div>
 <div *ngIf="depts.length > 0">
-  <div class="card bg-secondary mt-1">
+  <div class="card bg-secondary container">
     <div class="card-header">
       <h3 class="cardTitle card-title text-light font-italic">
         Ęsami skyriai
       </h3>
       <div class="card-body text-light">
-        <li class="my-2" *ngFor="let dept of depts">{{ dept.name }}</li>
+        <li class="mb-2" *ngFor="let dept of depts">{{ dept.name }}</li>
       </div>
     </div>
   </div>

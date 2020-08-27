@@ -1,5 +1,6 @@
 body{
-    background-color: rgb(238, 240, 242);
+    background-color: #d4e9e9
+;
     line-height: .9;
 
 }
@@ -26,4 +27,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .textsm{
     font-size: small  !Important;;
+}
+
+.input-height{
+ padding: 0.25rem;
+}
+
+.spec-text{
+  color: #fc4445;
 }

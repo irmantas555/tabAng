@@ -1,7 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { CausesdataComponent } from '../causesdata/causesdata.component';
 import { Cause } from '../cause';
 import { Country } from '../country';
 import { DepartmentDto } from '../department-dto';
@@ -16,6 +15,7 @@ import { ExHours } from '../ex-hours';
 import { Position } from '../position';
 import { Employee } from '../employee';
 import { Empl } from '../empl';
+import {EmplPersData} from '../empl-pers-data';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ import { Empl } from '../empl';
 export class AppDataService {
   // serverString:string = '192.168.1.105:8080'
   // serverString:string = '78.63.114.206:50000'
-  serverString:string = 'localhost:8080'
+  serverString = 'localhost:8080';
 
   // cause properties
   causesStringdata = new Subject<Cause>();
@@ -34,10 +34,16 @@ export class AppDataService {
   countrydata = new Subject<Country>();
   countryob: Country = new Country();
   allCountries: Country[] = [];
-  // emplouees properties
+  // employees properties
   employeedata = new Subject<Empl>();
   emploeeob: Empl = new Empl();
   allEmployees: Empl[] = [];
+  // employPersData properties
+  emploeePDob: EmplPersData = new EmplPersData();
+  allEmplsPersData: EmplPersData[] = [];
+  // employPersData properties
+  emploeeJDob: EmplJobData = new EmplJobData();
+  allEmplsJobData: EmplJobData[] = [];
   // payment properties
   paymentdata = new Subject<Payment>();
   paymentob: Payment = new Payment();
@@ -83,12 +89,12 @@ export class AppDataService {
     this.getCauses();
     this.getCountries();
     this.getDepartments();
-    this.getEmplJobData();
+    this.getEmployJobData();
     this.getPositions();
     this.getShifts();
     this.getHolidays();
     this.getEmployeess();
-    this.makeTimes()
+    this.makeTimes();
   }
 
   getCauses() {
@@ -146,6 +152,8 @@ export class AppDataService {
         console.log('There was an error posting: ' + err);
       });
   }
+
+
   getEmployeess() {
     this.http
       .get('http://' + this.serverString + '/data/employee')
@@ -167,32 +175,64 @@ export class AppDataService {
       )
       .subscribe((response: Empl) => {
         this.employeedata.next(response);
+       },
+      (err: any) => {
+        console.log('There was an error posting: ' + err);
+      });
+  }
+
+  getEmployPersData() {
+    this.http
+      .get('http://' + this.serverString + '/data/employeepd')
+      .subscribe((response: EmplPersData[]) => {
+        response.forEach((element) => {
+         this.allEmplsPersData.push(element);
+        });
+      });
+  }
+
+  postEmployeePD(receivedEmpl: EmplPersData) {
+    this.emploeePDob = receivedEmpl;
+    this.http
+      .post(
+        'http://' + this.serverString + '/data/employeepd',
+        JSON.stringify(this.emploeeob),
+        this.optionjson
+      )
+      .subscribe((response: EmplPersData) => {
+        this.allEmplsPersData.push(response);
       },
       (err: any) => {
         console.log('There was an error posting: ' + err);
       });
   }
 
-  getDtoDepartments() {
+  getEmployJobData() {
     this.http
-      .get('http://' + this.serverString + '/dto/department')
-      .subscribe((response: DepartmentDto[]) => {
+      .get('http://' + this.serverString + '/data/employeejd')
+      .subscribe((response: EmplJobData[]) => {
         response.forEach((element) => {
-          this.departmentdtodata.next(element.name + ' ' + element.country);
+         this.allEmplJobData.push(element);
         });
       });
   }
 
-  getEmplJobData() {
+  postEmployeeJD(receivedEmpl: EmplJobData) {
+    this.emploeeJDob = receivedEmpl;
     this.http
-      .get('http://' + this.serverString + '/data/empljobdata')
-      .subscribe((response: EmplJobData[]) => {
-        response.forEach((element) => {
-          this.empljobtdata.next(element);
-          this.allEmplJobData.push(element);
-        });
+      .post(
+        'http://' + this.serverString + '/data/employeejd',
+        JSON.stringify(this.emploeeJDob),
+        this.optionjson
+      )
+      .subscribe((response: EmplJobData) => {
+        this.allEmplJobData.push(response);
+      },
+      (err: any) => {
+        console.log('There was an error posting: ' + err);
       });
   }
+
 
   getDepartments() {
     this.http
@@ -206,7 +246,7 @@ export class AppDataService {
   }
 
   postDepartment(receivedDept: Department) {
-    console.log(JSON.stringify(receivedDept))
+    // console.log(JSON.stringify(receivedDept));
     this.http
       .post(
         'http://' + this.serverString + '/data/department',
@@ -300,7 +340,7 @@ export class AppDataService {
   }
 
   postShift(receivedShift: Shift) {
-    console.log(JSON.stringify(receivedShift))
+    // console.log(JSON.stringify(receivedShift));
     this.http
       .post(
         'http://' + this.serverString + '/data/shift',
@@ -317,7 +357,7 @@ export class AppDataService {
 
   getPayments() {
     this.http
-      .get('http://' + this.serverString + '/data/payment')
+      .get('http://' + this.serverString + '/data/payments')
       .subscribe((response: Payment[]) => {
         response.forEach((element) => {
           this.paymentdata.next(element);
@@ -330,7 +370,7 @@ export class AppDataService {
     this.paymentob = receivedP;
     this.http
       .post(
-        'http://' + this.serverString + '/data/payment',
+        'http://' + this.serverString + '/data/payments',
         JSON.stringify(this.paymentob),
         this.optionjson
       )

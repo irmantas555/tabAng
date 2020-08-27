@@ -19,7 +19,7 @@ export class CausesdataComponent implements OnInit {
   }
 
   sendCause(){
-   console.log('started couse = ' + this.cause)
+   // console.log('started couse = ' + this.cause)
    this.dataserv.postCause(this.cause)
   }
 

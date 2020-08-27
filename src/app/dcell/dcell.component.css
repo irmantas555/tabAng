@@ -9,7 +9,19 @@
     margin: 0px;
     justify-content: center;
     color: rgb(98, 79, 79);
-    /* white-space: nowrap; */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.bord-gray{
+  border-color: #413e3e;
+  background: #97caef;
+}
+
+.bord-weekend{
+  border-color: #413e3e;
+  background: #e795a1;
 }
 
 .static{

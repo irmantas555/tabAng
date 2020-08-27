@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+<nav class="navbar navbar-expand-sm navbar-light nav-back">
   <div class="container">
     <a routerLink="/" class="navbar-brand text-light">Darbo laiko apskaita</a>
     <button
@@ -32,19 +32,26 @@
         <li class="nav-item btn">
           <div class="dropdown">
             <button
-              class="btn btn-secondary dropdown-toggle"
+              class="btn text-light dropdown-toggle"
               type="button"
               data-toggle="dropdown"
             >
               Duomenų įvedimas
             </button>
-            <div class="dropdown-menu bg-secondary">
+            <div class="dropdown-menu nav-back">
               <a
                 class="dropdown-item"
                 routerLink="/employeedata"
                 routerLinkActive="active"
                 class="nav-link text-light"
                 >Darbuotojų įv.</a
+              >
+              <a
+                class="dropdown-item"
+                routerLink="/emdataentry"
+                routerLinkActive="active"
+                class="nav-link text-light"
+                >Darb. įv. po viena</a
               >
               <a
                 class="dropdown-item"

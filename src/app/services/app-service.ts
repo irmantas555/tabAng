@@ -93,11 +93,11 @@ export class AppServiceService {
           this.count++;
 
       },(err) =>{
-        console.log('emloyee: '  + element + ' could not be saved' + err)
+        console.log('emloyee: '  + element + ' could not be saved' + err);
       }
       )
     });
-    console.log('so much elements posted: ' + this.count)
+    // console.log('so much elements posted: ' + this.count);
     this.count = 0;
   };
 

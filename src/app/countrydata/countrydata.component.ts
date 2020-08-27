@@ -23,8 +23,8 @@ export class CountrydataComponent implements OnInit {
   }
 
   sendCause(){
-   console.log('started country = ' + this.country)
-   this.dataserv.postCountry(this.country)
+   // console.log('started country = ' + this.country);
+   this.dataserv.postCountry(this.country);
 
   }
 }
